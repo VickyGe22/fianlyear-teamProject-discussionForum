@@ -35,6 +35,7 @@ export default function Home() {
                 <Link href="/submits">
                     <button className="inline-flex items-center rounded-lg bg-indigo-500 hover:bg-indigo-600 px-4 py-2 text-sm font-bold text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-white" style={{ cursor: 'pointer' }}>
                       Submit Your Code Sample
+                      add a comment
                     </button>
                 </Link>
               </div>
