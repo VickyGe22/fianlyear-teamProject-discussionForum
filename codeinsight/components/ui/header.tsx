@@ -9,7 +9,7 @@ export default function Header() {
           {/* Site branding */}
           <div className="flex justify-between items-center shrink-0 mr-4">
               <Logo />
-              <Link className="text-gray-500 hover:text-gray-600" href="/code-sample-repository">
+              <Link className="font-semibold text-indigo-400 hover:text-indigo-600 drop-shadow-xl" href="/code-sample-repository">
                   Code Sample Repository
               </Link>
           </div>
