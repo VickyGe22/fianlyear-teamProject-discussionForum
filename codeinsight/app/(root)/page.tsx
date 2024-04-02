@@ -38,7 +38,7 @@ export default function Home() {
           <div className="rounded-md overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
             <Image src={discussion} alt="discussion" layout="fill" objectFit="cover" />
             <div className="absolute inset-0 flex flex-col justify-start items-center pt-40">
-                <Link href="/code-sample-repository">
+                <Link href="/discussion-forum">
                     <button className="inline-flex items-center rounded-lg bg-indigo-500 hover:bg-indigo-600 px-4 py-2 text-sm font-bold text-white shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:ring-offset-2 focus:ring-offset-white" style={{ cursor: 'pointer' }}>
                       Code Issue Discussion Forum
                     </button>

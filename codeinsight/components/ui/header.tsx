@@ -7,8 +7,11 @@ export default function Header() {
       <div className="mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-10 md:h-16">
           {/* Site branding */}
-          <div className="shrink-0 mr-4">
-            <Logo />
+          <div className="flex justify-between items-center shrink-0 mr-4">
+              <Logo />
+              <Link className="text-gray-500 hover:text-gray-600" href="/code-sample-repository">
+                  Code Sample Repository
+              </Link>
           </div>
 
           {/* Desktop navigation */}
