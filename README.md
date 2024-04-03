@@ -6,8 +6,13 @@ Nextjs Guideline:
 3. run: npm install
 4. run: npm install sticky-js 
         npm install @tailwindcss/forms
-5. npm run dev
-
+<<<<<<< HEAD
+5. run : npm run dev
 
 npm install @headlessui/react
 npm install @heroicons/react
+
+=======
+        npm install codemirror
+5. run : npm run dev
+>>>>>>> lancy
