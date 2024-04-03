@@ -9,9 +9,13 @@ export default function Header() {
           {/* Site branding */}
           <div className="flex justify-between items-center shrink-0 mr-4">
               <Logo />
-              <Link className="font-semibold text-indigo-400 hover:text-indigo-600 drop-shadow-xl" href="/code-sample-repository">
-                  Code Sample Repository
-              </Link>
+          </div>
+
+          <div className="hidden lg:flex lg:gap-x-12">
+            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Product</a>
+            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Features</a>
+            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
+            <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Company</a>
           </div>
 
           {/* Desktop navigation */}
