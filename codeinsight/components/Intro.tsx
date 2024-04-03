@@ -36,7 +36,7 @@ export default function Intro() {
       <Image
         src={BG}
         alt="Background"
-        className="absolute inset-0 -z-10 h-full w-full"
+        className="absolute inset-0 -z-10 h-full w-full object-cover filter brightness-75"
       />
 
         <div className="text-center mx-auto ">
