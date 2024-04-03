@@ -1,0 +1,12 @@
+/* codebox style */
+.cm-editor {
+    min-height: 200px; /* Adjust the size as needed */
+    border: 1px solid #ddd; /* Add a border to make it look like a box */
+    border-radius: 4px; /* Optional: rounded corners */
+  }
+  
+  /* Ensure that the line numbers gutter also has a background */
+  .cm-gutters {
+    background-color: #f5f5f5; /* Adjust the color as needed */
+    border-right: 1px solid #ddd; /* Adds a border between the line numbers and the editor content */
+  }
