@@ -1,11 +1,14 @@
 
 
-export default function Home() {
+
+
+export default function Issue() {
     
-    return (
+    return(
         <div className="text-sm text-indigo-500 font-medium hover:underline" >
-            Review Page
+            issue
         </div>
     )
+
 }
 
