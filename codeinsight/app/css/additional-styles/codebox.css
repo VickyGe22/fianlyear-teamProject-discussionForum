@@ -1,0 +1,75 @@
+/* Custom CodeMirror theme */
+
+/* General editor styles */
+.cm-theme {
+    --background: #424040;
+    --text: #dcdcdc;
+    --caret: var(--text);
+    --selection: #264f78;
+    --comment: #6A9955;
+    --string: #ce9178;
+    --variable: #9CDCFE;
+    --keyword: #569cd6;
+    --atom: #9CDCFE;
+    --number: #b5cea8;
+    --operator: var(--text);
+    /* Add more custom colors as needed */
+  }
+  
+  /* Apply general styles */
+  .cm-theme .cm-content {
+    color: var(--text);
+    background-color: var(--background);
+  }
+  
+  .cm-theme .cm-cursor {
+    border-left: 1.2px solid var(--caret);
+  }
+  
+  .cm-theme .cm-selectionBackground, .cm-theme ::selection {
+    background-color: var(--selection);
+  }
+  
+  /* Token-specific styles */
+  .cm-theme .cm-comment {
+    color: var(--comment);
+  }
+  
+  .cm-theme .cm-string {
+    color: var(--string);
+  }
+  
+  .cm-theme .cm-variable {
+    color: var(--variable);
+  }
+  
+  .cm-theme .cm-keyword {
+    color: var(--keyword);
+  }
+  
+  .cm-theme .cm-atom {
+    color: var(--atom);
+  }
+  
+  .cm-theme .cm-number {
+    color: var(--number);
+  }
+  
+  .cm-theme .cm-operator {
+    color: var(--operator);
+  }
+  
+  /* Add more token styles as needed */
+  /* Set a minimum height for the editor container */
+.cm-editor {
+    min-height: 200px; /* Adjust the size as needed */
+    border: 1px solid #ddd; /* Add a border to make it look like a box */
+    border-radius: 4px; /* Optional: rounded corners */
+  }
+  
+  /* Ensure that the line numbers gutter also has a background */
+  .cm-gutters {
+    background-color: #f5f5f5; /* Adjust the color as needed */
+    border-right: 1px solid #ddd; /* Adds a border between the line numbers and the editor content */
+  }
+  

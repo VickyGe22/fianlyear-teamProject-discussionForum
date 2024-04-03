@@ -2,7 +2,7 @@ import Image from 'next/image'
 import UploadImage from '@/public/images/upload.jpg'
 import CodeLinter from './codelinter'
 import Link from 'next/link'
-import CodeBox from './condebox'
+import CodeBox from './codebox'
 
 export const metadata = {
   title: 'Submits - Submit Code Sample',
