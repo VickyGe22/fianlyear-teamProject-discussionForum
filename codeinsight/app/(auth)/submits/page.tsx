@@ -2,6 +2,7 @@ import Image from 'next/image'
 import UploadImage from '@/public/images/upload.jpg'
 import CodeLinter from './codelinter'
 import Link from 'next/link'
+import CodeBox from './codebox'
 
 export const metadata = {
   title: 'Submits - Submit Code Sample',
@@ -31,7 +32,7 @@ export default function SubmitSample() {
                 <label className="block text-sm font-medium mb-1" htmlFor="name">
                   Sample <span className="text-red-500">*</span>
                 </label>
-                <CodeLinter />
+                <CodeBox />
               </div>
               <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="email">
