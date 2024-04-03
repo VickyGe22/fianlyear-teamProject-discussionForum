@@ -1,8 +1,19 @@
+import GeneralComments from "./discuss-subpage/generalcomments";
+import Issue from "./discuss-subpage/issuepage";
 
 
 export default function Home() {
-    <div className="text-sm text-indigo-500 font-medium hover:underline" >
-        disussion forum
-    </div>
+
+    return(
+        
+        <div className="text-sm text-indigo-500 font-medium hover:underline" >
+
+            <Issue />
+            <GeneralComments />
+        
+        </div>
+    )
+
+    
 }
 
