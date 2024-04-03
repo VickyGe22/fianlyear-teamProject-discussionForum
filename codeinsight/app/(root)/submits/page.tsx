@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import UploadImage from '@/public/images/upload.jpg'
-import CodeLinter from './codelinter'
+
 import Link from 'next/link'
 import CodeBox from './codebox'
 
