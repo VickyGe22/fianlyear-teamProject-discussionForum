@@ -6,3 +6,4 @@ Nextjs Guideline:
 3. run: npm install
 4. run: npm install sticky-js 
             npm install @tailwindcss/forms
+        npm install codemirror
