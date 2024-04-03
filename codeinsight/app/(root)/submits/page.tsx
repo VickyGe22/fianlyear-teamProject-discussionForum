@@ -38,7 +38,7 @@ export default function SubmitSample() {
                 <label className="block text-sm font-medium mb-1" htmlFor="email">
                   Modify Comments <span className="text-red-500">*</span>
                 </label>
-                <CodeLinter />
+                <CodeBox />
               </div>
               {/* <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="file">
