@@ -12,14 +12,17 @@ export const metadata = {
 export default function SubmitSample() {
   return (
     <>
-      <div className="mb-10">
-        <h1 className="text-4xl font-extrabold font-inter mb-2">Submit Your Code Sample</h1>
+    <br />
+    <br />
+    <br />
+      <div className="mb-10 pl-10">
+        <h1 className="text-4xl font-extrabold font-inter mb-5">Submit Your Code Sample</h1>
         <div className="text-gray-500">submit your valuable insights for simplify code structure.</div>
       </div>
-
+      
 
       {/* Form */}
-      <form className="mb-12">
+      <form className="mb-12 pl-10 pr-10">
         <div className="divide-y divide-gray-200 -my-6">
           
           {/* Group #1 */}
