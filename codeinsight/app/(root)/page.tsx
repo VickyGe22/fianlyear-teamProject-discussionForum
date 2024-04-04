@@ -84,7 +84,7 @@ export default function Home() {
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-base text-black">
-                    Review your code 
+                    Review the code 
                   </p>
                 </div>
                 </Link>
