@@ -56,13 +56,15 @@
   
 //   export default MenuBox;
 
-'use client'; // 将该行添加到组件顶部
+'use client'; 
 import React, { useState } from 'react';
 import CustomDialog from './CustomDialog'; 
 
 const MenuBox = () => {
     const [languages, setLanguages] = useState(['Python', 'C', 'C++', 'C#', 'Java', 'JavaScript']);
+    const [levels, setLevels] = useState(['Bacholer-cs1', 'Bacholer-cs2', 'Bacholer-cs3', 'Bacholer-cs4', 'Master-cs1', 'Master-cs2']);
     const [selectedLanguage, setSelectedLanguage] = useState('');
+    const [selectedLevels, setSelectedLevels] = useState('');
     const [showCustomDialog, setShowCustomDialog] = useState(false);
 
     const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -80,13 +82,15 @@ const MenuBox = () => {
         setShowCustomDialog(false); // 关闭自定义对话框
     };
 
+
     const handleCloseCustomDialog = () => {
         setShowCustomDialog(false);
     };
 
     return (
-        <div>
+        <div className = "flex justify-left">
             <div className="flex justify-left">
+                {/* language*/}
                 <div className="flex flex-col">
                     <label className="block text-sm text-gray-800 font-medium mb-1" htmlFor="languages">
                         Languages <span className="text-rose-500">*</span>
@@ -107,10 +111,42 @@ const MenuBox = () => {
                     </select>
                 </div>
             </div>
+            
             {/* 自定义对话框 */}
             {showCustomDialog && (
                 <CustomDialog onClose={handleCloseCustomDialog} onAddCustomOption={handleAddCustomOption} />
             )}
+
+
+            {/* level*/}
+            <div className="flex justify-left pl-10">
+                <div className="flex flex-col">
+                    <label className="block text-sm text-gray-800 font-medium mb-1" htmlFor="levels">
+                        Levels <span className="text-rose-500">*</span>
+                    </label>
+                    <select
+                        id="levels"
+                        className="form-select text-sm py-2"
+                        value={selectedLevels}
+                        onChange={handleLanguageChange}
+                        required
+                    >
+                        {levels.map((levels, index) => (
+                            <option key={index} value={levels}>
+                                {levels}
+                            </option>
+                        ))}
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            
+            {/* 自定义对话框 */}
+            {showCustomDialog && (
+                <CustomDialog onClose={handleCloseCustomDialog} onAddCustomOption={handleAddCustomOption} />
+            )}
+            
+            
         </div>
     );
 };

@@ -25,7 +25,7 @@ const CustomDialog: React.FC<CustomDialogProps> = ({ onClose, onAddCustomOption 
                     <br/>
                     <input
                         type="text"
-                        className="rounded-input border-gray-300  w-42 p-2 rounded-md"
+                        className="rounded-input border-gray-300  w-40 p-2 rounded-md"
                         value={customLanguage}
                         onChange={handleInputChange}
                         placeholder="Enter custom language"
