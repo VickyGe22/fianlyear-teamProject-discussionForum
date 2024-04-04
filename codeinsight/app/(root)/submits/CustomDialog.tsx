@@ -1,4 +1,3 @@
-import '../../css/additional-styles/menubox.css'; 
 import React, { useState, ChangeEvent } from 'react';
 
 interface CustomDialogProps {
