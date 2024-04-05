@@ -13,7 +13,7 @@ interface Post {
   image: string,
   tag1: string,
   tag2: string,
-  date: string,  
+  numberReply: string,  
 }
 
 export default async function SubmitList() {
