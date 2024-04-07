@@ -108,19 +108,7 @@ export default function SubmitSample() {
           <button className="btn text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm">Submit Your Code Sample</button>
         </Link>
       </div>
-      <div className="mt-4  flex justify-center">
-        <div className="text-xs text-gray-500">
-          By clicking to agree our{' '}
-          <a className="underline" href="#0">
-            Terms of Service
-          </a>{' '}
-          and{' '}
-          <a className="underline" href="#0">
-            Privacy Policy
-          </a>
-          .
-        </div>
-      </div>
+      
 
     </>
   )
