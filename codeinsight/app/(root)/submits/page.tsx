@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image'
 import UploadImage from '@/public/images/upload.jpg'
 
@@ -8,13 +10,28 @@ import MenuBox1 from './menubox1'
 import MenuBox2 from './menubox2'
 import TagInput from './add_tag'
 
+import { useState } from 'react';
+import SubmitDialog from './SubmitDialog';
 
-export const metadata = {
-  title: 'Submits - Submit Code Sample',
-  description: 'Submit Code Sample',
-}
+// Consider using the server-side rendering with the metadata export or Using client-side rendering with the useState hook
+//export const metadata = {
+//  title: 'Submits - Submit Code Sample',
+//  description: 'Submit Code Sample',
+//}
 
 export default function SubmitSample() {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleSubmit = () => {
+    // Display the success dialog
+    // Don't need to handle the submission logic yet 
+    setShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+  };
+
   return (
     <>
     <br />
@@ -111,12 +128,10 @@ export default function SubmitSample() {
       </form>
 
       <div className="mt-6 flex justify-center">
-        <Link href="/code-sample-repository">
-          <button className="btn text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm">Submit Your Code Sample</button>
-        </Link>
+        <button className="btn text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm" onClick={handleSubmit}>Submit Your Code Sample</button>
       </div>
-      
 
+      {showDialog && <SubmitDialog onClose={handleCloseDialog} />}
     </>
-  )
+  );
 }
