@@ -1,6 +1,6 @@
 'use client'; 
 import React, { useState } from 'react';
-import CustomDialog from './CustomDialog'; 
+import CustomDialog from './customDialog'; 
 
 const MenuBox1 = () => {
     const [levels, setLevels] = useState(['Bacholer-cs1', 'Bacholer-cs2', 'Bacholer-cs3', 'Bacholer-cs4', 'Master-cs1', 'Master-cs2']);

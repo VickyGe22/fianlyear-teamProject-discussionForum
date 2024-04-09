@@ -58,7 +58,7 @@
 
 'use client'; 
 import React, { useState } from 'react';
-import CustomDialog from './CustomDialog'; 
+import CustomDialog from './customDialog'; 
 
 const MenuBox = () => {
     const [languages, setLanguages] = useState(['Python', 'C', 'C++', 'C#', 'Java', 'JavaScript']);
