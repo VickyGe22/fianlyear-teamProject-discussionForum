@@ -25,17 +25,23 @@ const CustomDialog: React.FC<CustomDialogProps> = ({ onClose, onAddCustomOption 
                     <br/>
                     <input
                         type="text"
-                        className="rounded-input border-gray-300  w-40 p-2 rounded-md"
+                        className="rounded-input border-gray-300  w-40 p-2 rounded-sm"
                         value={customLanguage}
                         onChange={handleInputChange}
-                        placeholder="Enter custom language"
+                        placeholder="Enter custom word"
                         />
                 </div>
-                <div className="modal-actions pl-20">
-                    <button className="inline-flex items-center rounded-md #ddd px-3 py-1 
-                    text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10" onClick={handleAddCustomOption}>Add</button>
-                    <button className="inline-flex items-center rounded-md #ddd px-2 py-1 
-                    text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10" onClick={onClose}>Cancel</button>
+                <div className="modal-actions flex justify-end space-x-4 mt-2">
+                    <button type="button" className="rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm
+                     hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                      focus-visible:outline-indigo-600 " onClick={handleAddCustomOption}>
+                    Add
+                    </button>
+                    <button type="button" className="rounded bg-indigo-600 px-2 py-1 text-xs font-semibold text-white shadow-sm
+                     hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                      focus-visible:outline-indigo-600 " onClick={onClose}>
+                    Cancel
+                    </button>
                 </div>
             </div>
         </div>
