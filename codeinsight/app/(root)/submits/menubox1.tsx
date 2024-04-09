@@ -1,0 +1,65 @@
+'use client'; 
+import React, { useState } from 'react';
+import CustomDialog from './CustomDialog'; 
+
+const MenuBox1 = () => {
+    const [levels, setLevels] = useState(['Bacholer-cs1', 'Bacholer-cs2', 'Bacholer-cs3', 'Bacholer-cs4', 'Master-cs1', 'Master-cs2']);
+    const [selectedLevel, setSelectedLevel] = useState('');
+    const [showCustomDialog1, setShowCustomDialog1] = useState(false);
+
+    const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const { value } = event.target;
+        if (value === 'other') {
+            setShowCustomDialog1(true);
+        } else {
+            setSelectedLevel(value);
+        }
+    };
+
+    const handleAddCustomOption = (customLanguage:string) => {
+        setLevels([...levels, customLanguage]);
+        setSelectedLevel(customLanguage);
+        setShowCustomDialog1(false); // 关闭自定义对话框
+    };
+
+
+    const handleCloseCustomDialog = () => {
+        setShowCustomDialog1(false);
+    };
+
+    return (
+        <div>
+        {/* 不展开的话用justify-left */}
+            <div className="flex flex-col">
+                {/* level*/}
+                <div className="flex flex-col  mb-4">
+                    <label className="block text-sm text-gray-800 font-medium mb-1" htmlFor="levels">
+                        Levels <span className="text-rose-500">*</span>
+                    </label>
+                    <select
+                        id="levels"
+                        className="form-select text-sm py-2"
+                        value={selectedLevel}
+                        onChange={handleLanguageChange}
+                        required
+                    >
+                        {levels.map((level, index) => (
+                            <option key={index} value={level}>
+                                {level}
+                            </option>
+                        ))}
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            
+            {/* 自定义对话框 */}
+            {showCustomDialog1 && (
+                <CustomDialog onClose={handleCloseCustomDialog} onAddCustomOption={handleAddCustomOption} />
+            )}
+
+        </div>
+    );
+};
+
+export default MenuBox1;
