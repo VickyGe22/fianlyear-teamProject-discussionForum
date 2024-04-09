@@ -8,6 +8,7 @@ import CodeBox from './codebox'
 import MenuBox from './menubox'
 import MenuBox1 from './menubox1'
 import MenuBox2 from './menubox2'
+import TagInput from './add_tag'
 
 import { useState } from 'react';
 import SubmitDialog from './SubmitDialog';
@@ -66,7 +67,7 @@ export default function SubmitSample() {
             {/*comments*/}
               <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="email">
-                  Description <span className="text-red-500">*</span>
+                  Issues Description <span className="text-red-500">*</span>
                 </label>
                 <CodeBox />
               </div>
@@ -117,7 +118,8 @@ export default function SubmitSample() {
                 <label className="block text-sm font-medium mb-1" htmlFor="salary">
                   Tags <span className="text-gray-500">(optional)</span>
                 </label>
-                <input id="salary" className="form-input w-full" type="text" />
+                {/* <input id="salary" className="form-input w-full" type="text" /> */}
+                <TagInput />
                 <div className="text-xs text-gray-500 italic mt-2">Example: “while-duplicate”</div>
               </div>
             </div>

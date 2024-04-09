@@ -1,6 +1,6 @@
 'use client'; 
 import React, { useState } from 'react';
-import CustomDialog from './CustomDialog'; 
+import CustomDialog from './customDialog'; 
 
 const MenuBox2 = () => {
     const [types, settypes] = useState(['Assignment', 'Exam', 'Quiz', 'Group Project', 'Code Repository']);
@@ -34,7 +34,7 @@ const MenuBox2 = () => {
                 {/* type*/}
                 <div className="flex flex-col  mb-4">
                     <label className="block text-sm text-gray-800 font-medium mb-1" htmlFor="types">
-                    types <span className="text-rose-500">*</span>
+                    Types <span className="text-rose-500">*</span>
                     </label>
                     <select
                         id="types"
