@@ -17,24 +17,24 @@ export default function Sidebar() {
           <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
             {/* Group 1 */}
             <div>
-              <div className="text-sm text-gray-800 font-semibold mb-3">Class</div>
+              <div className="text-sm text-gray-800 font-semibold mb-3">Category</div>
               <ul className="space-y-2">
                 <li>
                   <label className="flex items-center">
                     <input type="checkbox" className="form-checkbox" />
-                    <span className="text-sm text-gray-600 ml-2">CS</span>
+                    <span className="text-sm text-gray-600 ml-2">CS0</span>
                   </label>
                 </li>
                 <li>
                   <label className="flex items-center">
                     <input type="checkbox" className="form-checkbox" />
-                    <span className="text-sm text-gray-600 ml-2">ADSA</span>
+                    <span className="text-sm text-gray-600 ml-2">CS1</span>
                   </label>
                 </li>
                 <li>
                   <label className="flex items-center">
                     <input type="checkbox" className="form-checkbox" />
-                    <span className="text-sm text-gray-600 ml-2">OS</span>
+                    <span className="text-sm text-gray-600 ml-2">CS2</span>
                   </label>
                 </li>
               </ul>
@@ -77,19 +77,19 @@ export default function Sidebar() {
             </div>
             {/* Group 3 */}
             <div>
-              <div className="text-sm text-gray-800 font-semibold mb-3">Discussed</div>
+              <div className="text-sm text-gray-800 font-semibold mb-3">Replied</div>
               <div className="flex items-center">
                 <div className="form-switch">
                   <input type="checkbox" id="remote-toggle" className="sr-only" checked={remoteJob} onChange={() => setRemoteJob(!remoteJob)} />
                   <label className="bg-gray-300" htmlFor="remote-toggle">
                     <span className="bg-white shadow-sm" aria-hidden="true" />
-                    <span className="sr-only">Discussed</span>
+                    <span className="sr-only">Replied</span>
                   </label>
                 </div>
                 <div className="text-sm text-gray-400 italic ml-2">{remoteJob ? 'On' : 'Off'}</div>
               </div>
             </div>
-            {/* Group 3 */}
+            {/* Group 3 
             <div>
               <div className="text-sm text-gray-800 font-semibold mb-3">Reviewed</div>
               <div className="flex items-center">
@@ -102,9 +102,9 @@ export default function Sidebar() {
                 </div>
                 <div className="text-sm text-gray-400 italic ml-2">{remoteJob ? 'On' : 'Off'}</div>
               </div>
-            </div>
+  </div>*/}
             {/* Group 4 */}
-            <div>
+            {/*<div>
               <div className="text-sm text-gray-800 font-semibold mb-3">University</div>
               <label className="sr-only">University</label>
               <select className="form-select w-full">
@@ -113,7 +113,7 @@ export default function Sidebar() {
                 <option>University of South Australia </option>
                 <option>Flinders University</option>
               </select>
-            </div>
+            </div>*/}
           </div>
         </div>
       </div>

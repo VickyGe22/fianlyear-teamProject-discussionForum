@@ -50,7 +50,7 @@ export default function PostItem({ ...props }) {
                   </span>
                 </Link>
               </div>
-              <div className="group-hover:lg:hidden text-sm italic text-gray-500">{props.date}</div>
+              <div className="group-hover:lg:hidden text-sm italic text-gray-500">{props.numberReply}</div>
             </div>
           </div>
         </div>
