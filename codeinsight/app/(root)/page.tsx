@@ -47,12 +47,12 @@ export default function Home() {
             <div className="group aspect-h-1 aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
               <img
                 src="/images/submit.png"
-                alt="submit"
+                alt="discuss"
                 className="object-cover object-center group-hover:opacity-75"
               />
               <div aria-hidden="true" className="bg-gradient-to-b from-transparent to-black opacity-50" />
               <div className="absolute inset-0 flex flex-col justify-start items-center pt-40">
-                <Link href="/submits">
+                <Link href="/code-sample-repository">
                   <div className='text-center'>
                   <h3 className="text-2xl font-extrabold text-black">
                     <a href="#">
@@ -70,12 +70,12 @@ export default function Home() {
             <div className="group aspect-h-1 aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
               <img
                 src="/images/submit.png"
-                alt="submit"
+                alt="review"
                 className="object-cover object-center group-hover:opacity-75"
               />
               <div aria-hidden="true" className="bg-gradient-to-b from-transparent to-black opacity-50" />
               <div className="absolute inset-0 flex flex-col justify-start items-center pt-40">
-                <Link href="/submits">
+                <Link href="/review-page">
                   <div className='text-center'>
                   <h3 className="text-2xl font-extrabold text-black">
                     <a href="#">
