@@ -25,9 +25,19 @@ const TagInput = () => {
 
   return (
     <div>
+      <div className="flex flex-wrap gap-2 w-full py-2">
+        <input
+          type="text"
+          value={input}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          className="mt-2 w-full rounded-md border-gray-300 shadow-sm"
+          placeholder="Type and press space to add tags..."
+        />
+      </div>
       <div className="flex flex-wrap gap-2 w-full">
         {tags.map((tag, index) => (
-          <span key={index} className="inline-flex items-center gap-x-0.5 rounded-md bg-green-50 px-2 py-1 text-lg font-bold text-green-700">
+          <span key={index} className="inline-flex items-center gap-x-0.5 rounded-md bg-green-50 px-2 py-1 text-base font-medium text-green-700">
             {tag}
             <button
               type="button"
@@ -42,14 +52,7 @@ const TagInput = () => {
           </span>
         ))}
       </div>
-      <input
-        type="text"
-        value={input}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        className="mt-2 w-full rounded-md border-gray-300 shadow-sm"
-        placeholder="Type and press space to add tags..."
-      />
+
     </div>
   );
 };
