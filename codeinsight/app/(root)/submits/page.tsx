@@ -67,7 +67,7 @@ export default function SubmitSample() {
             {/*comments*/}
               <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="email">
-                  Issues Description <span className="text-red-500">*</span>
+                  Issue Description <span className="text-red-500">*</span>
                 </label>
                 <CodeBox />
               </div>
