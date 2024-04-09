@@ -1,43 +1,75 @@
+'use client';
+
 import Image from 'next/image'
 import UploadImage from '@/public/images/upload.jpg'
-import CodeLinter from './codelinter'
-import Link from 'next/link'
 
-export const metadata = {
-  title: 'Submits - Submit Code Sample',
-  description: 'Submit Code Sample',
-}
+import Link from 'next/link'
+import CodeBox from './codebox'
+import MenuBox from './menubox'
+import MenuBox1 from './menubox1'
+import MenuBox2 from './menubox2'
+import TagInput from './add_tag'
+
+import { useState } from 'react';
+import SubmitDialog from './SubmitDialog';
+
+// Consider using the server-side rendering with the metadata export or Using client-side rendering with the useState hook
+//export const metadata = {
+//  title: 'Submits - Submit Code Sample',
+//  description: 'Submit Code Sample',
+//}
 
 export default function SubmitSample() {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleSubmit = () => {
+    // Display the success dialog
+    // Don't need to handle the submission logic yet 
+    setShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+  };
+
   return (
     <>
-      <div className="mb-10">
-        <h1 className="text-4xl font-extrabold font-inter mb-2">Submit Your Code Sample</h1>
-        <div className="text-gray-500">submit your valuable insights for simplify code structure.</div>
+    <br />
+    
+      <div className="mb-10 pl-10">
+        <h1 className="text-4xl font-extrabold font-inter mb-5">Share Code Samples & Insights</h1>
+        <div className="text-gray-500">Submit your valuable samples and insights for simplify code structure.</div>
       </div>
-
+      
 
       {/* Form */}
-      <form className="mb-12">
-        <div className="divide-y divide-gray-200 -my-6">
-          
+      <form className="mb-12 pl-10 pr-10">
+        {/* <div className="divide-y divide-gray-200 -my-6"> */}
+        <div>
           {/* Group #1 */}
           <div className="py-6">
-            <div className="text-lg font-bold text-gray-800 mb-5">
-              <span className="text-indigo-500">1.</span> Your code sample
-            </div>
+            {/* <div className="text-lg font-bold text-gray-800 mb-5">
+              <span className="text-indigo-500"> Step 1.</span> Copy code sample here
+            </div> */}
+            {/*code samples*/}
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="name">
-                  Sample <span className="text-red-500">*</span>
+                Code sample <span className="text-red-500">*</span>
                 </label>
-                <CodeLinter />
+                <CodeBox />
+                
               </div>
+              {/* gap-8是两个flexbox之间的间隔 */}
+              <div className="flex justify-left  gap-8">
+              <MenuBox /> <MenuBox1 /> <MenuBox2 /> 
+              </div>
+            {/*comments*/}
               <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="email">
-                  Modify Comments <span className="text-red-500">*</span>
+                  Issues Description <span className="text-red-500">*</span>
                 </label>
-                <CodeLinter />
+                <CodeBox />
               </div>
               {/* <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="file">
@@ -61,31 +93,33 @@ export default function SubmitSample() {
 
           {/* Group #2 */}
           <div className="py-6">
-            <div className="text-lg font-bold text-gray-800 mb-5">
+            {/* <div className="text-lg font-bold text-gray-800 mb-5">
               <span className="text-indigo-500">2.</span> Issue Classification
-            </div>
+            </div> */}
             <div className="space-y-4">
-              <div>
+              {/* <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="position">
                   Class <span className="text-red-500">*</span>
                 </label>
                 <input id="position" className="form-input w-full" type="text" required placeholder="E.g., Senior Software Engineer" />
-              </div>
-              <div>
+              </div> */}
+              
+              {/* <div>
                 <label className="block text-sm text-gray-800 font-medium mb-1" htmlFor="role">
-                  Languages <span className="text-rose-500">*</span>
+                  Category <span className="text-rose-500">*</span>
                 </label>
                 <select id="role" className="form-select text-sm py-2 w-full" required>
                   <option>Python</option>
                   <option>C</option>
                   <option>C++ / Finance</option>
                 </select>
-              </div>
+              </div> */}
               <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="salary">
                   Tags <span className="text-gray-500">(optional)</span>
                 </label>
-                <input id="salary" className="form-input w-full" type="text" />
+                {/* <input id="salary" className="form-input w-full" type="text" /> */}
+                <TagInput />
                 <div className="text-xs text-gray-500 italic mt-2">Example: “while-duplicate”</div>
               </div>
             </div>
@@ -93,25 +127,11 @@ export default function SubmitSample() {
         </div>
       </form>
 
-      <div className="mt-6">
-        <Link href="/code-sample-repository">
-          <button className="btn w-full text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm">Submit Your Code Sample</button>
-        </Link>
-      </div>
-      <div className="mt-4">
-        <div className="text-xs text-gray-500">
-          By clicking to agree our{' '}
-          <a className="underline" href="#0">
-            Terms of Service
-          </a>{' '}
-          and{' '}
-          <a className="underline" href="#0">
-            Privacy Policy
-          </a>
-          .
-        </div>
+      <div className="mt-6 flex justify-center">
+        <button className="btn text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm" onClick={handleSubmit}>Submit Your Code Sample</button>
       </div>
 
+      {showDialog && <SubmitDialog onClose={handleCloseDialog} />}
     </>
-  )
+  );
 }

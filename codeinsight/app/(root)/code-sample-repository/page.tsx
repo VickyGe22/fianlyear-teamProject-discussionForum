@@ -10,11 +10,8 @@ import SubmitList from '../submits-list'
 export default function Home() {
   return (
     <>
-      <section>
-        <br />
-        <br />
-      </section>
-      {/*  Page content */}
+
+
       <section>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="py-8 md:py-16">
@@ -22,7 +19,7 @@ export default function Home() {
 
               <Sidebar />
 
-              {/* Main content */}
+
               <div className="md:grow">
                 <SubmitList />
               </div>
@@ -32,10 +29,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
-        <br />
-        <br />
-      </section>
+
+
+
     </>
   )
 }
