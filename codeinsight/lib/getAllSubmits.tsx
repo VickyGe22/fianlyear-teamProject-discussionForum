@@ -54,7 +54,7 @@ export default async function getAllPosts(): Promise<Post[]> {
           "image": "https://user-images.githubusercontent.com/2683512/225010410-86af0a77-9db9-40a2-915e-3fdbce9dad1c.svg",
           "tag1": "networking",
           "tag2": "python",
-          "numberReply": "7 repliess"
+          "numberReply": "7 replies"
         },
         {
           "id": 5,
