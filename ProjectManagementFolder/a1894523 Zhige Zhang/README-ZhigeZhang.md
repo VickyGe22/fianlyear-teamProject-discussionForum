@@ -10,10 +10,10 @@
 	
 
 ## Github:	
-· We start coding from week 5 followed by the gitflow cooperation methods proposed by Shiwen Cao (a shared branch named 'develop' and 5 origin branches for each team member):
+1. We start coding from week 5 followed by the gitflow cooperation methods proposed by Shiwen Cao (a shared branch named 'develop' and 5 origin branches for each team member):
   At the first few weeks, I was responsible to build up the basic structure, layout and router (empty content) for our project including the homepage, submit page, discussion page and review page. Then, update the tailwind css file that to ensure the whole team work on the same theme style. Besides, creating common header, footer,  and navigation-bar for share ui. After that, my main job is to optimize the UI for home page. These files could be found in Team-14/codeinsight/components;Team-14/codeinsight/app/css;Team-14/codeinsight/app/(root)/page.tsx; 
-·We used issues in GitHub to assign tasks. After finishing my own part, I made a 'pull request', waiting for our project team to megre it to develop branch.
-·Documentation work is saved at Team-14/ProjectManagementFolder/.
+2. We used issues in GitHub to assign tasks. After finishing my own part, I made a 'pull request', waiting for our project team to megre it to develop branch.
+3. Documentation work is saved at Team-14/ProjectManagementFolder/.
 	
 	
 ## Project effort Total: 146 hours (totally  6 weeks, from week2 to week7, including two weeks of mid-break)
