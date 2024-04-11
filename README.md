@@ -32,6 +32,7 @@ We will use the following technology stack to build CodeInsight:
 
 - Next.js
 - Tailwind CSS
+- MongoDB
 - Headless UI
 - Heroicons
 - Sticky.js
