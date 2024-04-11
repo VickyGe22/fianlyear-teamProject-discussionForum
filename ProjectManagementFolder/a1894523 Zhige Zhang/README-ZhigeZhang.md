@@ -22,6 +22,6 @@ During the entire project development process, I put 21 hours of working time in
 
   
 ## Contributions:
-Build the structure and logics of home page which has the introduction, three main click button with router to navigate to other pages.
-BUild up the navigation bar, header, and footer.
-Build up the function about general comments for use to make post.
+- Build the structure and logics of home page which has the introduction, three main click button with router to navigate to other pages.
+- Build up the navigation bar, header, and footer.
+- Build up the function about general comments for use to make post.
