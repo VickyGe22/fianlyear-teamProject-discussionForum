@@ -8,7 +8,7 @@ The goal of CodeInsight is to achieve milestone 1 first by building an example c
 
 ## Project Management
 
-We will use a Git project to manage our tasks, including Todo, In Progress, and Done(seperate based on three main pages) statuses. Each team member will work on their own origin branch and regularly merge updates to the develop branch. All team members need to reach a consensus before merging to the develop branch.
+We will use a Git project to manage our tasks, including Todo, In Progress, bugs(in testing stage after week 7) and Done(seperate based on three main pages) statuses. Each team member will work on their own origin branch and regularly merge updates to the develop branch. All team members need to reach a consensus before merging to the develop branch.
 
 ### Task Allocation
 1. **Task Allocation**: In the Git project, we will divide tasks into Todo, In Progress, and Done statuses. Each team member is responsible for claiming and completing their own tasks.
