@@ -16,7 +16,9 @@ a1883049 LanxiZhang Team: 14B
 2.Modifying the layout of the submission page(Team-14/codeinsight/app/submits/page.tsx);
 
 3.Add the functions of the submission page: 
+
 -add three dropdown menus of language, type, and level(Team-14/codeinsight/app/submits/menubox.tsx);
+
 -add the codebox to show lines of code(Team-14/codeinsight/app/submits/codebox.tsx);
 
 4.Utilized GitHub issues to track tasks to ensure effective collaboration.
