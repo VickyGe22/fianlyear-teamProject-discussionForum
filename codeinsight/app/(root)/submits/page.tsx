@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image'
 import UploadImage from '@/public/images/upload.jpg'
 
@@ -6,14 +8,30 @@ import CodeBox from './codebox'
 import MenuBox from './menubox'
 import MenuBox1 from './menubox1'
 import MenuBox2 from './menubox2'
+import TagInput from './add_tag'
 
+import { useState } from 'react';
+import SubmitDialog from './SubmitDialog';
 
-export const metadata = {
-  title: 'Submits - Submit Code Sample',
-  description: 'Submit Code Sample',
-}
+// Consider using the server-side rendering with the metadata export or Using client-side rendering with the useState hook
+//export const metadata = {
+//  title: 'Submits - Submit Code Sample',
+//  description: 'Submit Code Sample',
+//}
 
 export default function SubmitSample() {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const handleSubmit = () => {
+    // Display the success dialog
+    // Don't need to handle the submission logic yet 
+    setShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+  };
+
   return (
     <>
     <br />
@@ -49,7 +67,7 @@ export default function SubmitSample() {
             {/*comments*/}
               <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="email">
-                  Description <span className="text-red-500">*</span>
+                  Issue Description <span className="text-red-500">*</span>
                 </label>
                 <CodeBox />
               </div>
@@ -100,7 +118,8 @@ export default function SubmitSample() {
                 <label className="block text-sm font-medium mb-1" htmlFor="salary">
                   Tags <span className="text-gray-500">(optional)</span>
                 </label>
-                <input id="salary" className="form-input w-full" type="text" />
+                {/* <input id="salary" className="form-input w-full" type="text" /> */}
+                <TagInput />
                 <div className="text-xs text-gray-500 italic mt-2">Example: “while-duplicate”</div>
               </div>
             </div>
@@ -109,12 +128,10 @@ export default function SubmitSample() {
       </form>
 
       <div className="mt-6 flex justify-center">
-        <Link href="/code-sample-repository">
-          <button className="btn text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm">Submit Your Code Sample</button>
-        </Link>
+        <button className="btn text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm" onClick={handleSubmit}>Submit Your Code Sample</button>
       </div>
-      
 
+      {showDialog && <SubmitDialog onClose={handleCloseDialog} />}
     </>
-  )
+  );
 }

@@ -173,7 +173,7 @@ const discussions = [
 
 export default function Example() {
   return (
-    <><h1 className="text-2xl font-bold mb-4 text-black">Issue</h1><ul role="list" className="divide-y divide-gray-100">
+    <><ul role="list" className="divide-y divide-gray-100">
           {discussions.map((discussion) => (
               <li
                   key={discussion.id}
