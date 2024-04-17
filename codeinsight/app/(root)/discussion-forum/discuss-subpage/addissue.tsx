@@ -1,41 +1,30 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
+'use client' ;
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CalendarIcon, PaperClipIcon, TagIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 
 const assignees = [
-  { name: 'Unassigned', value: null },
-  {
-    name: 'Wade Cooper',
-    value: 'wade-cooper',
-    avatar:
-      'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
+  { name: 'uncategorized', value: null },
+  { name: 'Computer system', value: 'Computer system' },
+  { name: 'machine learning', value: 'machine learning' },
+  { name: 'AI', value: 'AI' },
+  { name: 'Networking', value: 'Networking' },
   // More items...
 ]
 const labels = [
-  { name: 'Unlabelled', value: null },
-  { name: 'Engineering', value: 'engineering' },
+  { name: 'No Tag', value: null },
+  { name: 'JAVA', value: 'JAVA' },
+  { name: 'PYTHON', value: 'PYTHON' },
+  { name: 'C', value: 'C' },
+  { name: 'C++', value: 'C++' },
+  { name: 'HTML', value: 'HTML' },
   // More items...
 ]
-const dueDates = [
-  { name: 'No due date', value: null },
-  { name: 'Today', value: 'today' },
-  // More items...
-]
+// const dueDates = [
+//   { name: 'No due date', value: null },
+//   { name: 'Today', value: 'today' },
+//   // More items...
+// ]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -48,7 +37,7 @@ export default function Example() {
 export function AddIssue() {
     const [assigned, setAssigned] = useState(assignees[0])
   const [labelled, setLabelled] = useState(labels[0])
-  const [dated, setDated] = useState(dueDates[0])
+  // const [dated, setDated] = useState(dueDates[0])
 
   return (
     <form action="#" className="relative">
@@ -98,11 +87,11 @@ export function AddIssue() {
                 <Listbox.Label className="sr-only">Assign</Listbox.Label>
                 <div className="relative">
                   <Listbox.Button className="relative inline-flex items-center whitespace-nowrap rounded-full bg-gray-50 px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 sm:px-3">
-                    {assigned.value === null ? (
+                    {/* {assigned.value === null ? (
                       <UserCircleIcon className="h-5 w-5 flex-shrink-0 text-gray-300 sm:-ml-1" aria-hidden="true" />
                     ) : (
                       <img src={assigned.avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
-                    )}
+                    )} */}
 
                     <span
                       className={classNames(
@@ -110,7 +99,7 @@ export function AddIssue() {
                         'hidden truncate sm:ml-2 sm:block'
                       )}
                     >
-                      {assigned.value === null ? 'Assign' : assigned.name}
+                      {assigned.value === null ? 'Subject' : assigned.name}
                     </span>
                   </Listbox.Button>
 
@@ -134,11 +123,11 @@ export function AddIssue() {
                           value={assignee}
                         >
                           <div className="flex items-center">
-                            {assignee.avatar ? (
+                            {/* {assignee.avatar ? (
                               <img src={assignee.avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
                             ) : (
                               <UserCircleIcon className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                            )}
+                            )} */}
 
                             <span className="ml-3 block truncate font-medium">{assignee.name}</span>
                           </div>
@@ -170,7 +159,7 @@ export function AddIssue() {
                         'hidden truncate sm:ml-2 sm:block'
                       )}
                     >
-                      {labelled.value === null ? 'Label' : labelled.name}
+                      {labelled.value === null ? '#Tag' : labelled.name}
                     </span>
                   </Listbox.Button>
 
@@ -205,7 +194,7 @@ export function AddIssue() {
             )}
           </Listbox>
 
-          <Listbox as="div" value={dated} onChange={setDated} className="flex-shrink-0">
+          {/* <Listbox as="div" value={dated} onChange={setDated} className="flex-shrink-0">
             {({ open }) => (
               <>
                 <Listbox.Label className="sr-only">Add a due date</Listbox.Label>
@@ -257,7 +246,7 @@ export function AddIssue() {
                 </div>
               </>
             )}
-          </Listbox>
+          </Listbox> */}
         </div>
         <div className="flex items-center justify-between space-x-3 border-t border-gray-200 px-2 py-2 sm:px-3">
           <div className="flex">
