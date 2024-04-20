@@ -2,12 +2,13 @@ import { ChatBubbleLeftIcon, CheckCircleIcon } from '@heroicons/react/24/outline
 import { useState } from 'react';
 import { Disclosure } from '@headlessui/react';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
+import GeneralComments from "./generalcomments";
 
 
 const discussions = [ 
   {
     id: 1,
-    title: 'for loop having its iteration variable overwritten',
+    title: 'For loop having its iteration variable overwritten',
     href: '#',
     author: { name: 'Leslie Alexander', href: '#' },
     date: '2d ago',
@@ -191,21 +192,26 @@ export default function Example() {
                   <>
                     <h3>
                     <Disclosure.Button className="group relative flex w-full items-center justify-between py-6 text-left">
-                    <span className={classNames(open ? 'text-indigo-600' : "text-bg font-semibold leading-6 text-gray-900")} >
+                    <div>
+                      <span className={classNames(open ? 'text-indigo-600' : 'text-gray-900', 'font-semibold leading-6')}>
                         {discussion.title}
-                    </span>
+                        </span>
+                        <span className="text-gray-500 text-sm block mt-2">
+                          {discussion.author.name}
+                        </span>
+                    </div>
                     <span className="ml-6 flex items-center">
                         {open ? (
                           <MinusIcon className="block h-6 w-6 text-indigo-400 group-hover:text-indigo-500"aria-hidden="true"/>
                           ) : (
                           <PlusIcon className="block h-6 w-6 text-gray-400 group-hover:text-gray-500" aria-hidden="true" />
-                         )}
+                        )}
                     </span>
                       </Disclosure.Button>
                       </h3>
                         <Disclosure.Panel as="div" className="prose prose-sm pb-6">
                           <ul role="list">
-                            hello
+                            <GeneralComments />
                           </ul>
                         </Disclosure.Panel>
                       </>
