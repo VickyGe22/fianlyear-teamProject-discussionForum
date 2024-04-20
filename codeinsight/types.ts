@@ -5,5 +5,5 @@ export type Post = {
   "status": string,
   "tag1": string,
   "tag2": string,
-  "date": string,
+  "numberReply": string,
 }

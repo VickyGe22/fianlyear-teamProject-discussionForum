@@ -60,7 +60,25 @@ export default async function SinglePost({ params }: {
             <aside className="mb-8 md:mb-0 md:w-64 lg:w-72 md:ml-12 lg:ml-20 md:shrink-0 md:order-1">
               <div data-sticky data-margin-top="32" data-sticky-for="768" data-sticky-wrap>
                   
+                  <div className="flex justify-center md:justify-start mb-5">
+                    <ul className="inline-flex flex-col space-y-2">
 
+                      <li className="flex items-center">
+                        <svg className="shrink-0 fill-gray-400 mr-3" width="14" height="16" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="7" cy="7" r="2" />
+                          <path d="M6.3 15.7c-.1-.1-4.2-3.7-4.2-3.8C.7 10.7 0 8.9 0 7c0-3.9 3.1-7 7-7s7 3.1 7 7c0 1.9-.7 3.7-2.1 5-.1.1-4.1 3.7-4.2 3.8-.4.3-1 .3-1.4-.1Zm-2.7-5 3.4 3 3.4-3c1-1 1.6-2.2 1.6-3.6 0-2.8-2.2-5-5-5S2 4.2 2 7c0 1.4.6 2.7 1.6 3.7 0-.1 0-.1 0 0Z" />
+                        </svg>
+                        <span className="text-sm text-gray-600">{post.tag2}</span>
+                      </li>
+                      <li className="flex items-center">
+                        <svg className="shrink-0 fill-gray-400 mr-3" width="16" height="12" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M15 0H1C.4 0 0 .4 0 1v10c0 .6.4 1 1 1h14c.6 0 1-.4 1-1V1c0-.6-.4-1-1-1Zm-1 10H2V2h12v8Z" />
+                          <circle cx="8" cy="6" r="2" />
+                        </svg>
+                        <span className="text-sm text-gray-600">{post.tag1}</span>
+                      </li>
+                    </ul>
+                  </div>
 
                   <div className="max-w-xs mx-auto mb-5">
                     <a className="btn w-full text-white bg-indigo-500 hover:bg-indigo-600 group shadow-sm" href="#0">
