@@ -34,10 +34,10 @@ export default function Home() {
                 </div>
             </div>
 
-            <div className="divide-y py-20 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+            <div className=" py-20 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                 <div className="sm:px-6 mb-4">
                     <h1 className="text-2xl font-bold text-black">Issues Forum</h1>
-                    <div className="text-gray-500">Please share your new insights below for discussion.</div>
+                    <div className="text-gray-500 mt-2">Please share your new insights below for discussion.</div>
                 </div>
             
                 <div className="px-4 py-4 sm:px-6">
