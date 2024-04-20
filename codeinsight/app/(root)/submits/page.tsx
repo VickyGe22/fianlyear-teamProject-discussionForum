@@ -12,6 +12,7 @@ import TagInput from './add_tag'
 
 import { useState } from 'react';
 import SubmitDialog from './SubmitDialog';
+import Modal from "@/components/modal";
 
 // Consider using the server-side rendering with the metadata export or Using client-side rendering with the useState hook
 //export const metadata = {
@@ -20,24 +21,35 @@ import SubmitDialog from './SubmitDialog';
 //}
 
 export default function SubmitSample() {
-  const [showDialog, setShowDialog] = useState(false);
+  // const [showDialog, setShowDialog] = useState(false);
 
-  const handleSubmit = () => {
-    // Display the success dialog
-    // Don't need to handle the submission logic yet 
-    setShowDialog(true);
-  };
+  // const handleSubmit = () => {
+  //   // Display the success dialog
+  //   // Don't need to handle the submission logic yet 
+  //   setShowDialog(true);
+  // };
 
-  const handleCloseDialog = () => {
-    setShowDialog(false);
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+  // const handleCloseDialog = () => {
+  //   setShowDialog(false);
+  // };
 
   return (
     <>
     <br />
     
       <div className="mb-3 pl-10">
-        <h1 className="text-4xl font-extrabold font-inter mb-5">Share Code Samples & Insights</h1>
+        <br></br>
+        <h1 className="text-4xl font-extrabold font-inter mb-5">Share Your Code Samples</h1>
         <div className="text-gray-500 text-1xl">Welcome to the CodeInsight submission page, here you can submit 
         code samples and offer your insights to enlighten and inspire. <br/>Try to transform suboptimal code into learning opportunities!</div>
       </div>
@@ -129,10 +141,13 @@ export default function SubmitSample() {
       </form>
 
       <div className="mt-6 flex justify-center">
-        <button className="btn text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm" onClick={handleSubmit}>Submit Your Code Sample</button>
+        <button className="transition rounded-md left-0 ease-in-out text-md bg-indigo-500 hover:-translate-y-1 hover:scale-110 duration-300 btn text-white hover:bg-indigo-600 shadow-sm" onClick={handleOpenModal}>Submit Your Code Sample</button>
       </div>
-
-      {showDialog && <SubmitDialog onClose={handleCloseDialog} />}
+      
+      <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
+        <SubmitDialog onClose={handleCloseModal} />
+      </Modal>
+      
     </>
   );
 }

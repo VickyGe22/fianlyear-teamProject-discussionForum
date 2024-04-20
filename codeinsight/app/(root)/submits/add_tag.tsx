@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 const TagInput = () => {
-  const [tags, setTags] = useState([]); // 存储所有标签
+  const [tags, setTags] = useState<string[]>([]); // 存储所有标签
   const [input, setInput] = useState(''); // 当前输入框的值
 
   const handleKeyDown = (e: { key: string; }) => {
@@ -15,11 +15,11 @@ const TagInput = () => {
     }
   };
 
-  const handleRemoveTag = (index) => {
+  const handleRemoveTag = (index: number) => {
     setTags(tags.filter((_, i) => i !== index)); // 移除索引为 index 的标签
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setInput(e.target.value); // 更新输入框的值
   };
 
