@@ -35,11 +35,8 @@ export default function Home() {
                     <h3 className="text-2xl font-extrabold text-indigo-600 px-2 mt-4" style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
                       Submission
                     </h3>
-                    <p aria-hidden="true" className="mt-1 font-medium px-10 text-l text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                      Welcome to the Instructor's Submission portal. <br></br> <br></br>This is your first step towards collaborative enhancement. 
+                    <p aria-hidden="true" className="mt-1 font-medium px-10 text-xl text-pretty text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                       Share your sub-optimal code samples here and turn them into powerful teaching moments. 
-                      Your contributions help cultivate a deeper optimization of coding structure.<br></br><br></br>
-                      Click to submit now !
                     </p>
                   </a>
                 </Link>
@@ -59,11 +56,8 @@ export default function Home() {
                     <h3 className="text-2xl font-extrabold text-indigo-600 px-2 mt-4" style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
                       Discussion
                     </h3>
-                    <p aria-hidden="true" className="mt-1 font-medium px-10 text-l text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                      Welcome to the Instructor's Discussion portal. <br></br> <br></br>
-                      This is a dedicated discussion space for educators. 
-                      Here, we dissect sub-optimal codes and exchange teaching tactics. <br></br><br></br>
-                      Click to discuss now !
+                    <p aria-hidden="true" className="mt-1 font-medium px-10 text-xl text-pretty text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                      Join in discussion and exchange teaching tactics to optimize your code samples. <br></br><br></br>
                       </p>
                   </a>
                 </Link>
@@ -83,7 +77,7 @@ export default function Home() {
                     <h3 className="text-2xl font-extrabold text-indigo-600 px-2 mt-4" style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
                       Review
                     </h3>
-                    <p aria-hidden="true" className="mt-1 font-medium px-10 text-l text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
+                    <p aria-hidden="true" className="mt-1 font-medium px-10 text-xl text-pretty text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
                       Step into our Review zone <br></br>for a reflective deep dive into your code.
                     </p>
                   </a>
