@@ -22,7 +22,7 @@ export default async function SubmitList() {
 
   return (
     <div className="pb-8 md:pb-16">
-      <h2 className="text-3xl font-bold font-inter mb-10">Code Sample Repository</h2>
+      <h2 className="text-3xl font-bold font-inter mb-10">Discuss Your Code Samples</h2>
       {/* List container */}
       <div className="flex flex-col">
 
