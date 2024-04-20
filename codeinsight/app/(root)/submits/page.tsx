@@ -36,9 +36,10 @@ export default function SubmitSample() {
     <>
     <br />
     
-      <div className="mb-10 pl-10">
+      <div className="mb-3 pl-10">
         <h1 className="text-4xl font-extrabold font-inter mb-5">Share Code Samples & Insights</h1>
-        <div className="text-gray-500">Submit your valuable samples and insights for simplify code structure.</div>
+        <div className="text-gray-500 text-1xl">Welcome to the CodeInsight submission page, here you can submit 
+        code samples and offer your insights to enlighten and inspire. <br/>Try to transform suboptimal code into learning opportunities!</div>
       </div>
       
 
