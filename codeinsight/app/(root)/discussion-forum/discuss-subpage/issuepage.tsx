@@ -2,7 +2,7 @@ import { ChatBubbleLeftIcon, CheckCircleIcon } from '@heroicons/react/24/outline
 import { useState } from 'react';
 import { Disclosure } from '@headlessui/react';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
-import GeneralComments from "./generalcomments";
+import IssueReply from "./issuereply";
 
 
 const discussions = [ 
@@ -211,7 +211,7 @@ export default function Example() {
                       </h3>
                         <Disclosure.Panel as="div" className="prose prose-sm pb-6">
                           <ul role="list">
-                            <GeneralComments />
+                            <IssueReply />
                           </ul>
                         </Disclosure.Panel>
                       </>
