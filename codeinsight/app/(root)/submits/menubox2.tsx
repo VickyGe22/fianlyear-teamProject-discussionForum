@@ -1,9 +1,9 @@
 'use client'; 
 import React, { useState } from 'react';
-import CustomDialog from './customDialog'; 
+import CustomDialog from './CustomDialog'; 
 
 const MenuBox2 = () => {
-    const [types, settypes] = useState(['Assignment', 'Exam', 'Quiz', 'Group Project', 'Code Repository']);
+    const [types, settypes] = useState(['Assignment', 'Exam', 'Quiz', 'Group Project']);
     const [selectedtype, setSelectedtype] = useState('');
     const [showCustomDialog2, setShowCustomDialog2] = useState(false);
 
