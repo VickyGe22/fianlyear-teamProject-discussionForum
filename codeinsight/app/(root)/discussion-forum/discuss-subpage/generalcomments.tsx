@@ -98,6 +98,10 @@
 // }
 
 import React, { useState } from 'react';
+import Like from '@/public/images/like.png';
+import Like2 from '@/public/images/like-2.png';
+import Image from 'next/image'
+
 
 const people = [
   {
@@ -108,27 +112,42 @@ const people = [
 
 export default function Example() {
   const [comment, setComment] = useState('');
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState<Array<{ text: string; user: { name: string; imageUrl: string; }; likes: number; isLiked: boolean; }>>([]);
+  const [clicked, setClicked] = useState(false);
 
-  const handleCommentChange = (e) => {
+  const handleCommentChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const person = people[0];
     const newComment = {
       text: comment,
       user: person,
       likes: 0, // Initialize likes to 0
+      isLiked: false
     };
     setComments([...comments, newComment]);
     setComment('');
   };
 
-  const handleLike = (index) => {
+  const handleLike = (index: number) => {
     const updatedComments = [...comments];
-    updatedComments[index].likes += 1; // Increment likes by 1
+    const comment = updatedComments[index];
+    
+    if (comment.isLiked) {
+      // 如果已经点赞，取消点赞并减少1个赞
+      comment.likes -= 1;
+    } else {
+      // 如果尚未点赞，点赞并增加1个赞
+      comment.likes += 1;
+    }
+  
+    // 切换点赞状态
+    comment.isLiked = !comment.isLiked;
+    
+    
     setComments(updatedComments);
   };
 
@@ -156,7 +175,7 @@ export default function Example() {
                 onClick={() => handleLike(index)}
                 className="text-gray-500 hover:text-gray-700 flex items-center space-x-1 focus:outline-none"
               >
-                <svg
+                {/* <svg
                   className="w-4 h-4 text-gray-500 hover:text-gray-700"
                   fill="none"
                   stroke="currentColor"
@@ -164,7 +183,12 @@ export default function Example() {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path>
-                </svg>
+                </svg> */}
+                {comment.isLiked ? (
+                    <Image src={Like2} className="w-4 h-4" alt="Liked" />
+                  ) : (
+                    <Image src={Like} className="w-4 h-4" alt="Like" />
+                  )}
                 <span>{comment.likes}</span>
               </button>
             </div>

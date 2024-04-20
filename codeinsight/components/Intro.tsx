@@ -43,7 +43,7 @@ export default function Intro() {
           <p className="mt-2 font-nycd text-8xl tracking-tight text-white">
             CodeInsight
           </p>
-          <p className="italic mt-6 text-lg leading-8 text-gray-300">
+          <p className="italic mt-6 text-xl text-pretty leading-8 text-gray-300">
             a code issues discussion forum displaying valuable code examples to advance learning 
            <br className="hidden md:block" /> and optimize code structure.
           </p>
