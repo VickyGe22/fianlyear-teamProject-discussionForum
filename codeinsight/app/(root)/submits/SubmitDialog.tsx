@@ -88,29 +88,29 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose }) => {
                     <CheckIcon className="h-6 w-6 text-green-600" aria-hidden="true" />
                   </div>
                   <div className="mt-3 text-center sm:mt-5">
-                    <h3 className="text-lg font-semibold leading-6 text-gray-900">
-                        Thanks for your submitting!
+                    <h3 className="tracking-wide text-lg font-semibold leading-6 text-gray-900">
+                        Thanks for your submission!
                     </h3>
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-3 sm:gap-3">
                   <button
-                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handleSubmit}
                   >
-                    Submit Another
+                    Submit Another Sample
                   </button>
                   <button
-                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handlDiscussion}
                   >
                     Go to Discussion
                   </button>
                   <button
-                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handlHome}
                   >
-                    Back Home
+                    Back to Homepage
                   </button>
 
                 </div>

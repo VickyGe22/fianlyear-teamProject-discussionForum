@@ -27,5 +27,8 @@ npm install @tailwindcss/forms
 npm install @headlessui/react 
 npm install @heroicons/react 
 npm install codemirror
+npm install framer-motion
+npm install three @react-three/fiber framer-motion-3d
+npm install animate.css --save
 
 5. run : npm run dev
