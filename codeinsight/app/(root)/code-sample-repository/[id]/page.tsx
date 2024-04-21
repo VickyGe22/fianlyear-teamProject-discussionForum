@@ -59,20 +59,10 @@ export default async function SinglePost({ params }: {
             {/* Sidebar */}
             <aside className="mb-8 md:mb-0 md:w-64 lg:w-72 md:ml-12 lg:ml-20 md:shrink-0 md:order-1">
               <div data-sticky data-margin-top="32" data-sticky-for="768" data-sticky-wrap>
-                <div className="relative bg-gray-50 rounded-xl border border-gray-200 p-5">
-                  <div className="text-center mb-6">
-                    <Image className="inline-flex mb-2" src={post.image} width={72} height={72} alt={post.name} />
-                    <h2 className="text-lg font-bold text-gray-800">{post.name}</h2>
-                  </div>
-
+                  
                   <div className="flex justify-center md:justify-start mb-5">
                     <ul className="inline-flex flex-col space-y-2">
-                      <li className="flex items-center">
-                        <svg className="shrink-0 fill-gray-400 mr-3" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M9.707 4.293a1 1 0 0 0-1.414 1.414L10.586 8H2V2h3a1 1 0 1 0 0-2H2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h8.586l-2.293 2.293a1 1 0 1 0 1.414 1.414l4-4a1 1 0 0 0 0-1.414l-4-4Z" />
-                        </svg>
-                        <span className="text-sm text-gray-600">{post.date}</span>
-                      </li>
+
                       <li className="flex items-center">
                         <svg className="shrink-0 fill-gray-400 mr-3" width="14" height="16" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="7" cy="7" r="2" />
@@ -104,7 +94,6 @@ export default async function SinglePost({ params }: {
                       Visit Website
                     </a>
                   </div>
-                </div>
               </div>
             </aside>
 

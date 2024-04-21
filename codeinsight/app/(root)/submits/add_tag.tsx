@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 const TagInput = () => {
-  const [tags, setTags] = useState([]); // 存储所有标签
+  const [tags, setTags] = useState<string[]>([]); // 存储所有标签
   const [input, setInput] = useState(''); // 当前输入框的值
 
   const handleKeyDown = (e: { key: string; }) => {
@@ -15,11 +15,11 @@ const TagInput = () => {
     }
   };
 
-  const handleRemoveTag = (index) => {
+  const handleRemoveTag = (index: number) => {
     setTags(tags.filter((_, i) => i !== index)); // 移除索引为 index 的标签
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setInput(e.target.value); // 更新输入框的值
   };
 
@@ -36,21 +36,21 @@ const TagInput = () => {
         />
       </div>
       <div className="flex flex-wrap gap-2 w-full">
-        {tags.map((tag, index) => (
-          <span key={index} className="inline-flex items-center gap-x-0.5 rounded-md bg-green-50 px-2 py-1 text-base font-medium text-green-700">
-            {tag}
-            <button
-              type="button"
-              onClick={() => handleRemoveTag(index)}
-              className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-gray-500/20"
-            >
-              <span className="sr-only">Remove</span>
-              <svg viewBox="0 0 14 14" className="h-3.5 w-3.5 stroke-gray-700/50 group-hover:stroke-gray-700/75">
-                <path d="M4 4l6 6m0-6l-6 6" />
-              </svg>
-            </button>
-          </span>
-        ))}
+      {tags.map((tag, index) => (
+        <span key={index} className="inline-flex items-center gap-x-1 px-2 py-0.5 text-sm font-medium tracking-wide justify-center rounded-md bg-indigo-600 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          {tag}
+          <button
+            type="button"
+            onClick={() => handleRemoveTag(index)}
+            className="inline-flex items-center justify-center rounded-full p-1 hover:bg-red-200" // Added padding and hover background
+            aria-label="Remove tag"
+          >
+            <svg viewBox="0 0 20 20" className="h-2 w-2" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 5l10 10M15 5l-10 10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        </span>
+      ))}
       </div>
 
     </div>
@@ -58,3 +58,4 @@ const TagInput = () => {
 };
 
 export default TagInput;
+

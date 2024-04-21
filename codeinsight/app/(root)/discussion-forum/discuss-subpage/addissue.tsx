@@ -1,7 +1,7 @@
 'use client' ;
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
-import { CalendarIcon, PaperClipIcon, TagIcon, UserCircleIcon } from '@heroicons/react/20/solid'
+import { CalendarIcon, TagIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 
 const assignees = [
   { name: 'uncategorized', value: null },
@@ -20,11 +20,25 @@ const labels = [
   { name: 'HTML', value: 'HTML' },
   // More items...
 ]
-// const dueDates = [
-//   { name: 'No due date', value: null },
-//   { name: 'Today', value: 'today' },
-//   // More items...
-// ]
+import { FaceSmileIcon as FaceSmileIconOutline, PaperClipIcon } from '@heroicons/react/24/outline'
+
+import {
+  FaceFrownIcon,
+  FaceSmileIcon as FaceSmileIconMini,
+  FireIcon,
+  HandThumbUpIcon,
+  HeartIcon,
+  XMarkIcon,
+} from '@heroicons/react/20/solid'
+
+const moods = [
+  { name: 'Excited', value: 'excited', icon: FireIcon, iconColor: 'text-white', bgColor: 'bg-red-500' },
+  { name: 'Loved', value: 'loved', icon: HeartIcon, iconColor: 'text-white', bgColor: 'bg-pink-400' },
+  { name: 'Happy', value: 'happy', icon: FaceSmileIconMini, iconColor: 'text-white', bgColor: 'bg-green-400' },
+  { name: 'Sad', value: 'sad', icon: FaceFrownIcon, iconColor: 'text-white', bgColor: 'bg-yellow-400' },
+  { name: 'Thumbsy', value: 'thumbsy', icon: HandThumbUpIcon, iconColor: 'text-white', bgColor: 'bg-blue-500' },
+  { name: 'I feel nothing', value: null, icon: XMarkIcon, iconColor: 'text-gray-400', bgColor: 'bg-transparent' },
+]
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -36,11 +50,12 @@ export function Example() {
 
 export function AddIssue() {
     const [assigned, setAssigned] = useState(assignees[0])
-  const [labelled, setLabelled] = useState(labels[0])
-  // const [dated, setDated] = useState(dueDates[0])
+    const [labelled, setLabelled] = useState(labels[0])
+    // const [dated, setDated] = useState(dueDates[0])
+    const [selected, setSelected] = useState(moods[5])
 
   return (
-    <form action="#" className="relative">
+    <form action="#" className="relative scroll-smooth">
       <div className="overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
         <label htmlFor="title" className="sr-only">
           Title
@@ -87,12 +102,6 @@ export function AddIssue() {
                 <Listbox.Label className="sr-only">Assign</Listbox.Label>
                 <div className="relative">
                   <Listbox.Button className="relative inline-flex items-center whitespace-nowrap rounded-full bg-gray-50 px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 sm:px-3">
-                    {/* {assigned.value === null ? (
-                      <UserCircleIcon className="h-5 w-5 flex-shrink-0 text-gray-300 sm:-ml-1" aria-hidden="true" />
-                    ) : (
-                      <img src={assigned.avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
-                    )} */}
-
                     <span
                       className={classNames(
                         assigned.value === null ? '' : 'text-gray-900',
@@ -193,70 +202,78 @@ export function AddIssue() {
               </>
             )}
           </Listbox>
-
-          {/* <Listbox as="div" value={dated} onChange={setDated} className="flex-shrink-0">
-            {({ open }) => (
-              <>
-                <Listbox.Label className="sr-only">Add a due date</Listbox.Label>
-                <div className="relative">
-                  <Listbox.Button className="relative inline-flex items-center whitespace-nowrap rounded-full bg-gray-50 px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 sm:px-3">
-                    <CalendarIcon
-                      className={classNames(
-                        dated.value === null ? 'text-gray-300' : 'text-gray-500',
-                        'h-5 w-5 flex-shrink-0 sm:-ml-1'
-                      )}
-                      aria-hidden="true"
-                    />
-                    <span
-                      className={classNames(
-                        dated.value === null ? '' : 'text-gray-900',
-                        'hidden truncate sm:ml-2 sm:block'
-                      )}
-                    >
-                      {dated.value === null ? 'Due date' : dated.name}
-                    </span>
-                  </Listbox.Button>
-
-                  <Transition
-                    show={open}
-                    as={Fragment}
-                    leave="transition ease-in duration-100"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <Listbox.Options className="absolute right-0 z-10 mt-1 max-h-56 w-52 overflow-auto rounded-lg bg-white py-3 text-base shadow ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                      {dueDates.map((dueDate) => (
-                        <Listbox.Option
-                          key={dueDate.value}
-                          className={({ active }) =>
-                            classNames(
-                              active ? 'bg-gray-100' : 'bg-white',
-                              'relative cursor-default select-none px-3 py-2'
-                            )
-                          }
-                          value={dueDate}
-                        >
-                          <div className="flex items-center">
-                            <span className="block truncate font-medium">{dueDate.name}</span>
-                          </div>
-                        </Listbox.Option>
-                      ))}
-                    </Listbox.Options>
-                  </Transition>
-                </div>
-              </>
-            )}
-          </Listbox> */}
         </div>
         <div className="flex items-center justify-between space-x-3 border-t border-gray-200 px-2 py-2 sm:px-3">
           <div className="flex">
-            <button
-              type="button"
-              className="group -my-2 -ml-2 inline-flex items-center rounded-full px-3 py-2 text-left text-gray-400"
-            >
-              <PaperClipIcon className="-ml-1 mr-2 h-5 w-5 group-hover:text-gray-500" aria-hidden="true" />
-              <span className="text-sm italic text-gray-500 group-hover:text-gray-600">Attach a file</span>
-            </button>
+          <Listbox value={selected} onChange={setSelected}>
+                  {({ open }) => (
+                    <>
+                      <Listbox.Label className="sr-only">Your mood</Listbox.Label>
+                      <div className="relative">
+                        <Listbox.Button className="relative -m-2 inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-400 hover:text-gray-500">
+                          <span className="flex items-center justify-center">
+                            {selected.value === null ? (
+                              <span>
+                                <FaceSmileIconOutline className="h-6 w-6 flex-shrink-0" aria-hidden="true" />
+                                <span className="sr-only">Add your mood</span>
+                              </span>
+                            ) : (
+                              <span>
+                                <span
+                                  className={classNames(
+                                    selected.bgColor,
+                                    'flex h-8 w-8 items-center justify-center rounded-full'
+                                  )}
+                                >
+                                  <selected.icon className="h-5 w-5 flex-shrink-0 text-white" aria-hidden="true" />
+                                </span>
+                                <span className="sr-only">{selected.name}</span>
+                              </span>
+                            )}
+                          </span>
+                        </Listbox.Button>
+
+                        <Transition
+                          show={open}
+                          as={Fragment}
+                          leave="transition ease-in duration-100"
+                          leaveFrom="opacity-100"
+                          leaveTo="opacity-0"
+                        >
+                          <Listbox.Options className="absolute z-10 -ml-6 w-60 rounded-lg bg-white py-3 text-base shadow ring-1 ring-black ring-opacity-5 focus:outline-none sm:ml-auto sm:w-64 sm:text-sm">
+                            {moods.map((mood) => (
+                              <Listbox.Option
+                                key={mood.value}
+                                className={({ active }) =>
+                                  classNames(
+                                    active ? 'bg-gray-100' : 'bg-white',
+                                    'relative cursor-default select-none px-3 py-2'
+                                  )
+                                }
+                                value={mood}
+                              >
+                                <div className="flex items-center">
+                                  <div
+                                    className={classNames(
+                                      mood.bgColor,
+                                      'flex h-8 w-8 items-center justify-center rounded-full'
+                                    )}
+                                  >
+                                    <mood.icon
+                                      className={classNames(mood.iconColor, 'h-5 w-5 flex-shrink-0')}
+                                      aria-hidden="true"
+                                    />
+                                  </div>
+                                  <span className="ml-3 block truncate font-medium">{mood.name}</span>
+                                </div>
+                              </Listbox.Option>
+                            ))}
+                          </Listbox.Options>
+                        </Transition>
+                      </div>
+                    </>
+                  )}
+                </Listbox>
           </div>
           <div className="flex-shrink-0">
             <button

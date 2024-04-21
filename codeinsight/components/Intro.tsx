@@ -32,7 +32,7 @@ export default function Intro() {
     //     </div>
     // </section>
 
-    <div className="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
+    <div className="relative fadeIn isolate overflow-hidden bg-gray-900 py-24 sm:py-32">
       <Image
         src={BG}
         alt="Background"
@@ -40,10 +40,10 @@ export default function Intro() {
       />
 
         <div className="text-center mx-auto ">
-          <p className="mt-2 font-nycd text-8xl tracking-tight text-white">
+          <p className="zoomIn mt-2 font-nycd text-8xl tracking-tight text-white">
             CodeInsight
           </p>
-          <p className="italic mt-6 text-xl text-pretty leading-8 text-gray-300">
+          <p className="zoomIn italic mt-6 text-xl text-pretty leading-8 text-gray-300">
             a code issues discussion forum displaying valuable code examples to advance learning 
            <br className="hidden md:block" /> and optimize code structure.
           </p>
