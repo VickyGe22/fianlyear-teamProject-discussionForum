@@ -15,7 +15,6 @@ const people = [
 export default function Example() {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<Array<{ text: string; user: { name: string; imageUrl: string; }; likes: number; isLiked: boolean; }>>([]);
-  const [clicked, setClicked] = useState(false);
 
   const handleCommentChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setComment(e.target.value);

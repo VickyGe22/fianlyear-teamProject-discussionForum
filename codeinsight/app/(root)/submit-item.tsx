@@ -5,9 +5,6 @@ export default function PostItem({ ...props }) {
     <div className={`[&:nth-child(-n+12)]:-order-1 group ${!props.sticky && 'border-b border-gray-200'}`}>
       <div className={`px-4 py-6 ${props.sticky && 'bg-indigo-100 rounded-xl'}`}>
         <div className="sm:flex items-center space-y-3 sm:space-y-0 sm:space-x-5">
-          {/* <div className="shrink-0">
-            <img src={props.image} width="56" height="56" alt={props.status} />
-          </div> */}
           <div className="grow lg:flex items-center justify-between space-y-5 lg:space-x-2 lg:space-y-0">
             <div>
               <div className="flex datas-start space-x-2">

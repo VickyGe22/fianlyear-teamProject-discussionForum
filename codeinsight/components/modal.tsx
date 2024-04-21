@@ -11,8 +11,6 @@ interface ModalProps {
   }
 
   function Modal({ isOpen, closeModal, children }: ModalProps)  {
-  // 此处不再需要内部状态管理显示/隐藏，直接使用从父组件传递来的 props
-  console.log(children);
 
   return (
 

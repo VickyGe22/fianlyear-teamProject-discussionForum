@@ -53,7 +53,6 @@
 
 
 import { CheckIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -72,7 +71,7 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose }) => {
 
   const handlDiscussion = () => {
     onClose(); // Close the dialog
-    router.push('/discussion-forum'); // Navigate to the "/submits" page
+    router.push('/code-sample-repository'); // Navigate to the "/submits" page
   };
 
   const handlHome = () => {

@@ -24,7 +24,7 @@ export default function Home() {
             <div className='fadeIn' >
                 <a href="/code-sample-repository" className=" flex py-10 px-16 items-center text-sm font-medium text-blue-600 hover:text-blue-800">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                         </svg>
                         Back to discuss other samples 
                 </a>
@@ -63,7 +63,6 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* 使用 AddIssueModal 弹窗，并传入控制函数和状态 */}
                 <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
                     <AddIssue />
                 </Modal>

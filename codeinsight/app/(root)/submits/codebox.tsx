@@ -40,7 +40,6 @@ const CodeBox = () => {
     }
   }, []);
 
-  // return <div className="cm-theme" ref={editorRef}></div>;
   return <div className="cm-editor" ref={editorRef}></div>;
 
 

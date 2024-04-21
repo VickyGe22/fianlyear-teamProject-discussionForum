@@ -132,12 +132,6 @@ export function AddIssue() {
                           value={assignee}
                         >
                           <div className="flex items-center">
-                            {/* {assignee.avatar ? (
-                              <img src={assignee.avatar} alt="" className="h-5 w-5 flex-shrink-0 rounded-full" />
-                            ) : (
-                              <UserCircleIcon className="h-5 w-5 flex-shrink-0 text-gray-400" aria-hidden="true" />
-                            )} */}
-
                             <span className="ml-3 block truncate font-medium">{assignee.name}</span>
                           </div>
                         </Listbox.Option>
