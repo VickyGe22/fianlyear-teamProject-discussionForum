@@ -31,6 +31,8 @@ npm install framer-motion
 npm install three @react-three/fiber framer-motion-3d
 npm install animate.css --save
 npm install mongoose
+npm install tailwind-merge
+npm install clsx
 
 5. run : npm run dev
 
