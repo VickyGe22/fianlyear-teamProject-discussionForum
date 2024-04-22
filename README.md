@@ -30,7 +30,7 @@ npm install codemirror
 npm install framer-motion
 npm install three @react-three/fiber framer-motion-3d
 npm install animate.css --save
-npm i mongoose
+npm install mongoose
 
 5. run : npm run dev
 
