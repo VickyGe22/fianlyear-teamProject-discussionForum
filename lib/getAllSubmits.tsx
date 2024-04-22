@@ -1,4 +1,4 @@
-import type { Post } from '../types'
+import type { Post } from '../codeinsight/types'
 export default async function getAllPosts(): Promise<Post[]> {
     // const res = await fetch('https://raw.githubusercontent.com/cruip/cruip-dummy/main/job-board-posts.json')
 
