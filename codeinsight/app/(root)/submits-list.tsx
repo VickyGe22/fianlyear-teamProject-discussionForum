@@ -36,5 +36,3 @@ export default async function SubmitList() {
     </div>
   )
 }
-
-//用户提交之后绑定展示到这个页面

@@ -1,7 +1,7 @@
 import '../../app/css/additional-styles/animation.css'; 
 import { Suspense, useState } from "react";
 import { motion, MotionConfig, useMotionValue } from "framer-motion";
-import { Shapes } from "./shapes";
+// import { Shapes } from "./shapes";
 import { transition } from "./settings";
 import useMeasure from "react-use-measure";
 
@@ -19,7 +19,7 @@ export default function Animation() {
 
   return (
     <MotionConfig transition={transition}>
-      <motion.button
+      <motion.button className="custom-button"
         ref={ref}
         initial={false}
         animate={isHover ? "hover" : "rest"}
@@ -67,7 +67,7 @@ export default function Animation() {
         </motion.div>
         <motion.div
           variants={{ hover: { scale: 0.85 }, press: { scale: 1.1 } }}
-          className="label"
+          className="label tracking-wide"
         >
           Submit Your Code Sample
         </motion.div>

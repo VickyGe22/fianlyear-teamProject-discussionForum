@@ -175,15 +175,7 @@ export default function Example() {
                 onClick={() => handleLike(index)}
                 className="text-gray-500 hover:text-gray-700 flex items-center space-x-1 focus:outline-none"
               >
-                {/* <svg
-                  className="w-4 h-4 text-gray-500 hover:text-gray-700"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7"></path>
-                </svg> */}
+   
                 {comment.isLiked ? (
                     <Image src={Like2} className="w-4 h-4" alt="Liked" />
                   ) : (

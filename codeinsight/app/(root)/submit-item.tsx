@@ -3,21 +3,10 @@ import Link from 'next/link'
 export default function PostItem({ ...props }) {
   return (
     <div className={`[&:nth-child(-n+12)]:-order-1 group ${!props.sticky && 'border-b border-gray-200'}`}>
-      <div className={`px-4 py-6 ${props.sticky && 'bg-indigo-100 rounded-xl'}`}>
+      <div className={`px-4 py-6 ${props.sticky && 'rounded-xl'}`}>
         <div className="sm:flex items-center space-y-3 sm:space-y-0 sm:space-x-5">
-          {/* <div className="shrink-0">
-            <img src={props.image} width="56" height="56" alt={props.status} />
-          </div> */}
           <div className="grow lg:flex items-center justify-between space-y-5 lg:space-x-2 lg:space-y-0">
             <div>
-              <div className="flex datas-start space-x-2">
-                <div className="text-sm text-gray-800 font-semibold mb-1">{props.status}</div>
-                {props.sticky && (
-                  <svg className="w-3 h-3 shrink-0 fill-amber-400" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M11.143 5.143A4.29 4.29 0 0 1 6.857.857a.857.857 0 0 0-1.714 0A4.29 4.29 0 0 1 .857 5.143a.857.857 0 0 0 0 1.714 4.29 4.29 0 0 1 4.286 4.286.857.857 0 0 0 1.714 0 4.29 4.29 0 0 1 4.286-4.286.857.857 0 0 0 0-1.714Z" />
-                  </svg>
-                )}
-              </div>
               <div className="mb-2">
                 <Link className="text-lg text-gray-800 font-bold" href={`/posts/${props.id}`}>
                   {props.title}
