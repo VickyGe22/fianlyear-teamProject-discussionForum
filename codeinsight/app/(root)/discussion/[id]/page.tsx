@@ -1,10 +1,10 @@
 'use client';
-import GeneralComments from "./discuss-subpage/generalcomments";
-import Issue from "./discuss-subpage/issuepage";
+import GeneralComments from "../comments/generalcomments";
+import Issue from "../comments/issuepage";
 import { PlusIcon } from '@heroicons/react/20/solid'
-import SolutionDisplay from "./discuss-subpage/solution_display";
-import { useState } from 'react'; // 导入 useState
-import AddIssue from './discuss-subpage/addissue';
+import SolutionDisplay from "../comments/solution_display";
+import { useState } from 'react'; 
+import AddIssue from '../comments/addissue';
 import Modal from "@/components/modal";
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
     return(
         <>
             <div className='fadeIn' >
-                <a href="/code-sample-repository" className=" flex py-10 px-16 items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+                <a href="/sampleLists" className=" flex py-10 px-16 items-center text-sm font-medium text-blue-600 hover:text-blue-800">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                         </svg>

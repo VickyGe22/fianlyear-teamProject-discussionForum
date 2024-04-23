@@ -52,7 +52,7 @@ export default function Home() {
               />
               {/* Overlay that appears on hover */}
               <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-300 ease-in-out flex flex-col justify-center items-center">
-                <Link legacyBehavior href="/code-sample-repository">
+                <Link legacyBehavior href="/sampleLists">
                   <a className="text-center">
                   <h3 className="text-2xl zoomIn font-extrabold text-black px-2 ease-in-out mt-4 " style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
                       Discussion
@@ -73,7 +73,7 @@ export default function Home() {
               />
               {/* Overlay that appears on hover */}
               <div className="absolute inset-0  bg-opacity-0 group-hover:bg-opacity-90 transition-opacity duration-300 ease-in-out flex flex-col justify-center items-center">
-                <Link legacyBehavior href="/review-page">
+                <Link legacyBehavior href="/review">
                   <a className="text-center">
                   <h3 className="text-2xl zoomIn font-extrabold text-black px-2 ease-in-out mt-4 " style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
                       Review

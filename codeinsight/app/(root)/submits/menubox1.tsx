@@ -1,6 +1,6 @@
 'use client'; 
 import React, { useState } from 'react';
-import CustomDialog from './CustomDialog';
+import CustomDialog from './customdialog';
 
 
 const MenuBox1 = () => {
