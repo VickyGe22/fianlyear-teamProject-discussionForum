@@ -44,7 +44,8 @@ const TagInput = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    // <form onSubmit={handleSubmit}>
+    <div>
       <div className="flex flex-wrap gap-2 w-full py-2">
         <input
           type="text"
@@ -73,7 +74,8 @@ const TagInput = () => {
       ))}
       </div>
 
-    </form>
+    {/* // </form> */}
+    </div>
   );
 };
 

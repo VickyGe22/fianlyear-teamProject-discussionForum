@@ -25,6 +25,21 @@ export default function SubmitSample() {
         setIsModalOpen(false);
     };
 
+    const [code, setCode] = useState('');
+  
+    const handleSubmit = async () => {
+          const response = await fetch('./api/submits', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ codesamples: code })
+          });
+  
+          const data = await response.json();
+          console.log(data);
+      };
+
   return (
     <>
       <div className='fadeIn py-10 px-32' >
@@ -46,7 +61,7 @@ export default function SubmitSample() {
                   <label className="block text-sm font-medium mb-1" htmlFor="name">
                   Code sample <span className="text-red-500">*</span>
                   </label>
-                  <CodeBox />
+                  <CodeBox code={code} setCode={setCode} />
                   
                 </div>
                 {/* gap-8是两个flexbox之间的间隔 */}
@@ -58,7 +73,7 @@ export default function SubmitSample() {
                   <label className="block text-sm font-medium mb-1" htmlFor="email">
                     Issue Description <span className="text-red-500">*</span>
                   </label>
-                  <CodeBox />
+                  <CodeBox code={code} setCode={setCode} />
                 </div>
               </div>
             </div>
@@ -81,7 +96,8 @@ export default function SubmitSample() {
 
         <div className="mt-6 flex justify-center">
           <a onClick={handleOpenModal}>
-            <Button />
+            {/* <Button /> */}
+            <button onClick={handleSubmit}>Submit Code</button>
           </a>
         </div>
         <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
