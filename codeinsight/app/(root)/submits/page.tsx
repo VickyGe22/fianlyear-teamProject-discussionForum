@@ -25,19 +25,26 @@ export default function SubmitSample() {
         setIsModalOpen(false);
     };
 
+    //传输codebox和menubox的数据
     const [code, setCode] = useState('');
-  
+    const [selectedLanguage, setSelectedLanguage] = useState('');
+    const [selectedLevel, setSelectedLevel] = useState('');
+    const [selectedtype, setSelectedtype] = useState('');
+    const [comment, setComment] = useState('');
+    const [tags, setTags] = useState<string[]>([]);
+
     const handleSubmit = async () => {
-          const response = await fetch('./api/submits', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ codesamples: code })
-          });
-  
-          const data = await response.json();
-          console.log(data);
+        const response = await fetch('./api/submits', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
+            issuedescriptions:comment, tags: tags})
+        });
+    
+        const data = await response.json();
+        console.log(data);
       };
 
   return (
@@ -66,14 +73,25 @@ export default function SubmitSample() {
                 </div>
                 {/* gap-8是两个flexbox之间的间隔 */}
                 <div className="flex justify-left  gap-8">
-                <MenuBox /> <MenuBox1 /> <MenuBox2 /> 
+                  <MenuBox selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> 
+                  <MenuBox1 selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} /> 
+                  <MenuBox2 selectedtype={selectedtype} setSelectedtype={setSelectedtype} /> 
                 </div>
               {/*comments*/}
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="email">
                     Issue Description <span className="text-red-500">*</span>
                   </label>
-                  <CodeBox code={code} setCode={setCode} />
+                  <form onSubmit={handleSubmit}>
+                    <textarea
+                      rows={4}
+                      name="comment"
+                      id="comment"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    />
+                  </form>
                 </div>
               </div>
             </div>
@@ -86,7 +104,7 @@ export default function SubmitSample() {
                     Tags <span className="text-gray-500">(optional)</span>
                   </label>
                   {/* <input id="salary" className="form-input w-full" type="text" /> */}
-                  <TagInput />
+                  <TagInput tags={tags} setTags={setTags}/>
                   <div className="text-xs text-gray-500 italic mt-2">Example: “while-duplicate”</div>
                 </div>
               </div>
@@ -96,8 +114,7 @@ export default function SubmitSample() {
 
         <div className="mt-6 flex justify-center">
           <a onClick={handleOpenModal}>
-            {/* <Button /> */}
-            <button onClick={handleSubmit}>Submit Code</button>
+            <Button onClick={handleSubmit}/>
           </a>
         </div>
         <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>

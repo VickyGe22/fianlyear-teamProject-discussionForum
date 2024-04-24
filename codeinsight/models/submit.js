@@ -13,39 +13,22 @@ const submitSchema = new Schema({
 
   languages: {
     type: String,
-    required: false,
-    enum: ['Python', 'C', 'C++', 'C#', 'Java', 'JavaScript', 'Other'], // Predefined options plus 'Other'
+    required: true,
     default: 'Python' // Default value if none is provided
   },
+
   
-  customLanguage: {
-    type: String,
-    required: false, 
-    default: '' // To store a custom language if 'Other' is chosen
-  },
- 
   levels: {
     type: String,
-    required: false,
-    enum: ['Bachelor-cs1', 'Bachelor-cs2', 'Master-cs1', 'PhD-cs1', 'Other'], // Predefined levels plus 'Other'
+    required: true,
     default: 'Bachelor-cs1'
   },
-  customLevel: {
-    type: String,
-    required: false, 
-    default: '' // To store a custom level if 'Other' is chosen
-  },
+
   
   types: {
     type: String,
-    required: false,
-    enum: ['Assignment', 'Project', 'Exam', 'Other'], // Predefined types plus 'Other'
+    required: true,
     default: 'Assignment'
-  },
-  customType: {
-    type: String,
-    required: false, 
-    default: '' // To store a custom type if 'Other' is chosen
   },
 
   issuedescriptions: {
@@ -67,3 +50,6 @@ const Submit =
   mongoose.models.Submit || mongoose.model("Submit", submitSchema);
 
 export default Submit;
+
+
+// versionKey: false // Set to false to disable the version key (__v)
