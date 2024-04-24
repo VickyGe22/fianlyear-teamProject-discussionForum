@@ -14,47 +14,34 @@ const submitSchema = new Schema({
   languages: {
     type: String,
     required: true,
-    enum: ['Python', 'C', 'C++', 'C#', 'Java', 'JavaScript', 'Other'], // Predefined options plus 'Other'
     default: 'Python' // Default value if none is provided
   },
+
   
-  customLanguage: {
-    type: String,
-    default: '' // To store a custom language if 'Other' is chosen
-  },
- 
   levels: {
     type: String,
     required: true,
-    enum: ['Bachelor-cs1', 'Bachelor-cs2', 'Master-cs1', 'PhD-cs1', 'Other'], // Predefined levels plus 'Other'
     default: 'Bachelor-cs1'
   },
-  customLevel: {
-    type: String,
-    default: '' // To store a custom level if 'Other' is chosen
-  },
+
   
   types: {
     type: String,
     required: true,
-    enum: ['Assignment', 'Project', 'Exam', 'Other'], // Predefined types plus 'Other'
     default: 'Assignment'
-  },
-  customType: {
-    type: String,
-    default: '' // To store a custom type if 'Other' is chosen
   },
 
   issuedescriptions: {
     type: String,
-    required: true, // Since there's an asterisk indicating that Issue Description is required
-    trim: true // To remove whitespace from both ends of the string
+    required: false, // Since there's an asterisk indicating that Issue Description is required
+    trim: true, // To remove whitespace from both ends of the string
+    default: ''
   },
 
   tags: [{
     type: String,
-    trim: true, // Each tag is a trimmed string
-    unique: true, //unique用于指定该字段在整个集合中必须是唯一的
+    required: false, 
+    trim: true
   }],
 
 });
@@ -63,3 +50,6 @@ const Submit =
   mongoose.models.Submit || mongoose.model("Submit", submitSchema);
 
 export default Submit;
+
+
+// versionKey: false // Set to false to disable the version key (__v)

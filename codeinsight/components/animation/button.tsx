@@ -5,7 +5,7 @@ import { motion, MotionConfig, useMotionValue } from "framer-motion";
 import { transition } from "./settings";
 import useMeasure from "react-use-measure";
 
-export default function Animation() {
+export default function Animation({ onClick }: { onClick: () => void }) {
   const [ref, bounds] = useMeasure({ scroll: false });
   const [isHover, setIsHover] = useState(false);
   const [isPress, setIsPress] = useState(false);
@@ -38,7 +38,10 @@ export default function Animation() {
           setIsHover(false);
         }}
         onTapStart={() => setIsPress(true)}
-        onTap={() => setIsPress(false)}
+        onTap={() => {
+          setIsPress(false);
+          onClick();  // Trigger the passed onClick function on tap
+        }}
         onTapCancel={() => setIsPress(false)}
         onPointerMove={(e) => {
           mouseX.set(e.clientX - bounds.x - bounds.width / 2);
