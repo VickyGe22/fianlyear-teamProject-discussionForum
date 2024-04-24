@@ -7,7 +7,7 @@ import MenuBox2 from './menubox2'
 import TagInput from './add_tag'
 
 import { useState } from 'react';
-import SubmitDialog from './SubmitDialog';
+import SubmitDialog from './submit-popup';
 import Modal from "@/components/modal";
 import Button from '../../../components/animation/button'
 

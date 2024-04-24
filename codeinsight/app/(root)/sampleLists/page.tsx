@@ -4,7 +4,7 @@ export const metadata = {
 }
 
 import Sidebar from '@/components/sidebar'
-import SubmitList from '../submits-list'
+import SubmitList from './submits-list'
 
 
 export default function Home() {

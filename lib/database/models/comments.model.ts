@@ -1,28 +1,73 @@
-import { Document, Schema, model, models } from "mongoose";
+import mongoose from "mongoose";
+
+const communitySchema = new mongoose.Schema({
+  id: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  image: String,
+  bio: String,
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "comments",
+    },
+  ],
+  members: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+});
+
+const Community =
+  mongoose.models.Community || mongoose.model("Community", communitySchema);
+
+export default Community;
+
+
+
+
+
+// import { Document, Schema, model, models } from "mongoose";
 // Schema：是一个构造函数，用于定义MongoDB集合中文档的结构（schema）。通过指定字段名和字段类型，你可以定义存储在文档中的数据的形状。
 // model：是一个函数，用于将定义好的Schema转换为一个可以与数据库进行交互的模型。模型的名字（在这个例子中是'Image'）是该模型对应的集合名的单数形式。Mongoose会自动查找该名称的复数形式的集合。如果集合不存在，Mongoose会创建它。
 // models：是一个对象，存储所有已经通过mongoose.model定义的模型。这可以用来防止在热重载（如在开发模式下）时多次编译模型。
 
-export interface PicImage extends Document {
-    title: string;
-    transformationType: string;
-    publicId: string;
-    secureUrl: string; // URL represented as string
-    width?: number; // Optional because not marked as required
-    height?: number; // Optional because not marked as required
-    config?: object; // Optional and general object type
-    transformationUrl?: string; // URL represented as string, optional
-    aspectRatio?: string; // Optional because not marked as required
-    color?: string; // Optional because not marked as required
-    prompt?: string; // Optional because not marked as required
-    author: {
-        _id:string; 
-        firstName: string;
-        lastName: string;
-    }; // Representing the ObjectId as string
-    createdAt?: Date; // Optional because it has a default value
-    updatedAt?: Date; // Optional because it has a default value
-  }
+// export interface PicImage extends Document {
+//     title: string;
+//     transformationType: string;
+//     publicId: string;
+//     secureUrl: string; // URL represented as string
+//     width?: number; // Optional because not marked as required
+//     height?: number; // Optional because not marked as required
+//     config?: object; // Optional and general object type
+//     transformationUrl?: string; // URL represented as string, optional
+//     aspectRatio?: string; // Optional because not marked as required
+//     color?: string; // Optional because not marked as required
+//     prompt?: string; // Optional because not marked as required
+//     author: {
+//         _id:string; 
+//         firstName: string;
+//         lastName: string;
+//     }; // Representing the ObjectId as string
+//     createdAt?: Date; // Optional because it has a default value
+//     updatedAt?: Date; // Optional because it has a default value
+//   }
 
 //如果你有一个用户模型，并且你想在这个模型上添加一些特定的方法或者虚拟属性
 //你可能会定义一个接口来扩展基本的Mongoose文档类型，并且添加你自己的方法声明
@@ -30,37 +75,37 @@ export interface PicImage extends Document {
 // 代码组织：使用接口可以更好地组织和管理代码，尤其是在大型项目中。它允许你在不同的地方重用相同的类型定义，提高代码的可维护性。
 // 功能扩展：通过接口，你可以为模型定义额外的方法和属性，这在仅使用Mongoose的Schema定义时做不到的。
   
-const ImageSchema = new Schema({
-  title: { type: String, required: true},
-  transformationType: { type: String, required: true},
-  publicId: { type: String, required: true},
-  securUrl: { type: URL, required: true},
-  width: { type: Number},
-  height: { type: Number},
-  config: { type:Object},
- transformationUrl: { type:URL},
- aspectRatio:{ type: String },
- color: { type: String },
- prompt: { type: String },
- author: { type: Schema.Types.ObjectId, ref: 'User'},
- createdAt: { type: Date, default: Date.now},
- updatedAt: { type: Date, default: Date.now},
+// const ImageSchema = new Schema({
+//   title: { type: String, required: true},
+//   transformationType: { type: String, required: true},
+//   publicId: { type: String, required: true},
+//   securUrl: { type: URL, required: true},
+//   width: { type: Number},
+//   height: { type: Number},
+//   config: { type:Object},
+//  transformationUrl: { type:URL},
+//  aspectRatio:{ type: String },
+//  color: { type: String },
+//  prompt: { type: String },
+//  author: { type: Schema.Types.ObjectId, ref: 'User'},
+//  createdAt: { type: Date, default: Date.now},
+//  updatedAt: { type: Date, default: Date.now},
 
-});
+// });
 // 这部分定义了一个名为ImageSchema的Schema实例，它描述了图片文档的结构，包括标题、转换类型、公共ID、安全URL等字段。
 // 每个字段都定义了它的类型（如String, Number, URL, Object等），是否为必填（required: true），
 // 以及一些字段的默认值（如createdAt和updatedAt字段使用Date.now作为默认值）。
 // author字段使用了特殊的类型Schema.Types.ObjectId，表示该字段存储的是另一个文档的ID。
 // ref: 'User'表示这个ID引用的是User模型的文档。这在Mongoose中用于建立文档之间的关系，即所谓的“文档引用”。
 
-const Image = models?.Image || model('Image', ImageSchema);
+// const Image = models?.Image || model('Image', ImageSchema);
 
 // 这行代码尝试从models对象中获取名为Image的模型。
 // 如果该模型已存在（比如，在热重载环境下，防止重复编译模型），则直接使用它。
 // 如果不存在，使用model('Image', ImageSchema)创建一个新的Image模型。
 // Image模型之后可以用来进行创建（new Image()）、查询（Image.find()）、更新（Image.findByIdAndUpdate()）等数据库操作。
 
-export default Image;
+// export default Image;
 
 
 //补充知识点：
