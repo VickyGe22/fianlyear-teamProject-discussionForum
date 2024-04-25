@@ -14,7 +14,8 @@ const submitSchema = new Schema({
   languages: {
     type: String,
     required: true,
-    default: 'Python' // Default value if none is provided
+    enum: ['Python', 'C', 'C++', 'C#', 'Java', 'JavaScript', 'Other'], // Predefined options plus 'Other'
+    // default: 'Python' // Default value if none is provided
   },
 
   
@@ -23,12 +24,20 @@ const submitSchema = new Schema({
     required: true,
     default: 'Bachelor-cs1'
   },
-
+  customLevel: {
+    type: String,
+    // default: '' // To store a custom level if 'Other' is chosen
+  },
   
   types: {
     type: String,
     required: true,
-    default: 'Assignment'
+    enum: ['Assignment', 'Project', 'Exam', 'Other'], // Predefined types plus 'Other'
+    // default: 'Assignment'
+  },
+  customType: {
+    type: String,
+    // default: '' // To store a custom type if 'Other' is chosen
   },
 
   issuedescriptions: {

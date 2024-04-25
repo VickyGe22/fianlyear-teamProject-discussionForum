@@ -1,10 +1,10 @@
 'use client';
-import GeneralComments from "../comments/generalcomments";
-import Issue from "../comments/issuepage";
-import { PlusIcon } from '@heroicons/react/20/solid'
-import SolutionDisplay from "../comments/solution_display";
+import GeneralComments from "../generalcomments";
+import Issue from "../issuepage";
+import { PlusIcon } from '@heroicons/react/20/solid';
+import SolutionDisplay from "../solution_display";
 import { useState } from 'react'; 
-import AddIssue from '../comments/addissue';
+import AddIssue from '../addissue';
 import Modal from "@/components/modal";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
         setIsModalOpen(false);
     };
 
-    return(
+    return (
         <>
             <div className='fadeIn' >
                 <a href="/sampleLists" className=" flex py-10 px-16 items-center text-sm font-medium text-blue-600 hover:text-blue-800">
@@ -78,5 +78,5 @@ export default function Home() {
                 </div>
             </div>
         </>
-    )
+    );
 }
