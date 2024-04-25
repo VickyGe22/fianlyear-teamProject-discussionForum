@@ -2,29 +2,9 @@
 
 import React, { useState } from 'react';
 
-const TagInput = () => {
-  const [tags, setTags] = useState<string[]>([]); // 存储所有标签
+const TagInput = ({tags, setTags}: {tags: string[], setTags: React.Dispatch<React.SetStateAction<string[]>>}) => {
+  
   const [input, setInput] = useState(''); // 当前输入框的值
-
-  const handleSubmit = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault(); // 确保提交时不会重新加载页面
-    // if (!tags) {
-    //   alert('Please add tags');
-    // };
-
-    try {
-      await fetch('http://localhost:3000/api/submits'), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ tags }),
-      },
-      console.log(tags);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   const handleKeyDown = (e: { key: string; }) => {
     const trimmedInput = input.trim();
@@ -44,7 +24,8 @@ const TagInput = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    // <form onSubmit={handleSubmit}>
+    <div>
       <div className="flex flex-wrap gap-2 w-full py-2">
         <input
           type="text"
@@ -73,7 +54,8 @@ const TagInput = () => {
       ))}
       </div>
 
-    </form>
+    {/* // </form> */}
+    </div>
   );
 };
 
