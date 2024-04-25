@@ -1,9 +1,10 @@
-import GeneralComments from "../comments/generalcomments";
-import Issue from "../comments/issuepage";
+'use client';
+import GeneralComments from "../generalcomments";
+import Issue from "../issuepage";
 import { PlusIcon } from '@heroicons/react/20/solid';
-import SolutionDisplay from "../comments/solution_display";
-import { useEffect, useState } from 'react'; 
-import AddIssue from '../comments/addissue';
+import SolutionDisplay from "../solution_display";
+import { useState } from 'react'; 
+import AddIssue from '../addissue';
 import Modal from "@/components/modal";
 
 export default function Home() {
@@ -18,27 +19,6 @@ export default function Home() {
         setIsModalOpen(false);
     };
 
-    const [submit, setSubmit] = useState([]);
-
-    useEffect(() => {
-        const fetchSubmit = async () => {
-            try {
-                const res = await fetch(`./api/submits`, {
-                    method: 'GET',
-                    cache: 'no-store'
-                });
-                if (!res.ok) {
-                    throw new Error('Failed to fetch submit');
-                }
-                const data = await res.json();
-                setSubmit(data.submit);
-            } catch (error) {
-                console.error('There was an error!', error);
-            }
-        };
-        fetchSubmit(); // Call fetchSubmit function here
-    }, []); // Corrected the syntax here
-
     return (
         <>
             <div className='fadeIn' >
@@ -51,7 +31,7 @@ export default function Home() {
 
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
                     <div className="px-4 py-5 sm:p-6 shadow-lg">
-                        <SolutionDisplay id={submit._id}/>
+                        <SolutionDisplay />
                     </div>
                 </div>
 
