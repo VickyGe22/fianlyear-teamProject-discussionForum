@@ -15,7 +15,7 @@ const submitSchema = new Schema({
     type: String,
     required: true,
     enum: ['Python', 'C', 'C++', 'C#', 'Java', 'JavaScript', 'Other'], // Predefined options plus 'Other'
-    default: 'Python' // Default value if none is provided
+    // default: 'Python' // Default value if none is provided
   },
   
   customLanguage: {
@@ -31,18 +31,18 @@ const submitSchema = new Schema({
   },
   customLevel: {
     type: String,
-    default: '' // To store a custom level if 'Other' is chosen
+    // default: '' // To store a custom level if 'Other' is chosen
   },
   
   types: {
     type: String,
     required: true,
     enum: ['Assignment', 'Project', 'Exam', 'Other'], // Predefined types plus 'Other'
-    default: 'Assignment'
+    // default: 'Assignment'
   },
   customType: {
     type: String,
-    default: '' // To store a custom type if 'Other' is chosen
+    // default: '' // To store a custom type if 'Other' is chosen
   },
 
   issuedescriptions: {
