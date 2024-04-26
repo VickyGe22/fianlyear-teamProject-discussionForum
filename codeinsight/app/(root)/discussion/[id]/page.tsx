@@ -3,13 +3,16 @@ import GeneralComments from "../generalcomments";
 import Issue from "../issuepage";
 import { PlusIcon } from '@heroicons/react/20/solid';
 import SolutionDisplay from "../solution_display";
-import { useState } from 'react'; 
 import AddIssue from '../addissue';
 import Modal from "@/components/modal";
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+
 
 export default function Home() {
     
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
 
     const handleOpenModal = () => {
         setIsModalOpen(true);
@@ -18,6 +21,16 @@ export default function Home() {
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
+
+    const router = useRouter();
+
+    // 使用useEffect来确保组件挂载后获取pageId
+    useEffect(() => {
+        if (router.isReady) {  // 确保路由系统已准备好
+            const queryPageId = router.query.pageid as string;;  // 从路由查询参数中获取pageId
+            setPageId(queryPageId);
+        }
+    }, [router.isReady, router.query.pageid]);  // 依赖项包括路由准备状态和pageId变化
 
     return (
         <>
@@ -31,7 +44,7 @@ export default function Home() {
 
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
                     <div className="px-4 py-5 sm:p-6 shadow-lg">
-                        <SolutionDisplay />
+                        <SolutionDisplay pageId={pageId} />
                     </div>
                 </div>
 

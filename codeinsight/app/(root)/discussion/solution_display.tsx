@@ -13,7 +13,6 @@ const SolutionDisplay = ({ pageId }) => {
         const fetchSubmits = async () => {
             try {
                 const res = await fetch(`../../api/submits?pageid=${pageId}`, {
-                    method: 'GET',
                     cache: 'no-store'
                 });
                 if (!res.ok) {
