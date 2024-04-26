@@ -4,10 +4,10 @@ import CodeBox from './codebox'
 import MenuBox from './menubox'
 import MenuBox1 from './menubox1'
 import MenuBox2 from './menubox2'
-import TagInput from './add_tag'
+import TagInput from './addtag'
 
 import { useState } from 'react';
-import SubmitDialog from './submit-popup';
+import SubmitDialog from './submitpopup';
 import Modal from "@/components/modal";
 import Button from '../../../components/animation/button'
 
