@@ -27,7 +27,7 @@ export default async function SubmitList() {
       {/* List container */}
       <div className="flex flex-col">
 
-        {submits.map((sample) => (
+        {submits.map((sample:any) => (
 
           <div
           key={sample._id} // Assuming each 'sample' has a unique '_id' provided by MongoDB
@@ -38,7 +38,8 @@ export default async function SubmitList() {
                 <div className="grow lg:flex items-center justify-between space-y-5 lg:space-x-2 lg:space-y-0">
                   <div>
                     <div className="mb-2">
-                      <Link className="text-lg text-gray-800 font-bold" href={`/posts/${sample.id}`}>
+                      <Link className="text-lg text-gray-800 font-bold" href={`/discussion/${sample.id}`}>
+
                         {sample.issuedescriptions}
                       </Link>
                     </div>
@@ -75,7 +76,7 @@ export default async function SubmitList() {
                   </div>
                   <div className="min-w-[120px] flex items-center lg:justify-end space-x-3 lg:space-x-0">
                     <div className="lg:hidden group-hover:lg:block">
-                      <Link className="btn-sm py-1.5 px-3 text-white bg-indigo-500 hover:bg-indigo-600 group shadow-sm" href={`/discussion/${sample._id}`}>
+                      <Link className="btn-sm py-1.5 px-3 text-white bg-indigo-500 hover:bg-indigo-600 group shadow-sm" href={`/discussion/${sample._id.$oid}`}>
                         Go to discussion{' '}
                         <span className="tracking-normal text-indigo-200 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
                           -&gt;

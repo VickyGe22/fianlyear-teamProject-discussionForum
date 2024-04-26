@@ -82,7 +82,7 @@ export default function SubmitSample() {
                   <label className="block text-sm font-medium mb-1" htmlFor="email">
                     Issue Description <span className="text-red-500">*</span>
                   </label>
-                  <form onSubmit={handleSubmit}>
+                  <div onSubmit={handleSubmit}>
                     <textarea
                       rows={4}
                       name="comment"
@@ -91,7 +91,7 @@ export default function SubmitSample() {
                       value={comment}
                       onChange={(e) => setComment(e.target.value)}
                     />
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
