@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 
 // Assuming params is received as props in the component
-const SolutionDisplay = ({ pageId }) => {
+const SolutionDisplay = ({ pageId }: { pageId: string}) => {
     
     const [submits, setSubmits] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -13,6 +13,7 @@ const SolutionDisplay = ({ pageId }) => {
         const fetchSubmits = async () => {
             try {
                 const res = await fetch(`../../api/submits?pageid=${pageId}`, {
+                    method: 'GET',
                     cache: 'no-store'
                 });
                 if (!res.ok) {
@@ -38,7 +39,7 @@ const SolutionDisplay = ({ pageId }) => {
 
     return (
         <div>
-            {submits.map((submit) => (
+           
                 <div className="bg-white px-4 py-5 sm:px-6">
                     <div className="flex space-x-3">
                         <div className="flex-shrink-0">
@@ -46,26 +47,25 @@ const SolutionDisplay = ({ pageId }) => {
                         </div>
                         <div className="min-w-0 flex-1">
                             <p className="text-sm font-semibold text-gray-900">
-                                {submit.issuedescriptions}
+                                {submits.issuedescriptions}
                             </p>
                             <p className="text-sm text-gray-500">
                                 April 1 at 11:43 AM, 2024
                             </p>
                             <div className="py-3 text-2xl font-bold text-black">
-                                {submit.codesamples}
+                                {submits.codesamples}
                             </div>
                             <div className="flex flex-wrap gap-2 mb-5">
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.languages}</span>
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.levels}</span>
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.types}</span>
-                                  {submit.tags.map((tag) => (
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.languages}</span>
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.levels}</span>
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.types}</span>
+                                  {/* {submits.tags.map((tag) => (
                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{tag}</span>
-                                  ))}
+                                  ))} */}
                             </div>
                         </div>
                     </div>
                 </div>
-            ))}
         </div>
     );
 };

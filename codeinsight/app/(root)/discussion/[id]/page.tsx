@@ -28,17 +28,31 @@ export default function Home() {
         setIsModalOpen(false);
     };
 
+
     const router = useRouter();
+    
+    
     useEffect(() => {
-        if (router.isReady) {
-            // Access the query parameters using the method that your Next.js version supports.
-            // This might require referring to the documentation for your specific version.
-            const queryPageId = router.getQueryParam('pageid'); // This is a hypothetical function, check your Next.js documentation.
-            if (queryPageId) {
-                setPageId(queryPageId);
-            }
+        const searchParams = new URLSearchParams(window.location.search); // 使用 useSearchParams 获取查询参数
+        const pageId = searchParams.get('pageid');
+
+        console.log('pageId:', pageId);
+        if (pageId) {
+            setPageId(pageId);
         }
     }, [router]);
+
+
+    // useEffect(() => {
+    //     if (router.isReady) {
+    //         // Access the query parameters using the method that your Next.js version supports.
+    //         // This might require referring to the documentation for your specific version.
+    //         const queryPageId = router.getQueryParam('pageid'); // This is a hypothetical function, check your Next.js documentation.
+    //         if (queryPageId) {
+    //             setPageId(queryPageId);
+    //         }
+    //     }
+    // }, [router]);
 
     // // 使用useEffect来确保组件挂载后获取pageId
     // useEffect(() => {
@@ -60,7 +74,7 @@ export default function Home() {
 
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
                     <div className="px-4 py-5 sm:p-6 shadow-lg">
-                        <SolutionDisplay pageId={pageId} />
+                        <SolutionDisplay pageId={pageId as string} />
                     </div>
                 </div>
 

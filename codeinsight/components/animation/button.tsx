@@ -5,7 +5,7 @@ import { motion, MotionConfig, useMotionValue } from "framer-motion";
 import { transition } from "./settings";
 import useMeasure from "react-use-measure";
 
-export default function Animation({ onClick }: { onClick: () => void }) {
+export default function Animation({ onClick }: { onClick: (e?: any) => void | Promise<void>}) {
   const [ref, bounds] = useMeasure({ scroll: false });
   const [isHover, setIsHover] = useState(false);
   const [isPress, setIsPress] = useState(false);
