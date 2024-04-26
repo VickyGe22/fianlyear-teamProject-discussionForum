@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CustomDialog from './customdialog';
+import CustomDialog from './CustomDialog';
 
 const MenuBox = ({
     selectedLanguage, // This is now passed as a prop from the parent component
@@ -8,7 +8,7 @@ const MenuBox = ({
     selectedLanguage: string;
     setSelectedLanguage: (language: string) => void;
 }) => {
-  const [languages, setLanguages] = useState(['Python', 'C', 'C++', 'C#', 'Java', 'JavaScript']);
+  const [languages, setLanguages] = useState(['','Python', 'C', 'C++', 'C#', 'Java', 'JavaScript']);
   const [showCustomDialog, setShowCustomDialog] = useState(false);
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {

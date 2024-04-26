@@ -11,7 +11,7 @@ export async function POST(req) {
     await Submit.create({ codesamples, languages, levels, types, issuedescriptions, tags });
 
     return NextResponse.json({
-      msg: ["CodeSamples created successfully"],
+      msg: [" "],
       success: true,
     });
   } catch (error) {
