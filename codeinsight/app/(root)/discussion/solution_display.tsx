@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 
 // Assuming params is received as props in the component
-const SolutionDisplay = ({ pageId }) => {
+const SolutionDisplay = ({ pageId }: { pageId: string}) => {
     
     const [submits, setSubmits] = useState([]);
     const [loading, setLoading] = useState(true);

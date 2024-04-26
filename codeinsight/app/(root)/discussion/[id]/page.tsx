@@ -31,9 +31,12 @@ export default function Home() {
 
     const router = useRouter();
     
+    
     useEffect(() => {
         const searchParams = new URLSearchParams(window.location.search); // 使用 useSearchParams 获取查询参数
         const pageId = searchParams.get('pageid');
+
+        console.log('pageId:', pageId);
         if (pageId) {
             setPageId(pageId);
         }
@@ -71,7 +74,7 @@ export default function Home() {
 
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
                     <div className="px-4 py-5 sm:p-6 shadow-lg">
-                        <SolutionDisplay pageId={pageId} />
+                        <SolutionDisplay pageId={pageId as string} />
                     </div>
                 </div>
 
