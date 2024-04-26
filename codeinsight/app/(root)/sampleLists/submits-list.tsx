@@ -27,7 +27,7 @@ export default async function SubmitList() {
       {/* List container */}
       <div className="flex flex-col">
 
-        {submits.map((sample) => (
+        {submits.map((sample:any) => (
 
           <div
           key={sample._id} // Assuming each 'sample' has a unique '_id' provided by MongoDB

@@ -1,12 +1,18 @@
 'use client';
-import GeneralComments from "../generalcomments";
-import Issue from "../issuepage";
+import dynamic from 'next/dynamic';
+// import GeneralComments from "../generalcomments";
+// import Issue from "../issuepage";
 import { PlusIcon } from '@heroicons/react/20/solid';
-import SolutionDisplay from "../solution_display";
+// import SolutionDisplay from "../solution_display";
 import AddIssue from '../addissue';
 import Modal from "@/components/modal";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+
+// 使用动态导入确保组件只在客户端渲染
+const GeneralComments = dynamic(() => import("../generalcomments"), { ssr: false });
+const Issue = dynamic(() => import("../issuepage"), { ssr: false });
+const SolutionDisplay = dynamic(() => import("../solution_display"), { ssr: false });
 
 
 export default function Home() {

@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Home - Submission',
-  description: 'Submitted Code Sample Repository',
+  title: 'Submission',
+  description: 'Submitted Your Code Sample',
 }
 
 import Sidebar from '@/components/sidebar'

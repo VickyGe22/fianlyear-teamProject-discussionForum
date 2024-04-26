@@ -17,26 +17,26 @@ export async function PUT(req, {params}) {
         }
 }
 
-// export async function GET({params}) {
-//   const {id} = params;
-//   try {
-//     await connectDB();
-//     const submit = await Submit.findOne({ _id: id });
-//     return NextResponse.json({ submit });
-//   } catch (error) {
-//     return NextResponse.json({ msg: ["Unable to fetch submits."] });
-//   }
-// }
-
-
-export async function GET(req) {
+export async function GET({params}) {
+  const {id} = params;
   try {
     await connectDB();
-    const pageId = req.nextUrl.searchParams.get("pageid"); // Get pageid from URL if present
-    const query = pageId ? { pageId: pageId } : {}; // Filter by pageId if it's present
-    const submits = await Submit.find(query);
-    return NextResponse.json({ submits });
+    const submit = await Submit.findOne({ _id: id });
+    return NextResponse.json({ submit });
   } catch (error) {
     return NextResponse.json({ msg: ["Unable to fetch submits."] });
   }
 }
+
+
+// export async function GET(req) {
+//   try {
+//     await connectDB();
+//     const pageId = req.nextUrl.searchParams.get("pageid"); // Get pageid from URL if present
+//     const query = pageId ? { pageId: pageId } : {}; // Filter by pageId if it's present
+//     const submits = await Submit.find(query);
+//     return NextResponse.json({ submits });
+//   } catch (error) {
+//     return NextResponse.json({ msg: ["Unable to fetch submits."] });
+//   }
+// }

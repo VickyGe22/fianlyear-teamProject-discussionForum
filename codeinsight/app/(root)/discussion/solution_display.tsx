@@ -34,6 +34,8 @@ const SolutionDisplay = ({ pageId }) => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
+    console.log(submits)
+
     return (
         <div>
             {submits.map((submit) => (
