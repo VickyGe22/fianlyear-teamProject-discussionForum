@@ -1,18 +1,18 @@
 'use client';
 import dynamic from 'next/dynamic';
-// import GeneralComments from "../generalcomments";
-// import Issue from "../issuepage";
+import GeneralComments from "../generalcomments";
+import Issue from "../issuepage";
 import { PlusIcon } from '@heroicons/react/20/solid';
-// import SolutionDisplay from "../solution_display";
+import SolutionDisplay from "../solution_display";
 import AddIssue from '../addissue';
 import Modal from "@/components/modal";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 // 使用动态导入确保组件只在客户端渲染
-const GeneralComments = dynamic(() => import("../generalcomments"), { ssr: false });
-const Issue = dynamic(() => import("../issuepage"), { ssr: false });
-const SolutionDisplay = dynamic(() => import("../solution_display"), { ssr: false });
+// const GeneralComments = dynamic(() => import("../generalcomments"), { ssr: false });
+// const Issue = dynamic(() => import("../issuepage"), { ssr: false });
+// const SolutionDisplay = dynamic(() => import("../solution_display"), { ssr: false });
 
 
 export default function Home() {
@@ -29,14 +29,24 @@ export default function Home() {
     };
 
     const router = useRouter();
-
-    // 使用useEffect来确保组件挂载后获取pageId
     useEffect(() => {
-        if (router.isReady) {  // 确保路由系统已准备好
-            const queryPageId = router.query.pageid as string;;  // 从路由查询参数中获取pageId
-            setPageId(queryPageId);
+        if (router.isReady) {
+            // Access the query parameters using the method that your Next.js version supports.
+            // This might require referring to the documentation for your specific version.
+            const queryPageId = router.getQueryParam('pageid'); // This is a hypothetical function, check your Next.js documentation.
+            if (queryPageId) {
+                setPageId(queryPageId);
+            }
         }
-    }, [router.isReady, router.query.pageid]);  // 依赖项包括路由准备状态和pageId变化
+    }, [router]);
+
+    // // 使用useEffect来确保组件挂载后获取pageId
+    // useEffect(() => {
+    //     if (router.isReady) {  // 确保路由系统已准备好
+    //         const queryPageId = router.query.pageid as string;;  // 从路由查询参数中获取pageId
+    //         setPageId(queryPageId);
+    //     }
+    // }, [router.isReady, router.query.pageid]);  // 依赖项包括路由准备状态和pageId变化
 
     return (
         <>
