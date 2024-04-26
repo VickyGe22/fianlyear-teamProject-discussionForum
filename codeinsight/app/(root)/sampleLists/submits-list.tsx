@@ -38,10 +38,9 @@ export default async function SubmitList() {
                 <div className="grow lg:flex items-center justify-between space-y-5 lg:space-x-2 lg:space-y-0">
                   <div>
                     <div className="mb-2">
-                      <Link className="text-lg text-gray-800 font-bold" href={`/discussion/${sample.id}`}>
-
+                      <a className="text-lg text-gray-800 font-bold">
                         {sample.issuedescriptions}
-                      </Link>
+                      </a>
                     </div>
                     <div className="-m-1">
                       <a
