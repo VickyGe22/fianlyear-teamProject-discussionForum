@@ -59,9 +59,9 @@ const SolutionDisplay = ({ pageId }) => {
                                   <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.languages}</span>
                                   <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.levels}</span>
                                   <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.types}</span>
-                                  {/* {submit.tags.map((tag) => (
-                                <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{tag}</span>
-                                  ))} */}
+                                  {submit.tags.map((tag) => (
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{tag}</span>
+                                  ))}
                             </div>
                         </div>
                     </div>

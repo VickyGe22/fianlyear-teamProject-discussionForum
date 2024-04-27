@@ -19,33 +19,73 @@ const getSubmit = async () => {
 }
 
 
-function generateTitle(codeDescription: string): string {
+// function generateTitle(codeDescription: string): string {
  
-  // 创建分词器
-  const tokenizer = new WordTokenizer();
+//   // 创建分词器
+//   const tokenizer = new WordTokenizer();
+//     // 分词
+//     const words = tokenizer.tokenize(codeDescription);
+    
+//     // // 移除停用词，只保留有意义的词
+//     // const filteredWords = words.filter(word => stopwords.eng.includes(word.toLowerCase()) && /^[a-zA-Z0-9]+$/.test(word));
+//     // console.log(stopwords);
+    
+//     // 计算词频并找到最常见的词
+//     const frequencyMap = new Map<string, number>();
+//     words.forEach(word => {
+//         frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
+//     });
+    
+//     // 将Map转换为数组并按词频排序
+//     const sortedWords = Array.from(frequencyMap.entries()).sort((a, b) => b[1] - a[1]);
+    
+//     // 选择最常见的5个词（或更少，取决于数组长度）
+//     const mostCommonWords = sortedWords.slice(0, 5).map(([word]) => word);
+    
+//     // 生成标题
+//     const title = mostCommonWords.join(' ');
+//     return title;
+// }
+
+
+import nlp from 'compromise';
+
+function generateTitle(codeDescription: string): string {
+    // 使用compromise处理文本
+    let doc = nlp(codeDescription);
+    // 词形还原
+    doc.verbs().toInfinitive();
+    doc.nouns().toSingular();
+
     // 分词
-    const words = tokenizer.tokenize(codeDescription);
-    
-    // 移除停用词，只保留有意义的词
-    // const filteredWords = words.filter(word => !stopwords.eng.includes(word.toLowerCase()) && /^[a-zA-Z0-9]+$/.test(word));
-    // console.log(stopwords);
-    
-    // 计算词频并找到最常见的词
-    const frequencyMap = new Map<string, number>();
+    const words = doc.text('normal').split(/\s+/);
+
+    // 计算词频（TF）
+    const frequencyMap = new Map();
     words.forEach(word => {
         frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
     });
-    
-    // 将Map转换为数组并按词频排序
-    const sortedWords = Array.from(frequencyMap.entries()).sort((a, b) => b[1] - a[1]);
-    
-    // 选择最常见的5个词（或更少，取决于数组长度）
-    const mostCommonWords = sortedWords.slice(0, 5).map(([word]) => word);
-    
+
+    // 计算TF-IDF
+    const tfidfMap = new Map();
+    words.forEach(word => {
+        const tf = frequencyMap.get(word);
+        // 假设IDF简化计算，你可以根据实际情况调整
+        const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
+        tfidfMap.set(word, tf * idf);
+    });
+
+    // 按TF-IDF值排序
+    const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
+
+    // 选择最重要的5个词
+    const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
+
     // 生成标题
-    const title = mostCommonWords.join(' ');
+    const title = importantWords.join(' ');
     return title;
 }
+
 
 
 export default async function SubmitList() {
@@ -55,6 +95,7 @@ export default async function SubmitList() {
   for (let i = 0; i < submits.length; i++) {
     submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
   }
+
 
   return (
     <div className="pb-8 md:pb-16">
@@ -79,7 +120,7 @@ export default async function SubmitList() {
                     </div>
                     <div className="-m-1">
                       <a
-                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-gray-100
+                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-indigo-50
                           }`}
                         href="#0"
                       >
@@ -93,19 +134,20 @@ export default async function SubmitList() {
                         {sample.levels}
                       </a>
                       <a
-                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-gray-100
+                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-indigo-50
                           }`}
                         href="#0"
                       >
                         {sample.types}
                       </a>
-                      <a
-                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-gray-100
-                          }`}
-                        href="#0"
-                      >
-                        {sample.tags}
-                      </a>
+                     
+                      {sample.tags.map((tag) => (
+                                <a
+                                className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
+                                href="#0"
+                              > { tag } </a>
+                          ))}
+  
                     </div>
                   </div>
                   <div className="min-w-[120px] flex items-center lg:justify-end space-x-3 lg:space-x-0">
