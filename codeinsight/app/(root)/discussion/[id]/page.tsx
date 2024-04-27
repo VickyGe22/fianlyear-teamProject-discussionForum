@@ -1,13 +1,3 @@
-'use client';
-import dynamic from 'next/dynamic';
-import GeneralComments from "../generalcomments";
-import Issue from "../issuepage";
-import { PlusIcon } from '@heroicons/react/20/solid';
-import SolutionDisplay from "../solution_display";
-import AddIssue from '../addissue';
-import Modal from "@/components/modal";
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 // 使用动态导入确保组件只在客户端渲染
 // const GeneralComments = dynamic(() => import("../generalcomments"), { ssr: false });
@@ -15,32 +5,32 @@ import { useEffect, useState } from 'react';
 // const SolutionDisplay = dynamic(() => import("../solution_display"), { ssr: false });
 
 
-export default function Home() {
+// export default function Home() {
     
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
+//     const [isModalOpen, setIsModalOpen] = useState(false);
+//     const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
+//     const handleOpenModal = () => {
+//         setIsModalOpen(true);
+//     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
+//     const handleCloseModal = () => {
+//         setIsModalOpen(false);
+//     };
 
 
-    const router = useRouter();
+//     const router = useRouter();
     
     
-    useEffect(() => {
-        const searchParams = new URLSearchParams(window.location.search); // 使用 useSearchParams 获取查询参数
-        const pageId = searchParams.get('pageid');
+//     useEffect(() => {
+//         const searchParams = new URLSearchParams(window.location.search); // 使用 useSearchParams 获取查询参数
+//         const pageId = searchParams.get('pageid');
 
-        console.log('pageId:', pageId);
-        if (pageId) {
-            setPageId(pageId);
-        }
-    }, [router]);
+//         console.log('这里这里', pageId);
+//         if (pageId) {
+//             setPageId(pageId);
+//         }
+//     }, [router]);
 
 
     // useEffect(() => {
@@ -62,6 +52,43 @@ export default function Home() {
     //     }
     // }, [router.isReady, router.query.pageid]);  // 依赖项包括路由准备状态和pageId变化
 
+    
+    
+    'use client';
+    import dynamic from 'next/dynamic';
+    import GeneralComments from "../generalcomments";
+    import Issue from "../issuepage";
+    import { PlusIcon } from '@heroicons/react/20/solid';
+    import SolutionDisplay from "../solution_display";
+    import AddIssue from '../addissue';
+    import Modal from "@/components/modal";
+    import { useRouter, useSearchParams } from 'next/navigation';  // 导入 useSearchParams
+    import { useEffect, useState } from 'react';
+    
+    export default function Home() {
+        
+        const [isModalOpen, setIsModalOpen] = useState(false);
+        const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
+    
+        const handleOpenModal = () => {
+            setIsModalOpen(true);
+        };
+    
+        const handleCloseModal = () => {
+            setIsModalOpen(false);
+        };
+    
+        const [searchParams] = useSearchParams();  // 使用 useSearchParams 钩子
+    
+        useEffect(() => {
+            const pageId = searchParams.get('pageid');  // 使用 searchParams 获取查询参数
+    
+            console.log('这里这里:', pageId);
+            if (pageId) {
+                setPageId(pageId);
+            }
+        }, [searchParams]);  // 更新 useEffect 的依赖为 searchParams
+    
     return (
         <>
             <div className='fadeIn' >

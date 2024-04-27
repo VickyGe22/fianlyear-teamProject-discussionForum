@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 
 // Assuming params is received as props in the component
-const SolutionDisplay = ({ pageId }: { pageId: string}) => {
+const SolutionDisplay = ({ pageId }) => {
     
     const [submits, setSubmits] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -35,7 +35,7 @@ const SolutionDisplay = ({ pageId }: { pageId: string}) => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    console.log(submits)
+    console.log("在这里",submits)
 
     return (
         <div>
@@ -103,149 +103,8 @@ export default SolutionDisplay;
 
 // return (
 
-//       <div>
-//           {submit.map((content) => (
-//                   <div
-//                       className="bg-white px-4 py-5 sm:px-6">
-//                       <div className="flex space-x-3">
-//                           <div className="flex-shrink-0">
-//                               <img
-//                                   className="h-10 w-10 rounded-full"
-//                                   src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-//                                   alt=""
-//                               />
-//                               </div>
-//                               <div className="min-w-0 flex-1">
-//                               <p className="text-sm font-semibold text-gray-900">
-//                                   <a href="#" className="hover:underline">
-//                                       {content.issuedescriptions}
-//                                   </a>
-//                               </p>
-//                               <p className="text-sm text-gray-500">
-//                                   <a href="#" className="hover:underline">
-//                                   April 1 at 11:43 AM, 2024
-//                                   </a>
-//                               </p>
-                              
-//                               <div className="py-3 text-2xl font-bold  text-black">
-//                                   {content.issuedescriptions}
-//                               </div>
-                              
-                            //   <div className="flex flex-wrap gap-2 mb-5">
-                            //       <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{content.languages}</span>
-                            //       <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{content.levels}</span>
-                            //       <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{content.types}</span>
-                            //       <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{content.tags}</span>
-                            //   </div>
-//                               <div className="bg-gray-50 px-4 py-5 sm:p-6">
-                                  
-//                               </div>
-                          
-//                           </div>
-                      
-//                       </div>
-//                   </div>
-//            ))}
-//       </div>
-// )
-// }
 
 
-// export async function generateMetadata({ params }: {
-//   params: { id: number }
-// }): Promise<Metadata> {
-//   const postsData: Promise<Post[]> = getAllPosts()
-//   const posts = await postsData
-//   const post = posts.find((post) => post.id === Number(params.id))
-
-//   if (!post) {
-//     return {
-//       title: 'Post Not Found'
-//     }
-//   }  
-
-//   return {
-//     title: post.title,
-//     description: 'Page description',
-//   }
-
-// }
-
-// export default async function SinglePost({ params }: {
-//   params: { id: number }
-// }) {
-
-//   const postsData: Promise<Post[]> = getAllPosts()
-//   const posts = await postsData
-//   const post = posts.find((post) => post.id === Number(params.id))
-
-//   if (!post) {
-//     notFound()
-//   }
-
-// const SolutionDisplay = ({ params }) => {
-//     const [submit, setSubmit] = useState(null);
-
-//     useEffect(() => {
-//         const fetchSubmit = async () => {
-//             try {
-//                 const res = await fetch(`./api/submits/${id}`, { cache: 'no-store' });
-//                 if (!res.ok) throw new Error('Failed to fetch submit');
-//                 const data = await res.json();
-//                 setSubmit(data.submit); // Change data.submits to data.submit
-//             } catch (error) {
-//                 console.error('There was an error!', error);
-//             }
-//         };
-
-//         fetchSubmit();
-//     }, [id]);
-
-//     // Render single submit data
-//     return (
-//         <div>
-//             {submit && (
-//                 <div className="bg-white px-4 py-5 sm:px-6">
-//                     <div className="flex space-x-3">
-//                         <div className="flex-shrink-0">
-//                             <img
-//                                 className="h-10 w-10 rounded-full"
-//                                 src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-//                                 alt=""
-//                             />
-//                         </div>
-//                         <div className="min-w-0 flex-1">
-//                             <p className="text-sm font-semibold text-gray-900">
-//                                 <a href="#" className="hover:underline">
-//                                     {submit.issuedescriptions}
-//                                 </a>
-//                             </p>
-//                             <p className="text-sm text-gray-500">
-//                                 <a href="#" className="hover:underline">
-//                                     April 1 at 11:43 AM, 2024
-//                                 </a>
-//                             </p>
-//                             <div className="py-3 text-2xl font-bold text-black">
-//                                 Duplicate Error
-//                             </div>
-//                             <div className="flex flex-wrap gap-2 mb-5">
-//                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.languages}</span>
-//                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.levels}</span>
-//                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.types}</span>
-//                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.tags}</span>
-//                             </div>
-//                             <div className="bg-gray-50 px-4 py-5 sm:p-6">
-//                                 {submit.issuedescriptions}
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default SolutionDisplay;
 
 
 

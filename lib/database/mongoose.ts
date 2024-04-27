@@ -39,7 +39,7 @@ export const connectToDatabase = async() => {
     
     cached.promise = 
     cached.promise || mongoose.connect(MONGODB_URL, {
-        dbName: 'ImageCraft', bufferCommands:false})
+        dbName: 'Codeinsight', bufferCommands:false})
     // 如果cached.promise是null，使用mongoose.connect方法尝试建立数据库连接，
     // 并将返回的Promise对象赋值给cached.promise
     // mongoose.connect接受两个参数：数据库URL和一个选项对象，其中dbName指定了要连接的数据库名，bufferCommands: false禁用了mongoose的命令缓冲，要求命令只能在数据库连接建立之后执行。
