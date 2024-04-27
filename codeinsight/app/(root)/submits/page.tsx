@@ -6,7 +6,7 @@ import MenuBox1 from './menubox1'
 import MenuBox2 from './menubox2'
 import TagInput from './addtag'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SubmitDialog from './submitpopup';
 import Modal from "@/components/modal";
 import Button from '../../../components/animation/button'
@@ -26,6 +26,8 @@ export default function SubmitSample() {
         setIsModalOpen(false);
     };
 
+   
+
     //传输codebox和menubox的数据
     const [code, setCode] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -35,6 +37,10 @@ export default function SubmitSample() {
     const [tags, setTags] = useState<string[]>([]);
     const [error, setError] = useState([]);
     const [success, setSuccess] = useState(false);
+
+    useEffect(() => {
+      console.log("Code status:", code);
+    }, [code]);
 
     const handleSubmit = async (e:any) => {
   
@@ -56,7 +62,6 @@ export default function SubmitSample() {
       if (success) {
         console.log("Clearing data...");
         setCode("");
-        console.log("Code after clearing:", code); 
         setSelectedLanguage("");
         setSelectedLevel("");
         setSelectedtype("");

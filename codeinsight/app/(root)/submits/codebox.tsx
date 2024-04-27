@@ -1,3 +1,4 @@
+//最初版
 // 'use client';
 
 // import { useEffect, useRef, useState } from 'react';
@@ -46,62 +47,28 @@
 
 // export default CodeBox;
 
-'use client';
-import { useEffect, useRef } from 'react';
-import { EditorState } from '@codemirror/state';
-import { EditorView, lineNumbers } from '@codemirror/view';
-import { javascript } from '@codemirror/lang-javascript';
-import '../../css/additional-styles/codebox.css'; 
 
-const CodeBox = ({ code, setCode }: { code: string, setCode: (code: string) => void }) => {
-    const editorRef = useRef(null);
-    const viewRef = useRef(null);
 
-    // 初始化编辑器
-    useEffect(() => {
-        if (!editorRef.current) return;
+//黑色版
+import CodeMirror from '@uiw/react-codemirror';
+import { dracula } from "@uiw/codemirror-theme-dracula";
 
-        const startState = EditorState.create({
-            doc: code,
-            extensions: [
-                javascript(),
-                EditorView.lineWrapping,
-                lineNumbers(),
-                EditorView.updateListener.of(update => {
-                    if (update.docChanged) {
-                        setCode(update.state.doc.toString());
-                    }
-                })
-            ],
-        });
 
-        viewRef.current = new EditorView({
-            state: startState,
-            parent: editorRef.current,
-        });
+export default function Editor({ code, setCode }: { code: string, setCode: (code: string) => void }) {
 
-        return () => {
-            (viewRef.current as EditorView | null)?.destroy();
-        };
-    }, []);
-
-    // 监听 code 属性的变化并更新编辑器状态
-    useEffect(() => {
-        if (!viewRef.current) return;
-
-        const currentState = (viewRef.current as EditorView).state;
-        const transaction = currentState.update({
-            changes: { from: 0, to: currentState.doc.length, insert: code }
-        });
-        (viewRef.current as EditorView).dispatch(transaction);
-    }, [code]);
 
     return (
-        <div ref={editorRef} className="cm-editor"></div>
+            <div className="editor_container">
+                    <CodeMirror
+                        value={code}
+                        height="200px"
+                        theme={dracula}
+                        onChange={(value) => {
+                            setCode(value); // Update code state with the new value
+                            // onChange(value); // Call the onChange function with the new value
+                        }}
+                    />
+            </div>
     );
-};
-
-export default CodeBox;
-
-
+}
 
