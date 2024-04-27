@@ -46,18 +46,24 @@ export default function SubmitSample() {
         body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
                   issuedescriptions:comment, tags: tags} ),
       });
+
+      
   
       const { msg, success } = await res.json();
       setError(msg);
       setSuccess(success);
   
       if (success) {
+        console.log("Clearing data...");
         setCode("");
+        console.log("Code after clearing:", code); 
         setSelectedLanguage("");
         setSelectedLevel("");
         setSelectedtype("");
         setComment("");
         setIsModalOpen(true);
+
+        
       }
     };
 
@@ -82,8 +88,7 @@ export default function SubmitSample() {
                   <label className="block text-sm font-medium mb-1" htmlFor="name">
                   Code sample <span className="text-red-500">*</span>
                   </label>
-                  <CodeBox code={code} setCode={setCode} />
-                  
+                  <CodeBox code={code} setCode={setCode} />               
                 </div>
                 {/* gap-8是两个flexbox之间的间隔 */}
                 <div className="flex justify-left  gap-8">
