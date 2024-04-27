@@ -33,6 +33,7 @@ npm install animate.css --save
 npm install mongoose
 npm install tailwind-merge
 npm install clsx
+npm install @uiw/react-codemirror @uiw/codemirror-theme-dracula 
 
 npm install natural stopword
 npm install stopword OR npm i --save-dev @types/stopword
