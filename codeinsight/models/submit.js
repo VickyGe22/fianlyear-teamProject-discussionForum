@@ -13,32 +13,25 @@ const submitSchema = new Schema({
 
   languages: {
     type: String,
-    required: true,
-    enum: ['Python', 'C', 'C++', 'C#', 'Java', 'JavaScript', 'Other'], // Predefined options plus 'Other'
-    default: 'Python' // Default value if none is provided
+    required: [true, "Please specify the programming language of the code."],
+    // default: 'Python' // Default value if none is provided
   },
 
   
   levels: {
     type: String,
-    required: true,
-    default: 'Bachelor-cs1'
+    required: [true, "Please specify the proficiency level of students."],
   },
-
   
   types: {
     type: String,
-    required: true,
-    enum: ['Assignment', 'Project', 'Exam', 'Other'], // Predefined types plus 'Other'
-    // default: 'Assignment'
+    required: [true, "Please indicate the origin of the code by selecting a type."],
   },
-
 
   issuedescriptions: {
     type: String,
-    required: true, // Since there's an asterisk indicating that Issue Description is required
+    required: [true, "Please describe the main issue in your upload code."],
     trim: true, // To remove whitespace from both ends of the string
-    default: ''
   },
 
   tags: [{

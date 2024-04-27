@@ -6,10 +6,11 @@ import MenuBox1 from './menubox1'
 import MenuBox2 from './menubox2'
 import TagInput from './addtag'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SubmitDialog from './submitpopup';
 import Modal from "@/components/modal";
 import Button from '../../../components/animation/button'
+import { XCircleIcon } from '@heroicons/react/20/solid'
 
 
 
@@ -25,6 +26,8 @@ export default function SubmitSample() {
         setIsModalOpen(false);
     };
 
+   
+
     //传输codebox和menubox的数据
     const [code, setCode] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -32,20 +35,42 @@ export default function SubmitSample() {
     const [selectedtype, setSelectedtype] = useState('');
     const [comment, setComment] = useState('');
     const [tags, setTags] = useState<string[]>([]);
+    const [error, setError] = useState([]);
+    const [success, setSuccess] = useState(false);
 
-    const handleSubmit = async () => {
-        const response = await fetch('./api/submits', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
-            issuedescriptions:comment, tags: tags})
-        });
-    
-        const data = await response.json();
-        console.log(data);
-      };
+    useEffect(() => {
+      console.log("Code status:", code);
+    }, [code]);
+
+    const handleSubmit = async (e:any) => {
+  
+      const res = await fetch("./api/submits", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
+                  issuedescriptions:comment, tags: tags} ),
+      });
+
+      
+  
+      const { msg, success } = await res.json();
+      setError(msg);
+      setSuccess(success);
+  
+      if (success) {
+        console.log("Clearing data...");
+        setCode("");
+        setSelectedLanguage("");
+        setSelectedLevel("");
+        setSelectedtype("");
+        setComment("");
+        setIsModalOpen(true);
+
+        
+      }
+    };
 
   return (
     <>
@@ -68,8 +93,7 @@ export default function SubmitSample() {
                   <label className="block text-sm font-medium mb-1" htmlFor="name">
                   Code sample <span className="text-red-500">*</span>
                   </label>
-                  <CodeBox code={code} setCode={setCode} />
-                  
+                  <CodeBox code={code} setCode={setCode} />               
                 </div>
                 {/* gap-8是两个flexbox之间的间隔 */}
                 <div className="flex justify-left  gap-8">
@@ -112,15 +136,40 @@ export default function SubmitSample() {
           </div>
         </form>
 
+{/* 显示错误信息 */}
+      <div className="flex flex-col pl-6">
+        {error && !success &&
+          error.map((e) => (
+            <div className={`${success ? "bg-green-50" : "text-red-600"} px-5 py-2`}>
+
+            <div className="flex rounded-md bg-red-50 p-4">
+              <div className="flex-shrink-0">
+                <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+              </div>
+              {/* <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">There were 2 errors with your submission</h3> */}
+                <div className=" text-sm text-red-700">
+                  <ul role="list" className="list-disc space-y-1 pl-5">
+                  {e}
+                  </ul>
+                </div>
+              {/* </div> */}
+            </div>
+            </div>
+          ))}
+      </div>
+
+
+      
         <div className="mt-6 flex justify-center">
-          <a onClick={handleOpenModal}>
             <Button onClick={handleSubmit}/>
-          </a>
         </div>
+         
         <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
           <SubmitDialog onClose={handleCloseModal} />
         </Modal>
       </div>
+
     </>
   );
 }
