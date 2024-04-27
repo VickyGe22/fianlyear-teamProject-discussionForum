@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from 'react';
+// ts-nocheck
+"use client";
 
+import { useEffect, useState } from "react";
 
-// Assuming params is received as props in the component
 const SolutionDisplay = ({ pageId }) => {
-    
-    const [submits, setSubmits] = useState([]);
+
+    const [submit, setSubmit] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        // Define the async function inside useEffect
-        const fetchSubmits = async () => {
-            try {
-                const res = await fetch(`../../api/submits?pageid=${pageId}`, {
-                    method: 'GET',
-                    cache: 'no-store'
-                });
-                if (!res.ok) {
-                    throw new Error('Failed to fetch submits');
-                }
-                const data = await res.json();
-                setSubmits(data.submits); // Set the fetched submits
-                setLoading(false);
-            } catch (error) {
-                console.error('There was an error!', error);
-                setError(error.message);
-                setLoading(false);
-            }
-        };
+    const fetchSubmit = async () => {
+        if (!pageId) return;
+      
+        try {
+          const response = await fetch(`/api/submits/${pageId}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch submit');
+          }
+          const data = await response.json();
+          console.log("这里",submit)
+          setSubmit(data.submit); // 这里假设响应结构是 { submit: {...} }
+        } catch (error) {
+          console.error('Fetch error:', error);
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      
+      useEffect(() => {
+        fetchSubmit();
+      }, [pageId]); 
 
-        fetchSubmits(); // Call the function
-    }, [pageId]); // Dependency array, the effect will run again if pageId changes
-
+      
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    console.log("在这里",submits)
 
     return (
         <div>
@@ -47,19 +47,19 @@ const SolutionDisplay = ({ pageId }) => {
                         </div>
                         <div className="min-w-0 flex-1">
                             <p className="text-sm font-semibold text-gray-900">
-                                {submits.issuedescriptions}
+                                {submit.issuedescriptions}
                             </p>
                             <p className="text-sm text-gray-500">
                                 April 1 at 11:43 AM, 2024
                             </p>
                             <div className="py-3 text-2xl font-bold text-black">
-                                {submits.codesamples}
+                                {submit.codesamples}
                             </div>
                             <div className="flex flex-wrap gap-2 mb-5">
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.languages}</span>
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.levels}</span>
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.types}</span>
-                                  {/* {submits.tags.map((tag) => (
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.languages}</span>
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.levels}</span>
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.types}</span>
+                                  {/* {submit.tags.map((tag) => (
                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{tag}</span>
                                   ))} */}
                             </div>
@@ -71,6 +71,80 @@ const SolutionDisplay = ({ pageId }) => {
 };
 
 export default SolutionDisplay;
+
+
+
+
+
+// Assuming params is received as props in the component
+// const SolutionDisplay = ({ id, codesamples, languages }) => {
+
+//     const [codesample, setcodesamples] = useState(codesamples);
+//     const [language, setNlanguages] = useState(languages);
+    
+//     const router = useRouter();
+
+//     useEffect(() => {
+//             // Define the async function inside useEffect
+//             const fetchSubmits = async () => {
+//                 try {
+//                     const res = await fetch(`http://localhost:3000/api/submits/${id}`, {
+//                         cache: 'no-store'
+//                     });
+//                     if (!res.ok) {
+//                         throw new Error('Failed to fetch submits');
+//                     }
+//                     const data = await res.json();
+                    
+//                 } catch (error) {
+//                     console.error('There was an error!', error);
+
+//                 }
+//             };
+//         }
+//     );
+
+
+
+// const SolutionDisplay = ({ pageId }) => {
+    
+    // const [submits, setSubmits] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState(null);
+
+    // useEffect(() => {
+    //     // Define the async function inside useEffect
+    //     const fetchSubmits = async () => {
+    //         try {
+    //             const res = await fetch(`http://localhost:3000/api/submits/${pageId}`, {
+    //                 method: 'GET',
+    //                 cache: 'no-store'
+    //             });
+    //             if (!res.ok) {
+    //                 throw new Error('Failed to fetch submits');
+    //             }
+    //             const data = await res.json();
+    //             setSubmits(data.submits); // Set the fetched submits
+    //             setLoading(false);
+    //         } catch (error) {
+    //             console.error('There was an error!', error);
+    //             setError(error.message);
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchSubmits(); // Call the function
+    // }, [pageId]); // Dependency array, the effect will run again if pageId changes
+
+    // if (loading) return <div>Loading...</div>;
+    // if (error) return <div>Error: {error}</div>;
+
+    // console.log("在这里",submits)
+
+
+
+
+
 
 
 
@@ -108,7 +182,7 @@ export default SolutionDisplay;
 
 
 
-
+// ./../api/submits?pageid=${pageId}
 // import EditTopicForm from "@/components/EditTopicForm";
 
 // const getTopicById = async (id) => {

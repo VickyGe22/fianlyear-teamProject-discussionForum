@@ -27,12 +27,12 @@ function generateTitle(codeDescription: string): string {
     const words = tokenizer.tokenize(codeDescription);
     
     // 移除停用词，只保留有意义的词
-    const filteredWords = words.filter(word => !stopwords.eng.includes(word.toLowerCase()) && /^[a-zA-Z0-9]+$/.test(word));
-    console.log(stopwords);
+    // const filteredWords = words.filter(word => !stopwords.eng.includes(word.toLowerCase()) && /^[a-zA-Z0-9]+$/.test(word));
+    // console.log(stopwords);
     
     // 计算词频并找到最常见的词
     const frequencyMap = new Map<string, number>();
-    filteredWords.forEach(word => {
+    words.forEach(word => {
         frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
     });
     

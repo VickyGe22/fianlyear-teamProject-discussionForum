@@ -17,16 +17,17 @@ export async function PUT(req, {params}) {
         }
 }
 
-export async function GET({params}) {
-  const {id} = params;
-  try {
-    await connectDB();
-    const submit = await Submit.findOne({ _id: id });
-    return NextResponse.json({ submit });
-  } catch (error) {
-    return NextResponse.json({ msg: ["Unable to fetch submits."] });
-  }
-}
+// export async function GET({params}) {
+//   const {id} = params;
+//   try {
+//     await connectDB();
+//     const submit = await Submit.findOne({ _id: id });
+//     return NextResponse.json({ submit });
+//   } catch (error) {
+//     console.error('Error fetching submit:', error);
+//     return NextResponse.json({ msg: ["Unable to fetch submits."] });
+//   }
+// }
 
 
 // export async function GET(req) {
@@ -40,3 +41,24 @@ export async function GET({params}) {
 //     return NextResponse.json({ msg: ["Unable to fetch submits."] });
 //   }
 // }
+
+export async function GET(request, context) {
+  await connectDB();  // Ensure the database connection is established
+  const { params } = context;
+
+  // Retrieve the document using findOne() with async/await
+  const submit = await Submit.findOne({ _id: params.id });
+
+  if (!submit) {
+    // Handle the case where no document is found
+    return new Response(JSON.stringify({ error: 'Submit not found' }), {
+      status: 404,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+
+  // Respond with the found document details
+  return NextResponse.json({ submit });
+}
