@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from 'react';
+// ts-nocheck
+"use client";
 
+import { useEffect, useState } from "react";
 
-// Assuming params is received as props in the component
-const SolutionDisplay = ({ pageId }: { pageId: string}) => {
-    
-    const [submits, setSubmits] = useState([]);
+const SolutionDisplay = ({ pageId }) => {
+
+    const [submit, setSubmit] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        // Define the async function inside useEffect
-        const fetchSubmits = async () => {
-            try {
-                const res = await fetch(`../../api/submits?pageid=${pageId}`, {
-                    method: 'GET',
-                    cache: 'no-store'
-                });
-                if (!res.ok) {
-                    throw new Error('Failed to fetch submits');
-                }
-                const data = await res.json();
-                setSubmits(data.submits); // Set the fetched submits
-                setLoading(false);
-            } catch (error) {
-                console.error('There was an error!', error);
-                setError(error.message);
-                setLoading(false);
-            }
-        };
+    const fetchSubmit = async () => {
+        if (!pageId) return;
+      
+        try {
+          const response = await fetch(`/api/submits/${pageId}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch submit');
+          }
+          const data = await response.json();
+          console.log("这里",submit)
+          setSubmit(data.submit); // 这里假设响应结构是 { submit: {...} }
+        } catch (error) {
+          console.error('Fetch error:', error);
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      
+      useEffect(() => {
+        fetchSubmit();
+      }, [pageId]); 
 
-        fetchSubmits(); // Call the function
-    }, [pageId]); // Dependency array, the effect will run again if pageId changes
-
+      
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
-    console.log(submits)
 
     return (
         <div>
@@ -47,19 +47,19 @@ const SolutionDisplay = ({ pageId }: { pageId: string}) => {
                         </div>
                         <div className="min-w-0 flex-1">
                             <p className="text-sm font-semibold text-gray-900">
-                                {submits.issuedescriptions}
+                                {submit.issuedescriptions}
                             </p>
                             <p className="text-sm text-gray-500">
                                 April 1 at 11:43 AM, 2024
                             </p>
                             <div className="py-3 text-2xl font-bold text-black">
-                                {submits.codesamples}
+                                {submit.codesamples}
                             </div>
                             <div className="flex flex-wrap gap-2 mb-5">
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.languages}</span>
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.levels}</span>
-                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submits.types}</span>
-                                  {/* {submits.tags.map((tag) => (
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.languages}</span>
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.levels}</span>
+                                  <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.types}</span>
+                                  {/* {submit.tags.map((tag) => (
                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{tag}</span>
                                   ))} */}
                             </div>
@@ -71,6 +71,80 @@ const SolutionDisplay = ({ pageId }: { pageId: string}) => {
 };
 
 export default SolutionDisplay;
+
+
+
+
+
+// Assuming params is received as props in the component
+// const SolutionDisplay = ({ id, codesamples, languages }) => {
+
+//     const [codesample, setcodesamples] = useState(codesamples);
+//     const [language, setNlanguages] = useState(languages);
+    
+//     const router = useRouter();
+
+//     useEffect(() => {
+//             // Define the async function inside useEffect
+//             const fetchSubmits = async () => {
+//                 try {
+//                     const res = await fetch(`http://localhost:3000/api/submits/${id}`, {
+//                         cache: 'no-store'
+//                     });
+//                     if (!res.ok) {
+//                         throw new Error('Failed to fetch submits');
+//                     }
+//                     const data = await res.json();
+                    
+//                 } catch (error) {
+//                     console.error('There was an error!', error);
+
+//                 }
+//             };
+//         }
+//     );
+
+
+
+// const SolutionDisplay = ({ pageId }) => {
+    
+    // const [submits, setSubmits] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState(null);
+
+    // useEffect(() => {
+    //     // Define the async function inside useEffect
+    //     const fetchSubmits = async () => {
+    //         try {
+    //             const res = await fetch(`http://localhost:3000/api/submits/${pageId}`, {
+    //                 method: 'GET',
+    //                 cache: 'no-store'
+    //             });
+    //             if (!res.ok) {
+    //                 throw new Error('Failed to fetch submits');
+    //             }
+    //             const data = await res.json();
+    //             setSubmits(data.submits); // Set the fetched submits
+    //             setLoading(false);
+    //         } catch (error) {
+    //             console.error('There was an error!', error);
+    //             setError(error.message);
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchSubmits(); // Call the function
+    // }, [pageId]); // Dependency array, the effect will run again if pageId changes
+
+    // if (loading) return <div>Loading...</div>;
+    // if (error) return <div>Error: {error}</div>;
+
+    // console.log("在这里",submits)
+
+
+
+
+
 
 
 
@@ -103,153 +177,12 @@ export default SolutionDisplay;
 
 // return (
 
-//       <div>
-//           {submit.map((content) => (
-//                   <div
-//                       className="bg-white px-4 py-5 sm:px-6">
-//                       <div className="flex space-x-3">
-//                           <div className="flex-shrink-0">
-//                               <img
-//                                   className="h-10 w-10 rounded-full"
-//                                   src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-//                                   alt=""
-//                               />
-//                               </div>
-//                               <div className="min-w-0 flex-1">
-//                               <p className="text-sm font-semibold text-gray-900">
-//                                   <a href="#" className="hover:underline">
-//                                       {content.issuedescriptions}
-//                                   </a>
-//                               </p>
-//                               <p className="text-sm text-gray-500">
-//                                   <a href="#" className="hover:underline">
-//                                   April 1 at 11:43 AM, 2024
-//                                   </a>
-//                               </p>
-                              
-//                               <div className="py-3 text-2xl font-bold  text-black">
-//                                   {content.issuedescriptions}
-//                               </div>
-                              
-                            //   <div className="flex flex-wrap gap-2 mb-5">
-                            //       <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{content.languages}</span>
-                            //       <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{content.levels}</span>
-                            //       <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{content.types}</span>
-                            //       <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{content.tags}</span>
-                            //   </div>
-//                               <div className="bg-gray-50 px-4 py-5 sm:p-6">
-                                  
-//                               </div>
-                          
-//                           </div>
-                      
-//                       </div>
-//                   </div>
-//            ))}
-//       </div>
-// )
-// }
-
-
-// export async function generateMetadata({ params }: {
-//   params: { id: number }
-// }): Promise<Metadata> {
-//   const postsData: Promise<Post[]> = getAllPosts()
-//   const posts = await postsData
-//   const post = posts.find((post) => post.id === Number(params.id))
-
-//   if (!post) {
-//     return {
-//       title: 'Post Not Found'
-//     }
-//   }  
-
-//   return {
-//     title: post.title,
-//     description: 'Page description',
-//   }
-
-// }
-
-// export default async function SinglePost({ params }: {
-//   params: { id: number }
-// }) {
-
-//   const postsData: Promise<Post[]> = getAllPosts()
-//   const posts = await postsData
-//   const post = posts.find((post) => post.id === Number(params.id))
-
-//   if (!post) {
-//     notFound()
-//   }
-
-// const SolutionDisplay = ({ params }) => {
-//     const [submit, setSubmit] = useState(null);
-
-//     useEffect(() => {
-//         const fetchSubmit = async () => {
-//             try {
-//                 const res = await fetch(`./api/submits/${id}`, { cache: 'no-store' });
-//                 if (!res.ok) throw new Error('Failed to fetch submit');
-//                 const data = await res.json();
-//                 setSubmit(data.submit); // Change data.submits to data.submit
-//             } catch (error) {
-//                 console.error('There was an error!', error);
-//             }
-//         };
-
-//         fetchSubmit();
-//     }, [id]);
-
-//     // Render single submit data
-//     return (
-//         <div>
-//             {submit && (
-//                 <div className="bg-white px-4 py-5 sm:px-6">
-//                     <div className="flex space-x-3">
-//                         <div className="flex-shrink-0">
-//                             <img
-//                                 className="h-10 w-10 rounded-full"
-//                                 src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-//                                 alt=""
-//                             />
-//                         </div>
-//                         <div className="min-w-0 flex-1">
-//                             <p className="text-sm font-semibold text-gray-900">
-//                                 <a href="#" className="hover:underline">
-//                                     {submit.issuedescriptions}
-//                                 </a>
-//                             </p>
-//                             <p className="text-sm text-gray-500">
-//                                 <a href="#" className="hover:underline">
-//                                     April 1 at 11:43 AM, 2024
-//                                 </a>
-//                             </p>
-//                             <div className="py-3 text-2xl font-bold text-black">
-//                                 Duplicate Error
-//                             </div>
-//                             <div className="flex flex-wrap gap-2 mb-5">
-//                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.languages}</span>
-//                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.levels}</span>
-//                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.types}</span>
-//                                 <span className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">{submit.tags}</span>
-//                             </div>
-//                             <div className="bg-gray-50 px-4 py-5 sm:p-6">
-//                                 {submit.issuedescriptions}
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             )}
-//         </div>
-//     );
-// };
-
-// export default SolutionDisplay;
 
 
 
 
+
+// ./../api/submits?pageid=${pageId}
 // import EditTopicForm from "@/components/EditTopicForm";
 
 // const getTopicById = async (id) => {

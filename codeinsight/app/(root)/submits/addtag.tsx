@@ -24,7 +24,6 @@ const TagInput = ({tags, setTags}: {tags: string[], setTags: React.Dispatch<Reac
   };
 
   return (
-    // <form onSubmit={handleSubmit}>
     <div>
       <div className="flex flex-wrap gap-2 w-full py-2">
         <input
@@ -54,7 +53,6 @@ const TagInput = ({tags, setTags}: {tags: string[], setTags: React.Dispatch<Reac
       ))}
       </div>
 
-    {/* // </form> */}
     </div>
   );
 };

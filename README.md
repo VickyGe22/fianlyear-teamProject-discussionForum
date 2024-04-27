@@ -34,5 +34,10 @@ npm install mongoose
 npm install tailwind-merge
 npm install clsx
 
+npm install natural stopword
+npm install stopword OR npm i --save-dev @types/stopword
+
+
+
 5. run : npm run dev
 

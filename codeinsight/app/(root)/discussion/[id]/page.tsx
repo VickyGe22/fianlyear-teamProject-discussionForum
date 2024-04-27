@@ -1,13 +1,3 @@
-'use client';
-import dynamic from 'next/dynamic';
-import GeneralComments from "../generalcomments";
-import Issue from "../issuepage";
-import { PlusIcon } from '@heroicons/react/20/solid';
-import SolutionDisplay from "../solution_display";
-import AddIssue from '../addissue';
-import Modal from "@/components/modal";
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 // 使用动态导入确保组件只在客户端渲染
 // const GeneralComments = dynamic(() => import("../generalcomments"), { ssr: false });
@@ -15,32 +5,32 @@ import { useEffect, useState } from 'react';
 // const SolutionDisplay = dynamic(() => import("../solution_display"), { ssr: false });
 
 
-export default function Home() {
+// export default function Home() {
     
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
+//     const [isModalOpen, setIsModalOpen] = useState(false);
+//     const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
+//     const handleOpenModal = () => {
+//         setIsModalOpen(true);
+//     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
+//     const handleCloseModal = () => {
+//         setIsModalOpen(false);
+//     };
 
 
-    const router = useRouter();
+//     const router = useRouter();
     
     
-    useEffect(() => {
-        const searchParams = new URLSearchParams(window.location.search); // 使用 useSearchParams 获取查询参数
-        const pageId = searchParams.get('pageid');
+//     useEffect(() => {
+//         const searchParams = new URLSearchParams(window.location.search); // 使用 useSearchParams 获取查询参数
+//         const pageId = searchParams.get('pageid');
 
-        console.log('pageId:', pageId);
-        if (pageId) {
-            setPageId(pageId);
-        }
-    }, [router]);
+//         console.log('这里这里', pageId);
+//         if (pageId) {
+//             setPageId(pageId);
+//         }
+//     }, [router]);
 
 
     // useEffect(() => {
@@ -62,6 +52,123 @@ export default function Home() {
     //     }
     // }, [router.isReady, router.query.pageid]);  // 依赖项包括路由准备状态和pageId变化
 
+
+ 
+// 'use client';
+
+// import GeneralComments from "../generalcomments";
+// import Issue from "../issuepage";
+// import { PlusIcon } from '@heroicons/react/20/solid';
+// import SolutionDisplay from "../solution_display";
+// import AddIssue from '../addissue';
+// import Modal from "@/components/modal";
+// import { useSearchParams } from 'next/navigation';
+// import { useEffect, useState } from 'react';
+
+// export default function Home() {
+//     const [isModalOpen, setIsModalOpen] = useState(false);
+//     // const [pageId, setPageId] = useState<string | undefined>(undefined);
+
+//     const handleOpenModal = () => {
+//         setIsModalOpen(true);
+//     };
+
+//     const handleCloseModal = () => {
+//         setIsModalOpen(false);
+//     };
+
+//     const [searchParams] = useSearchParams();
+
+//     useEffect(() => {
+//         const pageId = searchParams.get('pageid');
+//         console.log('这里这里:', pageId);
+//         if (pageId) {
+//             setPageId(pageId);
+//         }
+//     }, [searchParams]);
+
+
+
+
+// const getTopicById = async (id) => {
+//     try {
+//       const res = await fetch(`http://localhost:3000/api/submits/${id}`, {
+//         cache: "no-store",
+//       });
+  
+//       if (!res.ok) {
+//         throw new Error("Failed to fetch topic");
+//       }
+  
+//       return res.json();
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+// export default async function Home({ params }) {
+//     const [isModalOpen, setIsModalOpen] = useState(false);
+
+//     const handleOpenModal = () => {
+//         setIsModalOpen(true);
+//     };
+
+//     const handleCloseModal = () => {
+//         setIsModalOpen(false);
+//     };
+
+//     const { id } = params;
+//     const { submits } = await getTopicById(id);
+//     const { codesamples, languages, levels, types, issuedescriptions, tags } = submits;
+
+
+'use client';
+import dynamic from 'next/dynamic';
+import GeneralComments from "../generalcomments";
+import Issue from "../issuepage";
+import { PlusIcon } from '@heroicons/react/20/solid';
+import SolutionDisplay from "../solution_display";
+import AddIssue from '../addissue';
+import Modal from "@/components/modal";
+import {  usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+export default function Home() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    // const [searchParams] = useSearchParams();  // 使用 useSearchParams 钩子
+    const pathname = usePathname();
+
+    const extractId = (pathname: string): string => {
+        const match = pathname.match(/\/discussion\/([a-f0-9]+)/);
+        if (match && match[1]) {
+          return match[1];
+        }
+        return ''; // 如果没有找到匹配项，返回空字符串
+      };
+    
+
+    useEffect(() => {
+        // const pageId = searchParams.get('id');  // 使用 searchParams 获取查询参数
+        const pageId = extractId(pathname);
+
+        console.log('Page页面这里:', pageId);
+        
+        if (pageId) {
+            setPageId(pageId);
+        }
+    }, [pathname]);  // 更新 useEffect 的依赖为 searchParams
+
+    
     return (
         <>
             <div className='fadeIn' >
@@ -74,7 +181,7 @@ export default function Home() {
 
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
                     <div className="px-4 py-5 sm:p-6 shadow-lg">
-                        <SolutionDisplay pageId={pageId as string} />
+                        <SolutionDisplay pageId={pageId} />
                     </div>
                 </div>
 
