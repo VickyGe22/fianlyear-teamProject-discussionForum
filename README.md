@@ -33,6 +33,7 @@ npm install animate.css --save
 npm install mongoose
 npm install tailwind-merge
 npm install clsx
+npm install @uiw/react-codemirror @uiw/codemirror-theme-dracula 
 
 5. run : npm run dev
 
