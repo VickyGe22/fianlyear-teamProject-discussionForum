@@ -6,8 +6,8 @@ const submitSchema = new Schema({
   
   codesamples: {
     type: String,
-    required:  [true, "Please upload a sample of your code."],
-    minLength: [2, "The upload code must be larger than 2 characters"],
+    required: true,
+    // minLength: [2, "Name must be larger than 2 characters"],
     // maxLength: [50, "Name must be lesser than 50 characters"],
   },
 
@@ -39,6 +39,22 @@ const submitSchema = new Schema({
     required: false, 
     trim: true
   }],
+
+  // Algorithm
+  
+  sampletitles:{
+    type: String,
+    required: false,
+    minLength: [2, "Name must be larger than 2 characters"],
+    maxLength: [10, "Name must be lesser than 50 characters"],
+  },
+
+  numberReply:{
+    type: Number,
+    required: false,
+    default: 0
+  },
+
 
 });
 

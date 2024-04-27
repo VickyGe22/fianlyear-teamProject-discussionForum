@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { WordTokenizer } from 'natural';
+import stopwords from 'stopword';
 
 const getSubmit = async () => {
   try{
@@ -17,24 +19,54 @@ const getSubmit = async () => {
 }
 
 
+function generateTitle(codeDescription: string): string {
+ 
+  // 创建分词器
+  const tokenizer = new WordTokenizer();
+    // 分词
+    const words = tokenizer.tokenize(codeDescription);
+    
+    // 移除停用词，只保留有意义的词
+    // const filteredWords = words.filter(word => !stopwords.eng.includes(word.toLowerCase()) && /^[a-zA-Z0-9]+$/.test(word));
+    // console.log(stopwords);
+    
+    // 计算词频并找到最常见的词
+    const frequencyMap = new Map<string, number>();
+    words.forEach(word => {
+        frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
+    });
+    
+    // 将Map转换为数组并按词频排序
+    const sortedWords = Array.from(frequencyMap.entries()).sort((a, b) => b[1] - a[1]);
+    
+    // 选择最常见的5个词（或更少，取决于数组长度）
+    const mostCommonWords = sortedWords.slice(0, 5).map(([word]) => word);
+    
+    // 生成标题
+    const title = mostCommonWords.join(' ');
+    return title;
+}
+
+
 export default async function SubmitList() {
 
   const { submits } = await getSubmit();
-
+ 
+  for (let i = 0; i < submits.length; i++) {
+    submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
+  }
 
   return (
     <div className="pb-8 md:pb-16">
       <h2 className="text-3xl font-bold font-inter mb-10">Discuss Your Code Samples</h2>
       {/* List container */}
-
       <div className="flex flex-col">
 
-      {submits.map((sample:any) => {
-        console.log('sample._id:', sample._id); // 在这里添加 console.log
-        return (
+        {submits.map((sample:any) => (
+
           <div
-            key={sample._id} // Assuming each 'sample' has a unique '_id' provided by MongoDB
-            className={`[&:nth-child(-n+12)]:-order-1 group ${true && 'border-b border-gray-200'}`}
+          key={sample._id} // Assuming each 'sample' has a unique '_id' provided by MongoDB
+          className={`[&:nth-child(-n+12)]:-order-1 group ${true && 'border-b border-gray-200'}`}
           >
             <div className= "px-4 py-6 rounded-xl" >
               <div className="sm:flex items-center space-y-3 sm:space-y-0 sm:space-x-5">
@@ -42,11 +74,38 @@ export default async function SubmitList() {
                   <div>
                     <div className="mb-2">
                       <a className="text-lg text-gray-800 font-bold">
-                        {sample.issuedescriptions}
+                        {sample.sampletitles}
                       </a>
                     </div>
                     <div className="-m-1">
-                      {/* 更多内容 */}
+                      <a
+                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-gray-100
+                          }`}
+                        href="#0"
+                      >
+                        {sample.languages}
+                      </a>
+                      <a
+                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-indigo-50
+                          }`}
+                        href="#0"
+                      >
+                        {sample.levels}
+                      </a>
+                      <a
+                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-gray-100
+                          }`}
+                        href="#0"
+                      >
+                        {sample.types}
+                      </a>
+                      <a
+                        className={`text-xs text-gray-500 font-medium inline-flex px-2 py-0.5 hover:text-gray-600 rounded-md m-1 whitespace-nowrap transition duration-150 ease-in-out bg-gray-100
+                          }`}
+                        href="#0"
+                      >
+                        {sample.tags}
+                      </a>
                     </div>
                   </div>
                   <div className="min-w-[120px] flex items-center lg:justify-end space-x-3 lg:space-x-0">
@@ -64,9 +123,9 @@ export default async function SubmitList() {
               </div>
             </div>
           </div>  
-        );
-      })}
+        ))}
+
+      </div>
     </div>
-  </div>
-);
+  )
 }

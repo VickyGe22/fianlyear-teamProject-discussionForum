@@ -35,5 +35,10 @@ npm install tailwind-merge
 npm install clsx
 npm install @uiw/react-codemirror @uiw/codemirror-theme-dracula 
 
+npm install natural stopword
+npm install stopword OR npm i --save-dev @types/stopword
+
+
+
 5. run : npm run dev
 
