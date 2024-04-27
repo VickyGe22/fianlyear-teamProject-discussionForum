@@ -6,7 +6,7 @@ import MenuBox1 from './menubox1'
 import MenuBox2 from './menubox2'
 import TagInput from './addtag'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SubmitDialog from './submitpopup';
 import Modal from "@/components/modal";
 import Button from '../../../components/animation/button'
@@ -26,6 +26,8 @@ export default function SubmitSample() {
         setIsModalOpen(false);
     };
 
+   
+
     //传输codebox和menubox的数据
     const [code, setCode] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -35,6 +37,10 @@ export default function SubmitSample() {
     const [tags, setTags] = useState<string[]>([]);
     const [error, setError] = useState([]);
     const [success, setSuccess] = useState(false);
+
+    useEffect(() => {
+      console.log("Code status:", code);
+    }, [code]);
 
     const handleSubmit = async (e:any) => {
   
@@ -46,18 +52,23 @@ export default function SubmitSample() {
         body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
                   issuedescriptions:comment, tags: tags} ),
       });
+
+      
   
       const { msg, success } = await res.json();
       setError(msg);
       setSuccess(success);
   
       if (success) {
+        console.log("Clearing data...");
         setCode("");
         setSelectedLanguage("");
         setSelectedLevel("");
         setSelectedtype("");
         setComment("");
         setIsModalOpen(true);
+
+        
       }
     };
 
@@ -82,8 +93,7 @@ export default function SubmitSample() {
                   <label className="block text-sm font-medium mb-1" htmlFor="name">
                   Code sample <span className="text-red-500">*</span>
                   </label>
-                  <CodeBox code={code} setCode={setCode} />
-                  
+                  <CodeBox code={code} setCode={setCode} />               
                 </div>
                 {/* gap-8是两个flexbox之间的间隔 */}
                 <div className="flex justify-left  gap-8">
