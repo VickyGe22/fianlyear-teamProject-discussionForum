@@ -65,7 +65,7 @@ export function AddIssue() {
           name="title"
           id="title"
           className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0"
-          placeholder="Title"
+          placeholder="Issue"
         />
         <label htmlFor="description" className="sr-only">
           Description
@@ -101,7 +101,7 @@ export function AddIssue() {
               <>
                 <Listbox.Label className="sr-only">Assign</Listbox.Label>
                 <div className="relative">
-                  <Listbox.Button className="relative inline-flex items-center whitespace-nowrap rounded-full bg-gray-50 px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 sm:px-3">
+                  {/* <Listbox.Button className="relative inline-flex items-center whitespace-nowrap rounded-full bg-gray-50 px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 sm:px-3">
                     <span
                       className={classNames(
                         assigned.value === null ? '' : 'text-gray-900',
@@ -110,7 +110,7 @@ export function AddIssue() {
                     >
                       {assigned.value === null ? 'Subject' : assigned.name}
                     </span>
-                  </Listbox.Button>
+                  </Listbox.Button> */}
 
                   <Transition
                     show={open}
