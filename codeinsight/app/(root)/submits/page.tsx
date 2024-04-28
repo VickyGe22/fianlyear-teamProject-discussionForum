@@ -131,7 +131,7 @@ export default function SubmitSample() {
                   </label>
                   {/* <input id="salary" className="form-input w-full" type="text" /> */}
                   <TagInput tags={tags} setTags={setTags}/>
-                  <div className="text-xs text-gray-500 italic mt-2">Example: “while-duplicate”</div>
+                  <div className="text-xs text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
                 </div>
               </div>
             </div>
