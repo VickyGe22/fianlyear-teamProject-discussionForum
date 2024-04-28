@@ -1,54 +1,26 @@
+'use client';
 import Link from 'next/link'
-import { WordTokenizer } from 'natural';
-import stopwords from 'stopword';
-
-const getSubmit = async () => {
-  try{
-    const res = await fetch('http://localhost:3000/api/submits', {
-      cache: 'no-store',
-    });
-
-    if(!res.ok){
-      throw new Error('Network response was not ok');
-    }
-
-    return await res.json();
-  } catch (error){
-    console.error('There was an error!', error);
-  }
-}
-
-
-// function generateTitle(codeDescription: string): string {
- 
-//   // 创建分词器
-//   const tokenizer = new WordTokenizer();
-//     // 分词
-//     const words = tokenizer.tokenize(codeDescription);
-    
-//     // // 移除停用词，只保留有意义的词
-//     // const filteredWords = words.filter(word => stopwords.eng.includes(word.toLowerCase()) && /^[a-zA-Z0-9]+$/.test(word));
-//     // console.log(stopwords);
-    
-//     // 计算词频并找到最常见的词
-//     const frequencyMap = new Map<string, number>();
-//     words.forEach(word => {
-//         frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
-//     });
-    
-//     // 将Map转换为数组并按词频排序
-//     const sortedWords = Array.from(frequencyMap.entries()).sort((a, b) => b[1] - a[1]);
-    
-//     // 选择最常见的5个词（或更少，取决于数组长度）
-//     const mostCommonWords = sortedWords.slice(0, 5).map(([word]) => word);
-    
-//     // 生成标题
-//     const title = mostCommonWords.join(' ');
-//     return title;
-// }
-
-
 import nlp from 'compromise';
+import Pagination from './submit-pagination';
+import { useEffect, useState } from 'react';
+// import { WordTokenizer } from 'natural';
+// import stopwords from 'stopword';
+
+// const getSubmit = async () => {
+//   try{
+//     const res = await fetch('http://localhost:3000/api/submits', {
+//       cache: 'no-store',
+//     });
+
+//     if(!res.ok){
+//       throw new Error('Network response was not ok');
+//     }
+
+//     return await res.json();
+//   } catch (error){
+//     console.error('There was an error!', error);
+//   }
+// }
 
 function generateTitle(codeDescription: string): string {
     // 使用compromise处理文本
@@ -88,13 +60,49 @@ function generateTitle(codeDescription: string): string {
 
 
 
-export default async function SubmitList() {
+export default function SubmitList() {
 
-  const { submits } = await getSubmit();
- 
-  for (let i = 0; i < submits.length; i++) {
-    submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
-  }
+  // const { submits } = await getSubmit();
+
+  const [submits, setSubmits] = useState(null);
+
+  const fetchSubmit = async () => {
+    try {
+      const response = await fetch("./api/submits");
+      if (!response.ok) {
+        throw new Error('Failed to fetch submit');
+      }
+      const data = await response.json();
+      console.log(data.submits);
+      setSubmits(data.submits); // 这里假设响应结构是 { submit: {...} }
+    } catch (error) {
+      console.error('Fetch error:', error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchSubmit();
+  }, []); 
+
+  useEffect(() => {
+    if (submits) {
+      for (let i = 0; i < submits.length; i++) {
+        submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
+      }
+    }
+  }, [submits]); // This ensures the loop runs only after `submits` is set.
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 20;
+  const totalPages = submits ? Math.ceil(submits.length / postsPerPage) : 0;
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentSubmits = submits ? submits.slice(indexOfFirstPost, indexOfLastPost) : [];
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
 
   return (
@@ -103,7 +111,7 @@ export default async function SubmitList() {
       {/* List container */}
       <div className="flex flex-col">
 
-        {submits.map((sample:any) => (
+        {currentSubmits.map((sample:any) => (
 
           <div
           key={sample._id} // Assuming each 'sample' has a unique '_id' provided by MongoDB
@@ -115,7 +123,7 @@ export default async function SubmitList() {
                   <div>
                     <div className="mb-2">
                       <a className="text-lg text-gray-800 font-bold">
-                        {sample.sampletitles}
+                        {sample.tags[0]}
                       </a>
                     </div>
                     <div className="-m-1">
@@ -141,7 +149,7 @@ export default async function SubmitList() {
                         {sample.types}
                       </a>
                      
-                      {sample.tags.map((tag) => (
+                      {sample.tags.map((tag:any) => (
                                 <a
                                 className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
                                 href="#0"
@@ -166,6 +174,12 @@ export default async function SubmitList() {
             </div>
           </div>  
         ))}
+
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
 
       </div>
     </div>

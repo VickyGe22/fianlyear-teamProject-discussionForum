@@ -126,12 +126,13 @@
 import dynamic from 'next/dynamic';
 import GeneralComments from "../generalcomments";
 import Issue from "../issuepage";
-import { PlusIcon } from '@heroicons/react/20/solid';
+import {PlusIcon } from '@heroicons/react/20/solid';
 import SolutionDisplay from "../solution_display";
 import AddIssue from '../addissue';
 import Modal from "@/components/modal";
 import {  usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -179,37 +180,59 @@ export default function Home() {
                         Back to discuss other samples 
                 </a>
 
+                {/* <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
+                    <div className="px-4 py-5 sm:p-6 shadow-lg">
+                        <SolutionDisplay pageId={pageId} />
+                    </div>
+                    <div className="border-t border-gray-300" />
+                        <div className="flex justify-center mt-6">
+                                <button
+                                    type="button"
+                                    className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                    onClick={handleOpenModal} 
+                                >
+                                    <PlusIcon className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                        Click to Share and Discuss Your New Issues Found
+                                </button>
+                        </div>
+                </div> */}
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
                     <div className="px-4 py-5 sm:p-6 shadow-lg">
                         <SolutionDisplay pageId={pageId} />
                     </div>
-                </div>
+                    <div className="border-t border-gray-300" />
+                    <div className="flex justify-between items-center mt-6 px-4">
+                        <div className="flex items-center">
+                            {/* Comments icon and text */}
+                            {/* <ChatIcon className="h-5 w-5 text-gray-400" aria-hidden="true" /> */}
+                            <span className="ml-2 text-sm font-semibold text-gray-900 cursor hover:text-gray-500">Total Comments: 4</span>
+                        </div>
 
-                <div className=" py-20 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
-                    <div className="sm:px-6 mb-4">
+                        <button
+                            type="button"
+                            className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            onClick={handleOpenModal}
+                        >
+                            <PlusIcon className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                            Click to Share and Discuss Your New Issues Found
+                        </button>
+
+                        {/* Additional information to the right of the button */}
+                        <div className="flex items-center">
+                            <span className="text-sm font-semibold text-gray-900 mr-4 cursor hover:text-gray-500">Most Votes</span>
+                            <span className="text-sm font-semibold text-gray-900 cursor hover:text-gray-500">Issue Severity Level</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div className=" py-5 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+                    {/* <div className="sm:px-6 mb-4">
                         <h1 className="text-2xl font-bold text-black">Other Issues</h1>
                         <div className="text-gray-500 mt-2">Please share your new insights below for discussion.</div>
-                    </div>
+                    </div> */}
                 
                     <div className="px-4 py-4 sm:px-6">
                         <Issue />
-                    </div>
-                    
-                    <div className="relative">
-                        <div className="absolute inset-0 flex items-center" aria-hidden="true">
-                            <div className="w-full border-t border-gray-300" />
-                        </div>
-                        <div className="relative py-10 flex justify-center">
-                            
-                            <button
-                                type="button"
-                                className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                                onClick={handleOpenModal} 
-                            >
-                                <PlusIcon className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                Add New Issue
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -217,7 +240,7 @@ export default function Home() {
                     <AddIssue />
                 </Modal>
 
-                <div className="divide-y px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+                <div className="divide-y py-10 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                     <GeneralComments />
                 
                     <br></br>

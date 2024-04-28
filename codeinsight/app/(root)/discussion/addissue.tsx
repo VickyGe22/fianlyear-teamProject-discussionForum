@@ -149,7 +149,7 @@ export function AddIssue() {
                 <Listbox.Label className="sr-only">Add a label</Listbox.Label>
                 <div className="relative">
                   <Listbox.Button className="relative inline-flex items-center whitespace-nowrap rounded-full bg-gray-50 px-2 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 sm:px-3">
-                    <TagIcon
+                    {/* <TagIcon
                       className={classNames(
                         labelled.value === null ? 'text-gray-300' : 'text-gray-500',
                         'h-5 w-5 flex-shrink-0 sm:-ml-1'
@@ -163,7 +163,7 @@ export function AddIssue() {
                       )}
                     >
                       {labelled.value === null ? '#Tag' : labelled.name}
-                    </span>
+                    </span> */}
                   </Listbox.Button>
 
                   <Transition
