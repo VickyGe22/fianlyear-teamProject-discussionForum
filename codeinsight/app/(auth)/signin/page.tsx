@@ -87,9 +87,9 @@ export default function GoogleLogin() {
     // Validation logic remains the same
     if (email === 'codeinsight@gmail.com' && password === 'codeinsight') {
       // Set the redirect URL
-      setRedirectUrl('http://localhost:3000');
+      setRedirectUrl('http://localhost:3000/adminPage');
     } else {
-      console.log('Login failed');
+      alert('Please enter the correct email and password.');
     }
   };
 
