@@ -55,6 +55,15 @@ const submitSchema = new Schema({
     default: 0
   },
 
+  forum: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'Discussion' 
+  },
+
+  generalreply: { 
+    type: Schema.Types.ObjectId, 
+    ref: 'GeneReply' 
+  }
 
 });
 

@@ -1,14 +1,15 @@
 import connectDB from "@/libs/mongodb";
-import Submit from "@/models/submit";
+import Discussion from "@/models/discussion";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
+
 export async function POST(req) {
-  const { codesamples, languages, levels, types, issuedescriptions, tags, numberReply, forum, generalreply } = await req.json();
+  const { submitId, issuetitle, description, creator, replies, createdAt} = await req.json();
 
   try {
     await connectDB();
-    await Submit.create({ codesamples, languages, levels, types, issuedescriptions, tags, numberReply:0, forum, generalreply});
+    await Discussion.create({ submitId, issuetitle, description, creator, replies, createdAt});
 
     return NextResponse.json({
       msg: [" "],
@@ -30,11 +31,22 @@ export async function POST(req) {
   }
 }
 
+// export async function GET() {
+//   try {
+//     await connectDB();
+//     const discussions = await Discussion.find();
+//     return NextResponse.json({ submits });
+//   } catch (error) {
+//     return NextResponse.json({ msg: ["Unable to fetch submits."] });
+//   }
+// }
+
 export async function GET() {
   try {
     await connectDB();
-    const submits = await Submit.find();
-    return NextResponse.json({ submits });
+    const discussions = await Discussion.find();
+    // const discussions = await Discussion.find().populate('submitId').populate('replies');
+    return NextResponse.json({ discussions });
   } catch (error) {
     return NextResponse.json({ msg: ["Unable to fetch submits."] });
   }

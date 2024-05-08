@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link'
-import nlp from 'compromise';
+// import nlp from 'compromise';
 import Pagination from './submit-pagination';
 import { useEffect, useState } from 'react';
 // import { WordTokenizer } from 'natural';
@@ -22,41 +22,41 @@ import { useEffect, useState } from 'react';
 //   }
 // }
 
-function generateTitle(codeDescription: string): string {
-    // 使用compromise处理文本
-    let doc = nlp(codeDescription);
-    // 词形还原
-    doc.verbs().toInfinitive();
-    doc.nouns().toSingular();
+// function generateTitle(codeDescription: string): string {
+//     // 使用compromise处理文本
+//     let doc = nlp(codeDescription);
+//     // 词形还原
+//     doc.verbs().toInfinitive();
+//     doc.nouns().toSingular();
 
-    // 分词
-    const words = doc.text('normal').split(/\s+/);
+//     // 分词
+//     const words = doc.text('normal').split(/\s+/);
 
-    // 计算词频（TF）
-    const frequencyMap = new Map();
-    words.forEach(word => {
-        frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
-    });
+//     // 计算词频（TF）
+//     const frequencyMap = new Map();
+//     words.forEach(word => {
+//         frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
+//     });
 
-    // 计算TF-IDF
-    const tfidfMap = new Map();
-    words.forEach(word => {
-        const tf = frequencyMap.get(word);
-        // 假设IDF简化计算，你可以根据实际情况调整
-        const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
-        tfidfMap.set(word, tf * idf);
-    });
+//     // 计算TF-IDF
+//     const tfidfMap = new Map();
+//     words.forEach(word => {
+//         const tf = frequencyMap.get(word);
+//         // 假设IDF简化计算，你可以根据实际情况调整
+//         const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
+//         tfidfMap.set(word, tf * idf);
+//     });
 
-    // 按TF-IDF值排序
-    const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
+//     // 按TF-IDF值排序
+//     const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
 
-    // 选择最重要的5个词
-    const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
+//     // 选择最重要的5个词
+//     const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
 
-    // 生成标题
-    const title = importantWords.join(' ');
-    return title;
-}
+//     // 生成标题
+//     const title = importantWords.join(' ');
+//     return title;
+// }
 
 
 
@@ -84,13 +84,13 @@ export default function SubmitList() {
     fetchSubmit();
   }, []); 
 
-  useEffect(() => {
-    if (submits) {
-      for (let i = 0; i < submits.length; i++) {
-        submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
-      }
-    }
-  }, [submits]); // This ensures the loop runs only after `submits` is set.
+  // useEffect(() => {
+  //   if (submits) {
+  //     for (let i = 0; i < submits.length; i++) {
+  //       submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
+  //     }
+  //   }
+  // }, [submits]); // This ensures the loop runs only after `submits` is set.
 
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 20;
