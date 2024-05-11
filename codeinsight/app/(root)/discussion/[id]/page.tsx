@@ -241,7 +241,7 @@ export default function Home() {
                 </Modal>
 
                 <div className="divide-y py-10 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
-                    <GeneralComments />
+                    <GeneralComments pageId={pageId}/>
                 
                     <br></br>
                     <br></br>
