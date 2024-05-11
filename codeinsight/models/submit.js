@@ -55,15 +55,23 @@ const submitSchema = new Schema({
     default: 0
   },
 
-  forum: { 
+  issue: { 
     type: Schema.Types.ObjectId, 
     ref: 'Discussion' 
   },
 
-  generalreply: { 
-    type: Schema.Types.ObjectId, 
-    ref: 'GeneReply' 
-  }
+  generalreply: [{
+    type: String,
+    required: false, 
+    trim: true
+  }],
+
+  creator: { 
+    type: String, 
+    required: true,
+    default: 'Anonymous'
+ },
+
 
 });
 

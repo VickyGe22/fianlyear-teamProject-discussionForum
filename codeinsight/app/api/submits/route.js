@@ -4,11 +4,11 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 export async function POST(req) {
-  const { codesamples, languages, levels, types, issuedescriptions, tags, numberReply, forum, generalreply } = await req.json();
+  const { codesamples, languages, levels, types, issuedescriptions, tags, numberReply} = await req.json();
 
   try {
     await connectDB();
-    await Submit.create({ codesamples, languages, levels, types, issuedescriptions, tags, numberReply:0, forum, generalreply});
+    await Submit.create({ codesamples, languages, levels, types, issuedescriptions, tags, numberReply});
 
     return NextResponse.json({
       msg: [" "],

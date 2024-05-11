@@ -5,17 +5,19 @@ import { NextResponse } from "next/server";
 export async function PUT(req, {params}) {
 
   const {id} = params;
-  const { newSample: codesamples, newLanguages: languages, newLevels: levels, newTypes: types, newDes: issuedescriptions, newTag: tags } = await req.json();
+  const { newSample: codesamples, newLanguages: languages, newLevels: levels, newTypes: types, newDes: issuedescriptions, newTag: tags, newissue: issue, newgene: generalreply } = await req.json();
   
   try {
     await connectDB();
-    await Submit.findByIdAndUpdate(id, { codesamples, languages, levels, types, issuedescriptions, tags });
+    await Submit.findByIdAndUpdate(id, { codesamples, languages, levels, types, issuedescriptions, tags, issue, generalreply });
     return NextResponse.json({ msg: ["Submit updated successfully"] });
     }
     catch (error) {
         return NextResponse.json({ msg: ["Unable to update submit."] });
         }
-}
+ }
+
+
 
 // export async function GET({params}) {
 //   const {id} = params;
