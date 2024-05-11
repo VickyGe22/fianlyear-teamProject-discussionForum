@@ -32,4 +32,3 @@
   export default IssueReply;
   
   
-  // versionKey: false // Set to false to disable the version key (__v)

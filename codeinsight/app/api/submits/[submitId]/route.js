@@ -4,12 +4,12 @@ import { NextResponse } from "next/server";
 
 export async function PUT(req, {params}) {
 
-  const {id} = params;
+  const {submitId} = params;
   const { newSample: codesamples, newLanguages: languages, newLevels: levels, newTypes: types, newDes: issuedescriptions, newTag: tags, newissue: issue, newgene: generalreply } = await req.json();
   
   try {
     await connectDB();
-    await Submit.findByIdAndUpdate(id, { codesamples, languages, levels, types, issuedescriptions, tags, issue, generalreply });
+    await Submit.findByIdAndUpdate(submitId, { codesamples, languages, levels, types, issuedescriptions, tags, issue, generalreply });
     return NextResponse.json({ msg: ["Submit updated successfully"] });
     }
     catch (error) {
@@ -18,38 +18,12 @@ export async function PUT(req, {params}) {
  }
 
 
-
-// export async function GET({params}) {
-//   const {id} = params;
-//   try {
-//     await connectDB();
-//     const submit = await Submit.findOne({ _id: id });
-//     return NextResponse.json({ submit });
-//   } catch (error) {
-//     console.error('Error fetching submit:', error);
-//     return NextResponse.json({ msg: ["Unable to fetch submits."] });
-//   }
-// }
-
-
-// export async function GET(req) {
-//   try {
-//     await connectDB();
-//     const pageId = req.nextUrl.searchParams.get("pageid"); // Get pageid from URL if present
-//     const query = pageId ? { pageId: pageId } : {}; // Filter by pageId if it's present
-//     const submits = await Submit.find(query);
-//     return NextResponse.json({ submits });
-//   } catch (error) {
-//     return NextResponse.json({ msg: ["Unable to fetch submits."] });
-//   }
-// }
-
 export async function GET(request, context) {
   await connectDB();  // Ensure the database connection is established
   const { params } = context;
 
   // Retrieve the document using findOne() with async/await
-  const submit = await Submit.findOne({ _id: params.id });
+  const submit = await Submit.findOne({ _id: params.submitId });
 
   if (!submit) {
     // Handle the case where no document is found
