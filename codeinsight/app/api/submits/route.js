@@ -4,11 +4,11 @@ import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 
 export async function POST(req) {
-  const { codesamples, languages, levels, types, issuedescriptions, tags, numberReply} = await req.json();
+  const { codesamples, languages, levels, types, issuedescriptions, tags, numberReply, discussion, creator, generalreply, sampletitles} = await req.json();
 
   try {
     await connectDB();
-    await Submit.create({ codesamples, languages, levels, types, issuedescriptions, tags, numberReply});
+    await Submit.create({ codesamples, languages, levels, types, issuedescriptions, tags, numberReply, discussion, creator, generalreply, sampletitles});
 
     return NextResponse.json({
       msg: [" "],
@@ -24,11 +24,11 @@ export async function POST(req) {
       console.log(errorList);
       return NextResponse.json({ msg: errorList });
     } else {
-      
       return NextResponse.json({ msg: ["Unable to send message."] });
     }
   }
 }
+
 
 export async function GET() {
   try {

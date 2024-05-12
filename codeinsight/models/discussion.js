@@ -29,6 +29,11 @@ const discussionSchema = new Schema({
         ref: 'Reply' 
     }],
 
+    totalReplies: { 
+        type: Number, 
+        default: 0 
+    },
+
     createdAt: { 
         type: Date, 
         default: Date.now 
@@ -42,4 +47,3 @@ const Discussion =
 export default Discussion;
 
 
-// versionKey: false // Set to false to disable the version key (__v)
