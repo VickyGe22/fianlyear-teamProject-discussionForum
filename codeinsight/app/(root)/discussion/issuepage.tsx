@@ -17,7 +17,7 @@ const authorAvatars: AuthorAvatars = {
 };
 
 
-const Issue = ({ pageId }) =>  {
+const Issue = ({ pageId }:{pageId:string}) =>  {
 
     const [discussions, setDiscussion] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ const Issue = ({ pageId }) =>  {
           const data = await response.json();
           console.log("这里",data)
           setDiscussion(data.discussions); 
-        } catch (error) {
+        } catch (error:any) {
           console.error('Fetch error:', error);
           setError(error.message);
         } finally {

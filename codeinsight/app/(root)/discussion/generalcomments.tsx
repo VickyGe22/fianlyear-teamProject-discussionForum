@@ -143,7 +143,7 @@ export default function Example({pageId}:{pageId:string}) {
             />
           </div>
           <div className="min-w-0 flex-1">
-            <form className="relative" onSubmit={handleSubmit}>
+            <form className="relative">
               <div className="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
                 <label htmlFor="comment" className="sr-only">Add your comment</label>
                 <textarea

@@ -1,9 +1,9 @@
 'use client' ;
 import { useEffect, useState } from "react";
 
-export function AddIssue(pageId) {
+export function AddIssue({pageId}: {pageId: string}) {
     
-  const [issues, setIssues] = useState('');
+    const [issues, setIssues] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState([]);
     const [success, setSuccess] = useState(false);
@@ -12,6 +12,7 @@ export function AddIssue(pageId) {
       console.log("Code status:", issues);
     }, [issues]);
 
+//post function
     const handleAddIssue = async (e:any) => {
   
       const res = await fetch(`/api/submits/${pageId}/discussions`, {
@@ -37,7 +38,7 @@ export function AddIssue(pageId) {
 
   return (
 
-    <form onSubmit={handleAddIssue} className="relative scroll-smooth rounded-lg py-5">
+    <form className="relative scroll-smooth rounded-lg py-5">
       {/* <div className="overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500"> */}
         <label htmlFor="title" className="sr-only">
           Title
@@ -69,7 +70,7 @@ export function AddIssue(pageId) {
             <button
               type="submit"
               className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
+              onClick={handleAddIssue}>
               Create
             </button>
       </div>

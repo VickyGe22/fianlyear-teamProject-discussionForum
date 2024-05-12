@@ -27,10 +27,10 @@ export default function Home() {
     const extractId = (pathname: string): string => {
         const match = pathname.match(/\/discussion\/([a-f0-9]+)/);
         if (match && match[1]) {
-          return match[1];
+        return match[1];
         }
         return ''; // 如果没有找到匹配项，返回空字符串
-      };
+    };
     
 
     useEffect(() => {

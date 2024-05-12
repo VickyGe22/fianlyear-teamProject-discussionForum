@@ -57,7 +57,7 @@ export async function GET(request, context) {
   const { params } = context;
 
   // Retrieve the document using findOne() with async/await
-  const submit = await Submit.findOne({ _id: params.id });
+  const submit = await Submit.findOne({ _id: params.submitId });
 
   if (!submit) {
     // Handle the case where no document is found
