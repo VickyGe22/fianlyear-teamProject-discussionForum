@@ -1,5 +1,3 @@
-//这里是为了建造一个模型，为了满足数据的提交要求
-
 import mongoose, { Schema } from "mongoose";
 
 const submitSchema = new Schema({
@@ -54,6 +52,28 @@ const submitSchema = new Schema({
     required: false,
     default: 0
   },
+
+  discussion: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Discussion'
+  }],
+
+  generalreply: [{
+    type: String,
+    required: false, 
+    trim: true
+  }],
+
+  creator: { 
+    type: String, 
+    required: true,
+    default: 'Anonymous'
+  },
+
+  createdAt: { 
+  type: Date, 
+  default: Date.now 
+}
 
 
 });
