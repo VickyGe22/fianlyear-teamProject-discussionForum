@@ -52,7 +52,7 @@ export const metadata = {
                 />
                 {/* Overlay that appears on hover */}
                 <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-300 ease-in-out flex flex-col justify-center items-center">
-                  <Link legacyBehavior href="/sampleLists">
+                  <Link legacyBehavior href="/acceptance">
                     <a className="text-center">
                     <h3 className="text-2xl zoomIn font-extrabold text-black px-2 ease-in-out mt-4 " style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
                         Acceptence
@@ -67,13 +67,13 @@ export const metadata = {
               <div className="group aspect-h-1 float-animation aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
                 <img
                   src="/images/review.png"
-                  alt="submit"
+                  alt="/submit"
                   className="object-cover object-center w-full h-full transition-opacity duration-300 ease-in-out group-hover:brightness-50"
                   style={{ maxHeight: '70%', maxWidth: '100%', margin: 'auto', position: 'absolute', top: '10%', left: '0', right: '0', bottom: '0' }}
                 />
                 {/* Overlay that appears on hover */}
                 <div className="absolute inset-0  bg-opacity-0 group-hover:bg-opacity-90 transition-opacity duration-300 ease-in-out flex flex-col justify-center items-center">
-                  <Link legacyBehavior href="/Disscussion">
+                  <Link legacyBehavior href="/adminDiscussion">
                     <a className="text-center">
                     <h3 className="text-2xl zoomIn font-extrabold text-black px-2 ease-in-out mt-4 " style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
                         Discussion
