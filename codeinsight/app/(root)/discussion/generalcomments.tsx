@@ -29,14 +29,12 @@ export default function Example({pageId}:{pageId:string}) {
             throw new Error('Failed to fetch submit');
           }
           const data = await response.json();
-          console.log("这里",data)
           const mappedComments = data.submit.generalreply.map((text:any) => ({
             text: text, // the comment text
             user: people[0], // assigning a default user for each comment
             likes: 0, // initializing likes to 0
             isLiked: false // initializing isLiked to false
           }));
-          console.log("看看comments",mappedComments)
           setComments(mappedComments);// 这里假设响应结构是 { submit: {...} }
           
         } catch (error: any) {
@@ -49,7 +47,6 @@ export default function Example({pageId}:{pageId:string}) {
       
       useEffect(() => {
         fetchSubmit();
-        console.log("看看comments",comments)
       }, [pageId]); 
 
       
