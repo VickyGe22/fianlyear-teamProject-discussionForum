@@ -25,8 +25,14 @@ const discussionSchema = new Schema({
     },
 
     replies: [{ 
-        type: Schema.Types.ObjectId, 
-        ref: 'Reply' 
+        type: Schema.Types.ObjectId,
+        ref: 'Reply',
+        required: false
+    }],
+
+    replyissue:[{
+        type: string,
+        required: false
     }],
 
     totalReplies: { 

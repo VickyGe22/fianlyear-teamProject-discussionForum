@@ -12,7 +12,7 @@ const people = [
 ];
 
 
-export default function Example({disId}:{disId:string}, {pageId}:{pageId:string}) {
+export default function Example({ pageId, disId }:{pageId:string, disId:string}) {
 
 
   const [comment, setComment] = useState('');
@@ -23,7 +23,7 @@ export default function Example({disId}:{disId:string}, {pageId}:{pageId:string}
     const [error, setError] = useState(null);
 
     const fetchReply = async () => {
-        if (!disId) return;
+        if (!pageId) return;
       
         try {
           const response = await fetch(`/api/submits/${pageId}/discussions/${disId}/reply`);
@@ -31,9 +31,9 @@ export default function Example({disId}:{disId:string}, {pageId}:{pageId:string}
             throw new Error('Failed to fetch submit');
           }
           const data = await response.json();
-          console.log("这里",data)
-          const mappedComments = data.submit.discussions.replies;
-          console.log("看看comments",mappedComments)
+          console.log("查看reply的data",data)
+          const mappedComments = data?.submit?.discussions?.replies || [];
+          console.log("看看抓到没",mappedComments)
           setComments(mappedComments);// 这里假设响应结构是 { submit: {...} }
           
         } catch (error: any) {
@@ -67,15 +67,17 @@ export default function Example({disId}:{disId:string}, {pageId}:{pageId:string}
     setComments([...comments, newComment]);
   
     console.log("Submitting comment:", comment);
-    const res = await fetch(`/api/submits/${pageId}/discussions/${disId}/reply`, {
+    console.log("看看pdisId",disId)
+    const res = await fetch(`/api/submits/${pageId}/discussions/${disId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ replyText: comment, pageId: pageId, disId: disId } ),
+      body: JSON.stringify({ replyissue: comment, disId:disId } ),
     });
     setComment(''); // Clear the input after submit
   };
+
 
   const handleLike = (index: number) => {
     const updatedComments = [...comments];
@@ -140,7 +142,7 @@ export default function Example({disId}:{disId:string}, {pageId}:{pageId:string}
             />
           </div>
           <div className="min-w-0 flex-1 ">
-            <form className="relative" onSubmit={handleSubmit}>
+            <form className="relative">
               <div className="overflow-hidden rounded-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
         
                 <textarea

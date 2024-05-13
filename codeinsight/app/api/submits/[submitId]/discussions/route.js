@@ -6,11 +6,11 @@ import mongoose from "mongoose";
 
 export async function POST(req, {params}) {
   const { submitId } = params;
-  const { issuetitle, description, creator, replies, totalReplies, createdAt} = await req.json();
+  const { issuetitle, description, creator, totalReplies, createdAt} = await req.json();
 
   try {
     await connectDB();
-    await Discussion.create({ submitId, issuetitle, description, creator, replies, totalReplies, createdAt});
+    await Discussion.create({ submitId, issuetitle, description, creator, totalReplies, createdAt});
     await Discussion.save();
     res.status(201).json(Discussion);
 
