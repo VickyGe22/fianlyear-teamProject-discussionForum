@@ -11,7 +11,7 @@ interface NavItem {
 }
 
 const navigation: NavItem[] = [
-  { name: 'Home', href: '/', current: false },
+  { name: 'Home', href: '/adminPage', current: false },
   { name: 'Submit', href: '/submits', current: false },
   { name: 'Discuss', href: '/sampleLists', current: false },
   { name: 'Review', href: '/review', current: false },
