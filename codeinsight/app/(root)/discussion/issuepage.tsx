@@ -32,7 +32,6 @@ const Issue = ({ pageId }:{pageId:string}) =>  {
             throw new Error('Failed to fetch discuss');
           }
           const data = await response.json();
-          console.log("这里",data)
           setDiscussion(data.discussions); 
         } catch (error:any) {
           console.error('Fetch error:', error);
@@ -101,7 +100,7 @@ const Issue = ({ pageId }:{pageId:string}) =>  {
                     </div>
                     <Disclosure.Panel as="div" className="pb-4 px-6">
                       {/* IssueReply component and other content */}
-                      <IssueReply />
+                      <IssueReply pageId={pageId} disId={discussion._id}/>
                     </Disclosure.Panel>
                   </>
                 )}

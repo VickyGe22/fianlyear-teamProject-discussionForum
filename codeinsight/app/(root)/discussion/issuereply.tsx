@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Like from '@/public/images/like.png';
 import Like2 from '@/public/images/like-2.png';
 import Image from 'next/image'
@@ -12,25 +12,69 @@ const people = [
 ];
 
 
-export default function Example() {
+export default function Example({disId}:{disId:string}, {pageId}:{pageId:string}) {
+
+
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<Array<{ text: string; user: { name: string; imageUrl: string; }; likes: number; isLiked: boolean; }>>([]);
+
+  //get function
+  const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const fetchReply = async () => {
+        if (!disId) return;
+      
+        try {
+          const response = await fetch(`/api/submits/${pageId}/discussions/${disId}/reply`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch submit');
+          }
+          const data = await response.json();
+          console.log("这里",data)
+          const mappedComments = data.submit.discussions.replies;
+          console.log("看看comments",mappedComments)
+          setComments(mappedComments);// 这里假设响应结构是 { submit: {...} }
+          
+        } catch (error: any) {
+          console.error('Fetch error:', error);
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      
+      useEffect(() => {
+        fetchReply();
+        console.log("看看comments",comments)
+      }, [pageId, disId]); 
+
+      
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
+
 
   const handleCommentChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
+  
+  const handleSubmit = async (e:any) => {
+    e.preventDefault(); // Prevent default form submit behavior
     const person = people[0];
-    const newComment = {
-      text: comment,
-      user: person,
-      likes: 0, // Initialize likes to 0
-      isLiked: false
-    };
+    const newComment = {text: comment,user: person,likes: 0, // Initialize likes to 0
+    isLiked: false};
     setComments([...comments, newComment]);
-    setComment('');
+  
+    console.log("Submitting comment:", comment);
+    const res = await fetch(`/api/submits/${pageId}/discussions/${disId}/reply`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ replyText: comment, pageId: pageId, disId: disId } ),
+    });
+    setComment(''); // Clear the input after submit
   };
 
   const handleLike = (index: number) => {
@@ -112,6 +156,7 @@ export default function Example() {
                 <div className="flex-shrink-0 py-3 px-5 text-left">
                   <button
                     type="submit"
+                    onClick={handleSubmit}
                     className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-indigo-600"
                   >
                     Post
