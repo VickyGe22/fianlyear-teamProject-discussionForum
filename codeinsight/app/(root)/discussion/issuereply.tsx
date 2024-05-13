@@ -14,7 +14,6 @@ const people = [
 
 export default function Example({ pageId, disId }:{pageId:string, disId:string}) {
 
-
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<Array<{ text: string; user: { name: string; imageUrl: string; }; likes: number; isLiked: boolean; }>>([]);
 
@@ -26,13 +25,13 @@ export default function Example({ pageId, disId }:{pageId:string, disId:string})
         if (!pageId) return;
       
         try {
-          const response = await fetch(`/api/submits/${pageId}/discussions/${disId}/reply`);
+          const response = await fetch(`/api/submits/${pageId}/discussions/${disId}`);
           if (!response.ok) {
             throw new Error('Failed to fetch submit');
           }
           const data = await response.json();
           console.log("查看reply的data",data)
-          const mappedComments = data?.submit?.discussions?.replies || [];
+          const mappedComments = data.submit.discussions;
           console.log("看看抓到没",mappedComments)
           setComments(mappedComments);// 这里假设响应结构是 { submit: {...} }
           
@@ -73,7 +72,7 @@ export default function Example({ pageId, disId }:{pageId:string, disId:string})
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ replyissue: comment, disId:disId } ),
+      body: JSON.stringify({ replies: comment, disId: disId } ),
     });
     setComment(''); // Clear the input after submit
   };

@@ -1,6 +1,7 @@
 import connectDB from "@/libs/mongodb";
 import Discussion from "@/models/submit";
 import { NextResponse } from "next/server";
+import { connected } from "process";
 
 export async function PUT(req, {params}) {
 
@@ -19,14 +20,14 @@ export async function PUT(req, {params}) {
 
 
 
-
-export async function POST(req) {
-  const { replyissue, disId } = await req.json(); // Assuming pageId is sent in the request
+export async function POST(req, context) {
+  const { replies, disId } = await req.json(); // Assuming pageId is sent in the request
 
   try {
     await connectDB();
+    console.log('啊哈哈哈哈哈哈哈',disId)
     const updatedDiscuss = await Discussion.findByIdAndUpdate(disId, 
-      { $push: { replyissue: replyissue } }, // Push the new comment to the generalreply array
+      { $push: { replies: replies } }, // Push the new comment to the generalreply array
       // { new: true, runValidators: true } // Return the updated document and run schema validators
     );
 
@@ -54,17 +55,18 @@ export async function POST(req) {
 }
 
 
-
 export async function GET(request, context) {
   await connectDB();  // Ensure the database connection is established
   const { params } = context;
 
   // Retrieve the document using findOne() with async/await
-  const discuss = await Discussion.findOne({ _id: params.id });
+  const discuss = await Discussion.findOne({ _id: params.discussId });
+  console.log('ss111111111111',params.discussId)
 
   if (!discuss) {
     // Handle the case where no document is found
-    return new Response(JSON.stringify({ error: 'Submit not found' }), {
+    console.log('ss111111111111',params.discussId)
+    return new Response(JSON.stringify({ error: 'discuss not found' }), {
       status: 404,
       headers: {
         'Content-Type': 'application/json',

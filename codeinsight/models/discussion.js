@@ -24,15 +24,10 @@ const discussionSchema = new Schema({
         default: 'Anonymous'
     },
 
-    replies: [{ 
-        type: Schema.Types.ObjectId,
-        ref: 'Reply',
-        required: false
-    }],
-
-    replyissue:[{
-        type: string,
-        required: false
+    replies: [{
+        type: String,
+        required: false, 
+        trim: true
     }],
 
     totalReplies: { 
