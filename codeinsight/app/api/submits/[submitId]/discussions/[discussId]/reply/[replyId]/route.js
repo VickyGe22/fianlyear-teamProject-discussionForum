@@ -5,12 +5,11 @@ import { NextResponse } from "next/server";
 export async function PUT(req, {params}) {
 
   const {id} = params;
-  const { discussionId } = req.params;
   const { newReply: replyText, newCre: creator, newDate: createdAt } = await req.json();
   
   try {
     await connectDB();
-    await Replyes.findByIdAndUpdate(id, { discussionId, replyText, creator, createdAt });
+    await Replyes.findByIdAndUpdate(id, { replyText, creator, createdAt });
     return NextResponse.json({ msg: ["reply updated successfully"] });
     }
     catch (error) {

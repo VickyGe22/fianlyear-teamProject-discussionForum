@@ -11,6 +11,8 @@ export async function POST(req) {
   try {
     await connectDB();
     await Replyes.create({ discussionId, replyText, creator, createdAt});
+    await Replyes.save();
+    res.status(201).json(Replyes);
 
     return NextResponse.json({
       msg: [" "],
@@ -32,15 +34,24 @@ export async function POST(req) {
   }
 }
 
-export async function GET() {
-  const { discussionId } = req.params;
 
-  try {
-    await connectDB();
-    const reply = await Replyes.find(discussionId);
-    // const discussions = await Discussion.find().populate('submitId').populate('replies');
-    return NextResponse.json({ reply });
-  } catch (error) {
-    return NextResponse.json({ msg: ["Unable to fetch Replyes."] });
+export async function GET(request, context) {
+  await connectDB();  // Ensure the database connection is established
+  const { discussionId } = context.params;
+
+  // Retrieve the document using findOne() with async/await
+  const reply = await Replyes.find({ discussionId: discussionId });
+
+  if (!reply) {
+    // Handle the case where no document is found
+    return new Response(JSON.stringify({ error: 'reply not found' }), {
+      status: 404,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
+
+  // Respond with the found document details
+  return NextResponse.json({ reply });
 }
