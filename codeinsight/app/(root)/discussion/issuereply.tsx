@@ -65,8 +65,6 @@ export default function Example({ pageId, disId }:{pageId:string, disId:string})
     isLiked: false};
     setComments([...comments, newComment]);
   
-    console.log("Submitting comment:", comment);
-    console.log("看看pdisId",disId)
     const res = await fetch(`/api/submits/${pageId}/discussions/${disId}`, {
       method: "POST",
       headers: {

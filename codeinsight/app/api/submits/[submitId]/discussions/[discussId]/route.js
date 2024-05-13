@@ -1,5 +1,5 @@
 import connectDB from "@/libs/mongodb";
-import Discussion from "@/models/submit";
+import Discussion from "@/models/discussion";
 import { NextResponse } from "next/server";
 import { connected } from "process";
 
@@ -25,11 +25,13 @@ export async function POST(req, context) {
 
   try {
     await connectDB();
-    console.log('啊哈哈哈哈哈哈哈',disId)
+    console.log('查个id',disId)
+    console.log('查个replies',replies)
     const updatedDiscuss = await Discussion.findByIdAndUpdate(disId, 
-      { $push: { replies: replies } }, // Push the new comment to the generalreply array
+      { $push: { replies: replies } },// Push the new comment to the generalreply array
       // { new: true, runValidators: true } // Return the updated document and run schema validators
     );
+    console.log('查个updatedDiscuss',updatedDiscuss)
 
     if (!updatedDiscuss) {
       return NextResponse.json({ msg: ["Document not found."], success: false });
@@ -55,25 +57,27 @@ export async function POST(req, context) {
 }
 
 
-export async function GET(request, context) {
-  await connectDB();  // Ensure the database connection is established
-  const { params } = context;
-
-  // Retrieve the document using findOne() with async/await
-  const discuss = await Discussion.findOne({ _id: params.discussId });
-  console.log('ss111111111111',params.discussId)
-
-  if (!discuss) {
-    // Handle the case where no document is found
+  export async function GET(request, context) {
+    await connectDB();  // Ensure the database connection is established
+    const { params } = context;
+  
+    // Retrieve the document using findOne() with async/await
+    
+    const discuss = await Discussion.findOne({ _id: params.discussId });
     console.log('ss111111111111',params.discussId)
-    return new Response(JSON.stringify({ error: 'discuss not found' }), {
-      status: 404,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  
+    if (!discuss) {
+      // Handle the case where no document is found
+      console.log('ss111111111111',discuss)
+      console.log('ss111111111111',params.discussId)
+      return new Response(JSON.stringify({ error: 'discuss not found' }), {
+        status: 404,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+  
+    // Respond with the found document details
+    return NextResponse.json({ discuss });
   }
-
-  // Respond with the found document details
-  return NextResponse.json({ discuss });
-}
