@@ -19,7 +19,7 @@ export default function Example({ pageId, disId }:{pageId:string, disId:string})
 
   //get function
   const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+  const [error, setError] = useState(null);
 
     const fetchReply = async () => {
         if (!pageId) return;
@@ -31,7 +31,12 @@ export default function Example({ pageId, disId }:{pageId:string, disId:string})
           }
           const data = await response.json();
           console.log("查看reply的data",data)
-          const mappedComments = data.submit.discussions;
+          const mappedComments = data.discuss.replies.map((text:any) => ({
+            text: text, // the comment text
+            user: people[0], // assigning a default user for each comment
+            likes: 0, // initializing likes to 0
+            isLiked: false // initializing isLiked to false
+          }));
           console.log("看看抓到没",mappedComments)
           setComments(mappedComments);// 这里假设响应结构是 { submit: {...} }
           
