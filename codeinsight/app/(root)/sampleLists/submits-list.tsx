@@ -58,7 +58,7 @@ export default function SubmitList() {
                   <div>
                     <div className="mb-2">
                       <a className="text-lg text-gray-800 font-bold">
-                        {sample.tags[0]}
+                        {sample.sampletitles}
                       </a>
                     </div>
                     <div className="-m-1">

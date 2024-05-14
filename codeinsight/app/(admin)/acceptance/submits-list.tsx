@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import Pagination from './submit-pagination';
 import { useEffect, useState } from 'react';
 
@@ -8,7 +9,7 @@ export default function SubmitList() {
 
   const fetchSubmit = async () => {
     try {
-      const response = await fetch("./api/submits");
+      const response = await fetch("./api/submits?acceptance=false");
       if (!response.ok) {
         throw new Error('Failed to fetch submit');
       }
@@ -80,10 +81,10 @@ export default function SubmitList() {
               <div className="sm:flex items-center space-y-3 sm:space-y-0 sm:space-x-5">
                 <div className="grow lg:flex items-center justify-between space-y-5 lg:space-x-2 lg:space-y-0">
                   <div>
-                    <div className="mb-2">
-                      <a className="text-lg text-gray-800 font-bold">
-                        {sample.tags[0]}
-                      </a>
+                    <div className="mb-2" >
+                      <Link className="text-lg text-gray-800 font-bold" href={`/adminSinglesample/${sample._id}`}>
+                          {sample.sampletitles}
+                      </Link>
                     </div>
                     <div className="-m-1">
                       <a
