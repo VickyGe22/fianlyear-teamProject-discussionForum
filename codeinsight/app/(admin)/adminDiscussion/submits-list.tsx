@@ -1,36 +1,6 @@
 'use client';
-import Link from 'next/link';
-import nlp from 'compromise';
 import Pagination from './submit-pagination';
 import { useEffect, useState } from 'react';
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-nYiLDB5ZiysUjZMqB3/2KqgCrvq5vG9eFz5vYQqfxZZHc4EGOgGYHQD4NG8NQ2Hg7whgCvNG+JJK0cdF3zAjTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-function generateTitle(codeDescription: string): string {
-  let doc = nlp(codeDescription);
-  doc.verbs().toInfinitive();
-  doc.nouns().toSingular();
-
-  const words = doc.text('normal').split(/\s+/);
-
-  const frequencyMap = new Map();
-  words.forEach(word => {
-    frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
-  });
-
-  const tfidfMap = new Map();
-  words.forEach(word => {
-    const tf = frequencyMap.get(word);
-    const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
-    tfidfMap.set(word, tf * idf);
-  });
-
-  const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
-
-  const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
-
-  const title = importantWords.join(' ');
-  return title;
-}
 
 export default function SubmitList() {
   const [submits, setSubmits] = useState(null);
@@ -52,40 +22,20 @@ export default function SubmitList() {
     fetchSubmit();
   }, []);
 
-  useEffect(() => {
-    if (submits) {
-      for (let i = 0; i < submits.length; i++) {
-        submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
-      }
-    }
-  }, [submits]);
-
   const handleCloseDiscussion = async (id) => {
     try {
       console.log('Closing discussion for ID:', id);
-      const response = await fetch(`/api/submits/${id}/closediscussion`, {
-        method: 'PATCH',
+      const response = await fetch(`/api/submits/${id}`, {
+        method: 'DELETE',
       });
       if (!response.ok) {
         throw new Error('Failed to close discussion');
       }
-      setSubmits(prevSubmits => {
-        console.log('Previous submits:', prevSubmits);
-        return (prevSubmits ?? []).map(submit => {
-          if (submit._id === id) {
-            return { ...submit, discussionClosed: true };
-          } else {
-            return submit;
-          }
-        });
-      });
     } catch (error) {
       console.error('Close discussion error:', error);
     }
   };
   
-  
-
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 20;
   const totalPages = submits ? Math.ceil(submits.length / postsPerPage) : 0;

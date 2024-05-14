@@ -4,10 +4,6 @@ export const metadata = {
   }
   
   import Intro from '@/components/Intro'
-  // import Image from 'next/image'
-  // import submit from '@/public/images/submit.png'
-  // import discussion from '@/public/images/discussion.png'
-  // import review from '@/public/images/review.png'
   import Link from 'next/link'
   
   export default function Home() {

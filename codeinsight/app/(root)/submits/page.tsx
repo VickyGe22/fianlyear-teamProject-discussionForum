@@ -11,7 +11,36 @@ import SubmitDialog from './submitpopup';
 import Modal from "@/components/modal";
 import Button from '../../../components/animation/button'
 import { XCircleIcon } from '@heroicons/react/20/solid'
-import { set } from 'mongoose';
+
+import nlp from 'compromise';
+import { WordTokenizer } from 'natural';
+import stopwords from 'stopword';
+
+
+function generateTitle(codeDescription: string): string {
+
+    let doc = nlp(codeDescription);
+    doc.verbs().toInfinitive();
+    doc.nouns().toSingular();
+    const words = doc.text('normal').split(/\s+/);
+    const frequencyMap = new Map();
+    words.forEach(word => {
+        frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
+    });
+    const tfidfMap = new Map();
+    words.forEach(word => {
+        const tf = frequencyMap.get(word);
+        const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
+        tfidfMap.set(word, tf * idf);
+    });
+
+    const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
+
+    const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
+
+    const title = importantWords.join(' ');
+    return title;
+}
 
 
 
@@ -27,8 +56,7 @@ export default function SubmitSample() {
         setIsModalOpen(false);
     };
 
-   
-
+  
     //传输codebox和menubox的数据
     const [code, setCode] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -38,10 +66,16 @@ export default function SubmitSample() {
     const [tags, setTags] = useState<string[]>([]);
     const [error, setError] = useState([]);
     const [success, setSuccess] = useState(false);
+    const [title = generateTitle(comment), setTitle] = useState('');
+
 
     useEffect(() => {
       console.log("Code status:", code);
     }, [code]);
+
+     useEffect(() => {
+        const title = generateTitle(comment);
+      }, [setTitle]); // This ensures the loop runs only after `submits` is set.
 
     const handleSubmit = async (e:any) => {
   
@@ -51,7 +85,7 @@ export default function SubmitSample() {
           "Content-type": "application/json",
         },
         body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
-                  issuedescriptions:comment, tags: tags} ),
+                  issuedescriptions:comment, tags: tags, sampletitles: title} ),
       });
 
       
@@ -69,8 +103,6 @@ export default function SubmitSample() {
         setComment("");
         setTags([]);
         setIsModalOpen(true);
-
-        
       }
     };
 
@@ -161,8 +193,6 @@ export default function SubmitSample() {
           ))}
       </div>
 
-
-      
         <div className="mt-6 flex justify-center">
             <Button onClick={handleSubmit}/>
         </div>

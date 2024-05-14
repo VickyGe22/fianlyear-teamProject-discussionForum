@@ -75,3 +75,16 @@ export async function GET(request, context) {
   // Respond with the found document details
   return NextResponse.json({ submit });
 }
+
+export async function DELETE(req) {
+
+  const id  = req.nextUrl.searchParams.get("id");
+  try {
+    await connectDB();
+    await Submit.findByIdAndDelete(id);
+    return NextResponse.json({ msg: ["Submit deleted successfully"] });
+  }
+  catch (error) {
+    return NextResponse.json({ msg: ["Unable to delete submit."] });
+  }
+}
