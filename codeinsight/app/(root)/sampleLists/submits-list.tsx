@@ -62,13 +62,11 @@ import { useEffect, useState } from 'react';
 
 export default function SubmitList() {
 
-  // const { submits } = await getSubmit();
-
   const [submits, setSubmits] = useState(null);
 
   const fetchSubmit = async () => {
     try {
-      const response = await fetch("./api/submits");
+      const response = await fetch("./api/submits?acceptance=true");
       if (!response.ok) {
         throw new Error('Failed to fetch submit');
       }

@@ -30,15 +30,47 @@ export async function POST(req) {
 }
 
 
-export async function GET() {
-  try {
-    await connectDB();
-    const submits = await Submit.find();
-    return NextResponse.json({ submits });
-  } catch (error) {
-    return NextResponse.json({ msg: ["Unable to fetch submits."] });
+// export async function GET() {
+//   try {
+//     await connectDB();
+//     const submits = await Submit.find();
+//     return NextResponse.json({ submits });
+//   } catch (error) {
+//     return NextResponse.json({ msg: ["Unable to fetch submits."] });
+//   }
+// }
+
+export async function GET(req) {
+  // Check if a specific query parameter is provided to filter by levels
+  const url = new URL(req.url);
+  const accept = url.searchParams.get("acceptance");
+  
+
+  if (accept) {
+    // Handle query by levels
+    return await getSubmitsByAccept(accept);
+  } else {
+    // Handle general GET
+    try {
+      await connectDB();
+      const submits = await Submit.find();
+      return NextResponse.json({ submits });
+    } catch (error) {
+      return NextResponse.json({ msg: ["Unable to fetch submits."] });
+    }
   }
 }
+
+async function getSubmitsByAccept(accept) {
+  try {
+    await connectDB();
+    const submits = await Submit.find({ acceptance: accept });
+    return NextResponse.json({ submits });
+  } catch (error) {
+    return NextResponse.json({ msg: ["Unable to fetch submits by level."] });
+  }
+}
+
 
 
 export async function DELETE(req) {
