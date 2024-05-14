@@ -3,7 +3,6 @@ export const metadata = {
   description: 'Submitted Your Code Sample',
 }
 
-import Sidebar from '@/components/sidebar'
 import SubmitList from './submits-list'
 
 
@@ -16,10 +15,6 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="py-8 md:py-16">
             <div className="md:flex md:justify-between" data-sticky-container>
-
-              {/* <Sidebar /> */}
-
-
               <div className="md:grow">
                 <SubmitList />
               </div>

@@ -4,13 +4,7 @@ export const metadata = {
 }
 
 import Intro from '@/components/Intro'
-// import Image from 'next/image'
-// import submit from '@/public/images/submit.png'
-// import discussion from '@/public/images/discussion.png'
-// import review from '@/public/images/review.png'
 import Link from 'next/link'
-
-
 
 
 export default function Home() {
@@ -19,7 +13,7 @@ export default function Home() {
     <>    
       {/*  Page content */}
       
-        <Intro /> {/* Make sure the Intro component does not have excessive bottom margin or padding */}
+        <Intro /> 
 
           <div className="flex flex-wrap slideInUp justify-center gap-4 py-2 md:py-4 drop-shadow-2xl">
             <div className="group aspect-h-1 float-animation  aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(45% - 2rem)', height: '600px' }}>

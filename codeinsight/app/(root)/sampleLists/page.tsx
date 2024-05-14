@@ -18,8 +18,6 @@ export default function Home() {
             <div className="md:flex md:justify-between" data-sticky-container>
 
               <Sidebar />
-
-
               <div className="md:grow">
                 <SubmitList />
               </div>
@@ -28,9 +26,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-
-
 
     </>
   )

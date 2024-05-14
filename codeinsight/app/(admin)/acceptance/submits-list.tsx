@@ -1,38 +1,7 @@
 'use client';
 import Link from 'next/link';
-import nlp from 'compromise';
 import Pagination from './submit-pagination';
 import { useEffect, useState } from 'react';
-
-
-{/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-nYiLDB5ZiysUjZMqB3/2KqgCrvq5vG9eFz5vYQqfxZZHc4EGOgGYHQD4NG8NQ2Hg7whgCvNG+JJK0cdF3zAjTw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> */}
-
-// function generateTitle(codeDescription: string): string {
-//   let doc = nlp(codeDescription);
-//   doc.verbs().toInfinitive();
-//   doc.nouns().toSingular();
-
-//   const words = doc.text('normal').split(/\s+/);
-
-//   const frequencyMap = new Map();
-//   words.forEach(word => {
-//     frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
-//   });
-
-//   const tfidfMap = new Map();
-//   words.forEach(word => {
-//     const tf = frequencyMap.get(word);
-//     const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
-//     tfidfMap.set(word, tf * idf);
-//   });
-
-//   const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
-
-//   const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
-
-//   const title = importantWords.join(' ');
-//   return title;
-// }
 
 
 export default function SubmitList() {
@@ -40,7 +9,7 @@ export default function SubmitList() {
 
   const fetchSubmit = async () => {
     try {
-      const response = await fetch("./api/submits");
+      const response = await fetch("./api/submits?acceptance=false");
       if (!response.ok) {
         throw new Error('Failed to fetch submit');
       }
@@ -55,33 +24,6 @@ export default function SubmitList() {
     fetchSubmit();
   }, []);
 
-  // useEffect(() => {
-  //   if (submits) {
-  //     for (let i = 0; i < submits.length; i++) {
-  //       submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
-  //     }
-  //   }
-  // }, [submits]);
-
-  const handleSubmission = async (id: any) => {
-    try {
-      const response = await fetch(`/api/submits/${id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Failed to submit sample');
-      }
-      const updatedSubmits = submits.filter(submit => submit._id !== id);
-      console.log(updatedSubmits); // Add this line to debug
-      setSubmits(updatedSubmits);
-      alert('Sample submitted successfully!');
-    } catch (error) {
-      console.error('Submission error:', error);
-    }
-  };
 
   const handleAcceptance = async (id:any) => {
     // id.preventDefault(); // Prevent default form submit behavior
@@ -95,27 +37,21 @@ export default function SubmitList() {
       body: JSON.stringify({ acceptance: true } ),
     });
     
-    // Clear the input after submit
   };
 
 
-
-
-  // const handleDeletion = async (id) => {
-  //   try {
-  //     const response = await fetch(`/api/submits/${id}/delete`, {
-  //       method: 'DELETE',
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error('Failed to delete sample');
-  //     }
-  //     const updatedSubmits = submits.filter(submit => submit._id !== id);
-  //     console.log(updatedSubmits); // Add this line to debug
-  //     setSubmits(updatedSubmits);
-  //   } catch (error) {
-  //     console.error('Deletion error:', error);
-  //   }
-  // };
+  const handleDeletion = async (id) => {
+    try {
+      const response = await fetch(`/api/submits/${id}/`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete sample');
+      }
+    } catch (error) {
+      console.error('Deletion error:', error);
+    }
+  };
 
 
 
@@ -145,10 +81,10 @@ export default function SubmitList() {
               <div className="sm:flex items-center space-y-3 sm:space-y-0 sm:space-x-5">
                 <div className="grow lg:flex items-center justify-between space-y-5 lg:space-x-2 lg:space-y-0">
                   <div>
-                    <div className="mb-2">
-                      <a className="text-lg text-gray-800 font-bold">
-                        {sample.tags[0]}
-                      </a>
+                    <div className="mb-2" >
+                      <Link className="text-lg text-gray-800 font-bold" href={`/adminSinglesample/${sample._id}`}>
+                          {sample.sampletitles}
+                      </Link>
                     </div>
                     <div className="-m-1">
                       <a
@@ -184,11 +120,11 @@ export default function SubmitList() {
                     <div className="flex items-center space-x-3">
                       <button
                         onClick={() => handleAcceptance(sample._id)}
-                        className="text-sm text-green-500 hover:text-green-700 focus:outline-none"
+                        className="text-sm text-black-500 hover:text-green-700 focus:outline-none bg-purple-100 hover:bg-green-200 p-3 rounded-full"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
+                          className="h-6 w-6"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -201,19 +137,17 @@ export default function SubmitList() {
                           />
                         </svg>
                       </button>
-
                       <button
                         onClick={() => handleDeletion(sample._id)}
                         className="text-sm text-red-500 hover:text-red-700 focus:outline-none"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
-                          className="h-5 w-5"
+                          className="h-6 w-6"
                           viewBox="0 0 20 20"
                           fill="currentColor"
 
                         >
-
                           <path
 
                             fillRule="evenodd"

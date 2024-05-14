@@ -17,7 +17,7 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose }) => {
 
   const handlDiscussion = () => {
     onClose(); // Close the dialog
-    router.push('/sampleLists'); // Navigate to the "/submits" page
+    router.push('/acceptance'); // Navigate to the "/submits" page
   };
 
   const handlHome = () => {
@@ -49,7 +49,7 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose }) => {
                     className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handlDiscussion}
                   >
-                    Go to Discussion
+                    Go to Acceptance
                   </button>
                   <button
                     className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
