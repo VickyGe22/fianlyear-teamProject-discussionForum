@@ -3,34 +3,37 @@ import Link from 'next/link';
 import nlp from 'compromise';
 import Pagination from './submit-pagination';
 import { useEffect, useState } from 'react';
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-nYiLDB5ZiysUjZMqB3/2KqgCrvq5vG9eFz5vYQqfxZZHc4EGOgGYHQD4NG8NQ2Hg7whgCvNG+JJK0cdF3zAjTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-function generateTitle(codeDescription: string): string {
-  let doc = nlp(codeDescription);
-  doc.verbs().toInfinitive();
-  doc.nouns().toSingular();
 
-  const words = doc.text('normal').split(/\s+/);
+{/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-nYiLDB5ZiysUjZMqB3/2KqgCrvq5vG9eFz5vYQqfxZZHc4EGOgGYHQD4NG8NQ2Hg7whgCvNG+JJK0cdF3zAjTw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> */}
 
-  const frequencyMap = new Map();
-  words.forEach(word => {
-    frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
-  });
+// function generateTitle(codeDescription: string): string {
+//   let doc = nlp(codeDescription);
+//   doc.verbs().toInfinitive();
+//   doc.nouns().toSingular();
 
-  const tfidfMap = new Map();
-  words.forEach(word => {
-    const tf = frequencyMap.get(word);
-    const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
-    tfidfMap.set(word, tf * idf);
-  });
+//   const words = doc.text('normal').split(/\s+/);
 
-  const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
+//   const frequencyMap = new Map();
+//   words.forEach(word => {
+//     frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
+//   });
 
-  const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
+//   const tfidfMap = new Map();
+//   words.forEach(word => {
+//     const tf = frequencyMap.get(word);
+//     const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
+//     tfidfMap.set(word, tf * idf);
+//   });
 
-  const title = importantWords.join(' ');
-  return title;
-}
+//   const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
+
+//   const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
+
+//   const title = importantWords.join(' ');
+//   return title;
+// }
+
 
 export default function SubmitList() {
   const [submits, setSubmits] = useState(null);
@@ -52,17 +55,17 @@ export default function SubmitList() {
     fetchSubmit();
   }, []);
 
-  useEffect(() => {
-    if (submits) {
-      for (let i = 0; i < submits.length; i++) {
-        submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
-      }
-    }
-  }, [submits]);
+  // useEffect(() => {
+  //   if (submits) {
+  //     for (let i = 0; i < submits.length; i++) {
+  //       submits[i].sampletitles = generateTitle(submits[i].issuedescriptions);
+  //     }
+  //   }
+  // }, [submits]);
 
   const handleSubmission = async (id: any) => {
     try {
-      const response = await fetch(`/api/submits/${id}/submit`, {
+      const response = await fetch(`/api/submits/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,22 +83,39 @@ export default function SubmitList() {
     }
   };
 
-  const handleDeletion = async (id) => {
-    try {
-      const response = await fetch(`/api/submits/${id}/delete`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete sample');
-      }
-      const updatedSubmits = submits.filter(submit => submit._id !== id);
-      console.log(updatedSubmits); // Add this line to debug
-      setSubmits(updatedSubmits);
-    } catch (error) {
-      console.error('Deletion error:', error);
-    }
+  const handleAcceptance = async (id:any) => {
+    // id.preventDefault(); // Prevent default form submit behavior
+  
+    console.log("Submitting:", id);
+    const res = await fetch(`/api/submits/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ acceptance: true } ),
+    });
+    
+    // Clear the input after submit
   };
 
+
+
+
+  // const handleDeletion = async (id) => {
+  //   try {
+  //     const response = await fetch(`/api/submits/${id}/delete`, {
+  //       method: 'DELETE',
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error('Failed to delete sample');
+  //     }
+  //     const updatedSubmits = submits.filter(submit => submit._id !== id);
+  //     console.log(updatedSubmits); // Add this line to debug
+  //     setSubmits(updatedSubmits);
+  //   } catch (error) {
+  //     console.error('Deletion error:', error);
+  //   }
+  // };
 
 
 
@@ -163,7 +183,7 @@ export default function SubmitList() {
                   <div className="min-w-[120px] flex items-center lg:justify-end space-x-3 lg:space-x-0">
                     <div className="flex items-center space-x-3">
                       <button
-                        onClick={() => handleSubmission(sample._id)}
+                        onClick={() => handleAcceptance(sample._id)}
                         className="text-sm text-green-500 hover:text-green-700 focus:outline-none"
                       >
                         <svg

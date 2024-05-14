@@ -73,7 +73,13 @@ const submitSchema = new Schema({
   createdAt: { 
   type: Date, 
   default: Date.now 
-}
+},
+
+  acceptance:{
+    type: Boolean,
+    required:false,
+    default:false
+  }
 
 
 });

@@ -22,7 +22,7 @@ export default function Home() {
         <Intro /> {/* Make sure the Intro component does not have excessive bottom margin or padding */}
 
           <div className="flex flex-wrap slideInUp justify-center gap-4 py-2 md:py-4 drop-shadow-2xl">
-            <div className="group aspect-h-1 float-animation  aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
+            <div className="group aspect-h-1 float-animation  aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(45% - 2rem)', height: '600px' }}>
               <img
                 src="/images/submit.png"
                 alt="submit"
@@ -43,7 +43,7 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="group aspect-h-1 float-animation aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
+            <div className="group aspect-h-1 float-animation aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(45% - 2rem)', height: '600px' }}>
               <img
                 src="/images/discuss.png"
                 alt="submit"

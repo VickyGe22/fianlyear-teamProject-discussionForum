@@ -2,24 +2,27 @@ import connectDB from "@/libs/mongodb";
 import Submit from "@/models/submit";
 import { NextResponse } from "next/server";
 
-export async function PUT(req, {params}) {
-
-  const {id} = params;
-  const { newSample: codesamples, newLanguages: languages, newLevels: levels, newTypes: types, newDes: issuedescriptions, newTag: tags, newissue: issue, newgene: generalreply } = await req.json();
+export async function PUT(req, { params }) {
+  const { submitId: id } = params; // Correctly extract id from params
+  console.log("ID:", id);
+  
+  const { acceptance } = await req.json(); // Get acceptance directly
   
   try {
     await connectDB();
-    await Submit.findByIdAndUpdate(id, { codesamples, languages, levels, types, issuedescriptions, tags, issue, generalreply });
-    return NextResponse.json({ msg: ["Submit updated successfully"] });
-    }
-    catch (error) {
-        return NextResponse.json({ msg: ["Unable to update submit."] });
-        }
- }
+    const result = await Submit.findByIdAndUpdate(id, { $set: { acceptance } }, { new: true });
+    console.log("hhhhhhhhhhhhhhh:", acceptance);
+    return NextResponse.json({ msg: ["Submit updated successfully"], result });
+  } catch (error) {
+    console.error("Error updating submit:", error);
+    return NextResponse.json({ msg: ["Unable to update submit."] });
+  }
+}
+
+
 
  export async function POST(req) {
   const { generalreply, pageId } = await req.json(); // Assuming pageId is sent in the request
-
   try {
     await connectDB();
     const updatedSubmit = await Submit.findByIdAndUpdate( pageId, 
