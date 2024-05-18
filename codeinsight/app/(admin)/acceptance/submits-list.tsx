@@ -2,10 +2,14 @@
 import Link from 'next/link';
 import Pagination from './submit-pagination';
 import { useEffect, useState } from 'react';
+import Modal from '@/components/modal';
+import SubmitDialog from './submitpopup';
 
 
 export default function SubmitList() {
   const [submits, setSubmits] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSampleId, setSelectedSampleId] = useState(null);
 
   const fetchSubmit = async () => {
     try {
@@ -24,21 +28,16 @@ export default function SubmitList() {
     fetchSubmit();
   }, []);
 
-
-  const handleAcceptance = async (id:any) => {
-    // id.preventDefault(); // Prevent default form submit behavior
-  
+  const handleAcceptance = async (id) => {
     console.log("Submitting:", id);
     const res = await fetch(`/api/submits/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ acceptance: true } ),
+      body: JSON.stringify({ acceptance: true }),
     });
-    
   };
-
 
   const handleDeletion = async (id) => {
     try {
@@ -48,12 +47,23 @@ export default function SubmitList() {
       if (!response.ok) {
         throw new Error('Failed to delete sample');
       }
+      // After successful deletion, close modal if it's open
+      if (isModalOpen) {
+        setIsModalOpen(false);
+      }
     } catch (error) {
       console.error('Deletion error:', error);
     }
   };
 
+  const handleOpenModal = (id) => {
+    setSelectedSampleId(id);
+    setIsModalOpen(true);
+  };
 
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 20;
@@ -63,7 +73,7 @@ export default function SubmitList() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentSubmits = submits ? submits.slice(indexOfFirstPost, indexOfLastPost) : [];
 
-  const handlePageChange = (pageNumber: number) => {
+  const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
@@ -72,7 +82,7 @@ export default function SubmitList() {
       <h2 className="text-3xl font-bold font-inter mb-10">Sample List</h2>
       <div className="flex flex-col">
 
-        {currentSubmits.map((sample: any) => (
+        {currentSubmits.map((sample) => (
           <div
             key={sample._id}
             className={`[&:nth-child(-n+12)]:-order-1 group ${true && 'border-b border-gray-200'}`}
@@ -83,7 +93,7 @@ export default function SubmitList() {
                   <div>
                     <div className="mb-2" >
                       <Link className="text-lg text-gray-800 font-bold" href={`/adminSinglesample/${sample._id}`}>
-                          {sample.sampletitles}
+                        {sample.sampletitles}
                       </Link>
                     </div>
                     <div className="-m-1">
@@ -108,7 +118,7 @@ export default function SubmitList() {
                       >
                         {sample.types}
                       </a>
-                      {sample.tags.map((tag: any) => (
+                      {sample.tags.map((tag) => (
                         <a
                           className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
                           href="#0"
@@ -138,7 +148,7 @@ export default function SubmitList() {
                         </svg>
                       </button>
                       <button
-                        onClick={() => handleDeletion(sample._id)}
+                        onClick={() => handleOpenModal(sample._id)}
                         className="text-sm text-red-500 hover:text-red-700 focus:outline-none"
                       >
                         <svg
@@ -146,10 +156,8 @@ export default function SubmitList() {
                           className="h-6 w-6"
                           viewBox="0 0 20 20"
                           fill="currentColor"
-
                         >
                           <path
-
                             fillRule="evenodd"
                             d="M5.707 5.293a1 1 0 011.414 0L10 8.586l3.293-3.293a1 1 0 111.414 1.414L11.414 10l3.293 3.293a1 1 0 11-1.414 1.414L10 11.414l-3.293 3.293a1 1 0 01-1.414-1.414L8.586 10 5.293 6.707a1 1 0 010-1.414z"
                             clipRule="evenodd"
@@ -169,6 +177,10 @@ export default function SubmitList() {
           totalPages={totalPages}
           onPageChange={handlePageChange}
         />
+
+        <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
+          <SubmitDialog onClose={handleCloseModal} />
+        </Modal>
 
       </div>
     </div>
