@@ -92,7 +92,7 @@ export default function SubmitList() {
                 <div className="grow lg:flex items-center justify-between space-y-5 lg:space-x-2 lg:space-y-0">
                   <div>
                     <div className="mb-2" >
-                      <Link className="text-lg text-gray-800 font-bold" href={`/adminSinglesample/${sample._id}`}>
+                      <Link className="text-lg text-gray-800 font-bold" href={`/acceptdetail/${sample._id}`}>
                         {sample.sampletitles}
                       </Link>
                     </div>
