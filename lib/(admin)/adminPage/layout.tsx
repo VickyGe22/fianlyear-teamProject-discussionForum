@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-import Header from '@/components/ui/header1admin'
+import Header from '@/components/ui/header'
 import Footer from '@/components/ui/footer'
 
 const Sticky = require('sticky-js')

@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import Pagination from './submit-pagination';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 export default function SubmitList() {
@@ -21,10 +22,45 @@ export default function SubmitList() {
       console.error('Fetch error:', error);
     }
   };
-  
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get('/api/auth/users');
+      console.log('Fetched user:', response.data.data.isAdmin);
+      setUser(response.data.data);
+    } catch (error) {
+      console.error('Failed to fetch user:', error);
+    }
+  };
+
   useEffect(() => {
+    const token = document.cookie.includes('token');
+    setIsLoggedIn(token);
+    console.log('useEffect triggered');
+    console.log('Token found:', token);
+
+    fetchUser();
     fetchSubmit();
-  }, []); 
+
+  }, []);
+
+
+  const handleCloseDiscussion = async (id) => {
+    try {
+      console.log('Closing discussion for ID:', id);
+      const response = await fetch(`/api/submits/${id}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to close discussion');
+      }
+    } catch (error) {
+      console.error('Close discussion error:', error);
+    }
+  };
 
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -93,6 +129,7 @@ export default function SubmitList() {
   
                     </div>
                   </div>
+                {user && !user.isAdmin ? (
                   <div className="min-w-[120px] flex items-center lg:justify-end space-x-3 lg:space-x-0">
                     <div className="lg:hidden group-hover:lg:block">
                       <Link className="btn-sm py-1.5 px-3 text-white bg-indigo-500 hover:bg-indigo-600 group shadow-sm" href={`/discussion/${sample._id}`}>
@@ -104,6 +141,24 @@ export default function SubmitList() {
                     </div>
                     <div className="group-hover:lg:hidden text-sm italic text-gray-500">{sample.numberReply}</div>
                   </div>
+                ) : user && user.isAdmin ? (
+                  <div className="min-w-[120px] flex flex-col items-center lg:items-end space-y-3 lg:space-y-0">
+                    <div className="flex flex-col items-center space-y-3">
+                      <Link className="btn-sm py-1.5 px-3 text-white bg-indigo-500 hover:bg-indigo-600 group shadow-sm" href={`/discussion/${sample._id}`}>
+                        Go to discussion{' '}
+                        <span className="tracking-normal text-indigo-200 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">
+                          -&gt;
+                        </span>
+                      </Link>
+                      <button
+                        onClick={() => handleCloseDiscussion(sample._id)}
+                        className="text-sm px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 focus:outline-none transition duration-300 ease-in-out"
+                      >
+                        Close Discussion
+                      </button>
+                    </div>
+                  </div>
+                ): null}
                 </div>
               </div>
             </div>

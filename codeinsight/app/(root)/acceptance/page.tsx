@@ -9,8 +9,6 @@ import SubmitList from './submits-list'
 export default function Home() {
   return (
     <>
-
-
       <section>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="py-8 md:py-16">
@@ -23,10 +21,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-
-
-
     </>
   )
 }

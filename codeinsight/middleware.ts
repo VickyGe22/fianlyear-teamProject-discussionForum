@@ -1,35 +1,34 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
- 
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
-  const isPublicPath = path === '/login' || path === '/signup' || path === '/verifyemail'
+  const isPublicPath = path === '/signin' || path === '/signup'
 
   const token = request.cookies.get('token')?.value || ''
 
-  if(isPublicPath && token) {
+  if (isPublicPath && token) {
     return NextResponse.redirect(new URL('/', request.nextUrl))
   }
 
-  if (!isPublicPath && !token) {
-    return NextResponse.redirect(new URL('/login', request.nextUrl))
+  if (!isPublicPath && !token && path !== '/') {
+    return NextResponse.redirect(new URL('/signin', request.nextUrl))
   }
-    
 }
 
- 
-// See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    '/',
-    '/profile',
-    '/login',
+    '/signin',
     '/signup',
-    '/verifyemail'
   ]
 }
 
 
+// import { clerkMiddleware } from "@clerk/nextjs/server";
 
+// export default clerkMiddleware();
+
+// export const config = {
+//   matcher: ["/((?!.*\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+// };
