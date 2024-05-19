@@ -100,7 +100,7 @@ export default function Home() {
                     />
                     {/* Overlay that appears on hover */}
                     <div className="group absolute inset-0 bg-black bg-opacity-0 flex flex-col justify-center items-center transition-opacity duration-300 ease-in-out">
-                      <Link legacyBehavior href="/adminSubmits">
+                      <Link legacyBehavior href="/submits">
                         <a className="text-center">
                           <h3 className="text-2xl zoomIn font-extrabold text-black px-2 mt-4 ease-in-out " style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
                             Submission
