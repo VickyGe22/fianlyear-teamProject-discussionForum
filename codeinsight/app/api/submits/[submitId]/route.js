@@ -21,22 +21,70 @@ export async function PUT(req, { params }) {
 
 
 
- export async function POST(req) {
-  const { generalreply, pageId } = await req.json(); // Assuming pageId is sent in the request
+// export async function POST(req) {
+//   const { generalreply, pageId } = await req.json(); // Assuming pageId is sent in the request
+//   try {
+//     await connectDB();
+//     const updatedSubmit = await Submit.findByIdAndUpdate( pageId, 
+//       { $push: { generalreply: generalreply } }, // Push the new comment to the generalreply array
+//       // { new: true, runValidators: true } // Return the updated document and run schema validators
+//     );
+
+//     if (!updatedSubmit) {
+//       return NextResponse.json({ msg: ["Document not found."], success: false });
+//     }
+
+//     return NextResponse.json({
+//       msg: ["Comment added successfully."],
+//       success: true,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//     if (error instanceof mongoose.Error.ValidationError) {
+//       let errorList = [];
+//       for (let e in error.errors) {
+//         errorList.push(error.errors[e].message);
+//       }
+//       console.log(errorList);
+//       return NextResponse.json({ msg: errorList, success: false });
+//     } else {
+//       return NextResponse.json({ msg: ["Unable to update document."], success: false });
+//     }
+//   }
+// }
+
+export async function POST(req) {
+  const { type, generalreply, tags, pageId } = await req.json(); // 从请求体中获取 type, generalreply, tags, 和 pageId
+
   try {
     await connectDB();
-    const updatedSubmit = await Submit.findByIdAndUpdate( pageId, 
-      { $push: { generalreply: generalreply } }, // Push the new comment to the generalreply array
-      // { new: true, runValidators: true } // Return the updated document and run schema validators
-    );
+    let updatedSubmit;
+
+    if (type === "generalreply") {
+      updatedSubmit = await Submit.findByIdAndUpdate(
+        pageId,
+        { $push: { generalreply: generalreply } }, // 将新的回复添加到 generalreply 数组中
+        { new: true, runValidators: true } // 返回更新后的文档并运行模式验证器
+      );
+    } else if (type === "tags") {
+      console.log("tags:", tags);
+      updatedSubmit = await Submit.findByIdAndUpdate(
+        pageId,
+        { $set: { tags: tags } }, // 覆盖原本标签
+        { new: true, runValidators: true } // 返回更新后的文档并运行模式验证器
+      );
+    } else {
+      return NextResponse.json({ msg: ["Invalid update type"] }, { status: 400 });
+    }
 
     if (!updatedSubmit) {
       return NextResponse.json({ msg: ["Document not found."], success: false });
     }
 
     return NextResponse.json({
-      msg: ["Comment added successfully."],
+      msg: ["Update successful."],
       success: true,
+      result: updatedSubmit // 返回更新后的文档
     });
   } catch (error) {
     console.error(error);
@@ -45,14 +93,12 @@ export async function PUT(req, { params }) {
       for (let e in error.errors) {
         errorList.push(error.errors[e].message);
       }
-      console.log(errorList);
       return NextResponse.json({ msg: errorList, success: false });
     } else {
       return NextResponse.json({ msg: ["Unable to update document."], success: false });
     }
   }
 }
-
 
 
 export async function GET(request, context) {

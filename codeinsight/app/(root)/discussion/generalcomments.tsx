@@ -70,7 +70,7 @@ export default function Example({pageId}:{pageId:string}) {
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ generalreply: comment, pageId: pageId } ),
+      body: JSON.stringify({ type: "generalreply", generalreply: comment, pageId: pageId } ),
     });
     setComment(''); // Clear the input after submit
   };
