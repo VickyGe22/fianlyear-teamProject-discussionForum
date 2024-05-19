@@ -1,44 +1,8 @@
 import Link from 'next/link'
 import Logo from '@/components/ui/header-logo'
 
-// export default function Header() {
-//   return (
-//     <header className="absolute w-full z-30">
-//       <div className="mx-auto px-4 sm:px-6">
-//         <div className="flex items-center justify-between h-10 md:h-16">
-//           {/* Site branding */}
-//           <div className="flex justify-between items-center shrink-0 mr-4">
-//               <Logo />
-//           </div>
-
-//           <div className="hidden lg:flex lg:gap-x-12">
-//             <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Home</a>
-//             <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Submit </a>
-//             <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Discuss</a>
-//             <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Review</a>
-//           </div>
-
-//           {/* Desktop navigation */}
-//           <nav className="flex grow">
-//             {/* Desktop sign in links */}
-//             <ul className="flex grow justify-end flex-wrap items-center">
-//               <li className="ml-3">
-//                 <Link className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm" href="/signin">
-//                   Sign In
-//                 </Link>
-//               </li>
-//             </ul>
-//           </nav>
-//         </div>
-//       </div>
-//     </header>
-//   )
-// }
-
-
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure } from '@headlessui/react'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 interface NavItem {
   name: string;
@@ -49,8 +13,7 @@ interface NavItem {
 const navigation: NavItem[] = [
   { name: 'Home', href: '/', current: false },
   { name: 'Submit', href: '/submits', current: false },
-  { name: 'Discuss', href: '/code-sample-repository', current: false },
-  { name: 'Review', href: '/review-page', current: false },
+  { name: 'Discuss', href: '/sampleLists', current: false }
 ]
 
 
