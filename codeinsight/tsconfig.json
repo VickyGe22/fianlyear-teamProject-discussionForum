@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/animation/shapes.js", "components/animation/use-smooth-transform.js", "components/animation/use-smooth-transform.js", "components/animation/shapes.js", "components/animation/shapes.js", "components/animation/use-smooth-transform.js", "app/api/submits/route.js", "libs/mongodb.js", "models/submit.js", "models/submit.js", "../lib/getAllSubmits.tsx", "../lib/submit-item.tsx", "../lib/draft.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/animation/shapes.js", "components/animation/use-smooth-transform.js", "components/animation/use-smooth-transform.js", "components/animation/shapes.js", "components/animation/shapes.js", "components/animation/use-smooth-transform.js", "app/api/submits/route.js", "libs/mongodb.js", "models/submit.js", "models/submit.js", "../lib/getAllSubmits.tsx", "../lib/submit-item.tsx", "../lib/draft.tsx", "../lib/header1.tsx", "../lib/header1admin.tsx", "../lib/header1.tsx", "../lib/header1admin.tsx"],
   "exclude": ["node_modules"]
 }
