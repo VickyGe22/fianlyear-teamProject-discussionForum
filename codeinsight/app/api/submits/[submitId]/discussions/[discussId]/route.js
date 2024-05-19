@@ -28,7 +28,10 @@ export async function POST(req, context) {
     console.log('查个id',disId)
     console.log('查个replies',replies)
     const updatedDiscuss = await Discussion.findByIdAndUpdate(disId, 
-      { $push: { replies: replies } },// Push the new comment to the generalreply array
+      {
+        $push: { replies: replies },
+        $inc: { totalReplies: 1 }     //每次给totalReplies加1
+      },
       // { new: true, runValidators: true } // Return the updated document and run schema validators
     );
     console.log('查个updatedDiscuss',updatedDiscuss)
@@ -40,6 +43,7 @@ export async function POST(req, context) {
     return NextResponse.json({
       msg: ["Comment added successfully."],
       success: true,
+      discussion: updatedDiscuss // Return the updated document
     });
   } catch (error) {
     console.error(error);
