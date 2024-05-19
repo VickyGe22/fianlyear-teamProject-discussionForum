@@ -5,6 +5,14 @@ import { useEffect } from 'react'
 import Header from '@/components/ui/header'
 import Footer from '@/components/ui/footer'
 
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
+
 const Sticky = require('sticky-js')
 
 export default function DefaultLayout({
@@ -26,7 +34,9 @@ export default function DefaultLayout({
       
       <main className="grow">
 
-        {children}
+        <ClerkProvider>
+          {children}
+        </ClerkProvider>
 
       </main>
 

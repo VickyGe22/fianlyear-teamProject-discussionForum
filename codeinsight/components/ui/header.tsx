@@ -4,13 +4,17 @@ import Logo from '@/components/ui/header-logo'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+
 interface NavItem {
   name: string;
   href: string;
   current: boolean;
 }
 
-const navigation: NavItem[] = [
+const baseNavigation: NavItem[] = [
   { name: 'Home', href: '/', current: false },
   { name: 'Submit', href: '/submits', current: false },
   { name: 'Discuss', href: '/sampleLists', current: false }
@@ -23,6 +27,50 @@ function classNames(...classes: string[]) {
 
 
 export default function Example() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [navigation, setNavigation] = useState<NavItem[]>(baseNavigation);
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get('/api/auth/users'); 
+      console.log('这里这这这这这这这种话', response.data.data.isAdmin);
+      setUser(response.data);
+      if (response.data.data.isAdmin) {
+        setNavigation([
+          ...baseNavigation,
+          { name: 'Acceptance', href: '/acceptance', current: false }
+        ]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch user:', error);
+    }
+  };
+
+  useEffect(() => {
+    const token = document.cookie.includes('token');
+    setIsLoggedIn(token);
+    console.log("useEffect triggered"); // 调试信息
+    console.log("Token found:", token); // 调试信息
+
+    fetchUser();
+
+  }, []);
+
+  const signout = async () => {
+    try {
+      await axios.get('/api/auth/signout');
+      toast.success('Signout successful');
+      setIsLoggedIn(false);
+      window.location.href = '/signin'; // Use JavaScript to redirect
+    } catch (error: any) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
+  };
+
+
   return (
     <>
       <div className="h-full">
@@ -58,9 +106,22 @@ export default function Example() {
                     {/* Desktop sign in links */}
                     <ul className="flex grow justify-end flex-wrap items-center">
                       <li className="ml-3">
-                        <Link className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm" href="/signin">
-                          Sign In
-                        </Link>
+                          {isLoggedIn ? (
+                              <Link
+                              className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm"
+                              href="/signin"
+                              >
+                                Sign In
+                              </Link>
+                              
+                          ) : (
+                              <button
+                              onClick={signout}
+                              className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm"
+                              >
+                                Sign Out
+                              </button>
+                          )}
                       </li>
                     </ul>
                   </nav>
