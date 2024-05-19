@@ -3,7 +3,8 @@ import axios from "axios";
 // 设置你的 Google OAuth 2.0 客户端 ID
 const CLIENT_ID = '806875294866-b4tvj67d9nhgo60pdogvbbnha8m5392h.apps.googleusercontent.com';
 // 设置你的重定向 URL
-const REDIRECT_URI = 'http://localhost:3000/api/auth/google/callback';
+// const REDIRECT_URI = 'http://localhost:3000/api/auth/google/callback';
+const REDIRECT_URI = 'http://localhost:3000';
 
 // 生成 Google API 登录链接
 export function generateGoogleLoginLink(): string {
