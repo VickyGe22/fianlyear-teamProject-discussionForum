@@ -175,9 +175,6 @@ export default function Home() {
               </div>
         ) : null}
       
-
-        <br />
-        <br />
     </>
   )
 }
