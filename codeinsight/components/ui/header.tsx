@@ -9,6 +9,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import Cookies from 'js-cookie';
 
+
 interface NavItem {
   name: string;
   href: string;
@@ -50,9 +51,8 @@ export default function Example() {
   };
 
   useEffect(() => {
-    // const token = document.cookie.includes('token');
     const token = Cookies.get('token');
-    setIsLoggedIn(token);
+    setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
     console.log("useEffect triggered"); // 调试信息
     console.log("Token found:", token); // 调试信息
     console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
@@ -60,7 +60,7 @@ export default function Example() {
       fetchUser();
     }
 
-  }, []);
+  }, [setIsLoggedIn]);
 
   const signout = async () => {
     try {
@@ -133,6 +133,7 @@ export default function Example() {
                                 <Link
                                 className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm"
                                 href="/signin"
+                                onClick={() => console.log("Sign In clicked")}
                                 >
                                   Sign In
                                 </Link>
