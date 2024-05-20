@@ -22,6 +22,7 @@ export default function Home() {
     try {
       const response = await axios.get('/api/auth/users');
       console.log('Fetched user:', response.data.data.isAdmin);
+      setIsLoggedIn(true);
       setUser(response.data.data);
     } catch (error) {
       console.error('Failed to fetch user:', error);
@@ -34,7 +35,8 @@ export default function Home() {
     console.log("useEffect triggered"); // 调试信息
     console.log("Token found:", token); // 调试信息
     console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
-    if (token){
+    const loggedIn = true;  
+    if (loggedIn){
       fetchUser();
     }
 

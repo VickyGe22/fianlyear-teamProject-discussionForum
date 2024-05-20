@@ -39,6 +39,7 @@ export default function Example() {
       const response = await axios.get('/api/auth/users'); 
       console.log('这里这这这这这这这种话', response.data.data.isAdmin);
       setUser(response.data);
+      setIsLoggedIn(true);
       if (response.data.data.isAdmin) {
         setNavigation([
           ...baseNavigation,
@@ -56,7 +57,8 @@ export default function Example() {
     console.log("useEffect triggered"); // 调试信息
     console.log("Token found:", token); // 调试信息
     console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
-    if (token){
+    const loggedIn = true;  
+    if (loggedIn){
       fetchUser();
     }
 
