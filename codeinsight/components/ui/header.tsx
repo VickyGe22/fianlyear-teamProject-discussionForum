@@ -7,6 +7,8 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
+
 
 interface NavItem {
   name: string;
@@ -37,6 +39,7 @@ export default function Example() {
       const response = await axios.get('/api/auth/users'); 
       console.log('这里这这这这这这这种话', response.data.data.isAdmin);
       setUser(response.data);
+      setIsLoggedIn(true);
       if (response.data.data.isAdmin) {
         setNavigation([
           ...baseNavigation,
@@ -49,14 +52,17 @@ export default function Example() {
   };
 
   useEffect(() => {
-    const token = document.cookie.includes('token');
-    setIsLoggedIn(token);
+    const token = Cookies.get('token');
+    setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
     console.log("useEffect triggered"); // 调试信息
     console.log("Token found:", token); // 调试信息
+    console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
+    const loggedIn = true;  
+    if (loggedIn){
+      fetchUser();
+    }
 
-    fetchUser();
-
-  }, []);
+  }, [setIsLoggedIn]);
 
   const signout = async () => {
     try {
@@ -67,6 +73,16 @@ export default function Example() {
     } catch (error: any) {
       console.log(error.message);
       toast.error(error.message);
+    }
+  };
+
+  const handleNavigation = (event: any, href: string) => {
+    if (!isLoggedIn) {
+      event.preventDefault();
+      toast.error('You need to be logged in to access this page.');
+      alert('You need to be logged in to access this page.');
+    } else {
+      window.location.href = href;
     }
   };
 
@@ -88,6 +104,7 @@ export default function Example() {
                         <a
                           key={item.name}
                           href={item.href}
+                          onClick={(event) => handleNavigation(event, item.href)}
                           className={classNames(
                             item.current
                               ? ' text-gray-900'
@@ -106,22 +123,23 @@ export default function Example() {
                     {/* Desktop sign in links */}
                     <ul className="flex grow justify-end flex-wrap items-center">
                       <li className="ml-3">
-                          {isLoggedIn ? (
-                              <Link
-                              className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm"
-                              href="/signin"
-                              >
-                                Sign In
-                              </Link>
-                              
-                          ) : (
-                              <button
-                              onClick={signout}
-                              className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm"
-                              >
-                                Sign Out
-                              </button>
-                          )}
+                        {isLoggedIn ? (
+                                <button
+                                onClick={signout}
+                                className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm"
+                                >
+                                  Sign Out
+                                </button>
+                                
+                            ) : (
+                                <Link
+                                className="btn-sm text-white bg-indigo-500 hover:bg-indigo-600 w-full shadow-sm"
+                                href="/signin"
+                                onClick={() => console.log("Sign In clicked")}
+                                >
+                                  Sign In
+                                </Link>
+                            )}
                       </li>
                     </ul>
                   </nav>
@@ -148,6 +166,7 @@ export default function Example() {
                       key={item.name}
                       as="a"
                       href ={item.href}
+                      onClick={(event) => handleNavigation(event, item.href)}
                       className ={classNames(
                         item.current
                           ? ' bg-indigo-50 '
