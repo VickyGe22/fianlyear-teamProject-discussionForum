@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import Cookies from 'js-cookie';
 
 
 export default function Home() {
@@ -28,16 +29,17 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const token = document.cookie.includes('token');
-    console.log('Token found:', token);
-    setIsLoggedIn(token);
-    console.log('好啊哈哦啊哈哦啊好哦啊啊啊哦好哈', token);
-
-    if (token) {
+    const token = Cookies.get('token');
+    setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
+    console.log("useEffect triggered"); // 调试信息
+    console.log("Token found:", token); // 调试信息
+    console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
+    if (token){
       fetchUser();
     }
 
-  }, []);
+  }, [setIsLoggedIn]);
+
 
   const handleNavigation = (event: any, href: string) => {
     if (!isLoggedIn) {
