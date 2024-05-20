@@ -1,44 +1,16 @@
-'use client';
 import Link from 'next/link'
-import Pagination from './submit-pagination';
+import React from 'react';
 import { useEffect, useState } from 'react';
 
+interface SubmitListProps {
+  currentSubmits: any[];
+}
 
-export default function SubmitList() {
+const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits }) => {
 
-  const [submits, setSubmits] = useState(null);
 
-  const fetchSubmit = async () => {
-    try {
-      const response = await fetch("./api/submits?acceptance=true");
-      if (!response.ok) {
-        throw new Error('Failed to fetch submit');
-      }
-      const data = await response.json();
-      console.log(data.submits);
-      setSubmits(data.submits); 
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
-  };
+
   
-  useEffect(() => {
-    fetchSubmit();
-  }, []); 
-
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 20;
-  const totalPages = submits ? Math.ceil(submits.length / postsPerPage) : 0;
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentSubmits = submits ? submits.slice(indexOfFirstPost, indexOfLastPost) : [];
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
 
   return (
     <div className="pb-8 md:pb-16">
@@ -110,13 +82,10 @@ export default function SubmitList() {
           </div>  
         ))}
 
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      
 
       </div>
     </div>
   )
 }
+export default SubmitList;
