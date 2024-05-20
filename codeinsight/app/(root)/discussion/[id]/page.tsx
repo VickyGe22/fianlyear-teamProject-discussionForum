@@ -60,14 +60,14 @@ export default function Home() {
                         <SolutionDisplay pageId={pageId} />
                     </div>
                     <div className="border-t border-gray-300" />
-                    <div className="flex justify-between items-center mt-6 px-4">
-                        <div className="flex items-center">
-                            <span className="ml-2 text-sm font-semibold text-gray-900 cursor hover:text-gray-500">Total Comments: 4</span>
-                        </div>
+                    <div className="flex justify-center items-center mt-6 px-4">
+                        {/* <div className="flex items-center">
+                            <span className="ml-2 text-sm font-semibold text-gray-900 cursor hover:text-gray-500">Reply For More Issues</span>
+                        </div> */}
 
                         <button
                             type="button"
-                            className="inline-flex items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                            className="flex justify-center items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                             onClick={handleOpenModal}
                         >
                             <PlusIcon className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -75,10 +75,10 @@ export default function Home() {
                         </button>
 
                         {/* Additional information to the right of the button */}
-                        <div className="flex items-center">
+                        {/* <div className="flex items-center">
                             <span className="text-sm font-semibold text-gray-900 mr-4 cursor hover:text-gray-500">Most Votes</span>
                             <span className="text-sm font-semibold text-gray-900 cursor hover:text-gray-500">Issue Severity Level</span>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 
