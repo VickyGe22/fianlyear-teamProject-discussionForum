@@ -39,3 +39,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 npm install react-hot-toast
 npm install bcryptjs
 npm install jsonwebtoken
+npm install js-cookie
