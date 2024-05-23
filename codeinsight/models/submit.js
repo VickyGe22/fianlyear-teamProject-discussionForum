@@ -43,8 +43,8 @@ const submitSchema = new Schema({
   sampletitles:{
     type: String,
     required: false,
-    minLength: [2, "Name must be larger than 2 characters"],
-    maxLength: [10, "Name must be lesser than 50 characters"],
+    // minLength: [2, "Name must be larger than 2 characters"],
+    // maxLength: [10, "Name must be lesser than 50 characters"],
   },
 
   numberReply:{
