@@ -22,6 +22,8 @@ const Issue = ({ pageId }:{pageId:string}) =>  {
     const [discussions, setDiscussion] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [issueNumber, setIssueNumber] = useState(0);
+    
 
     const fetchDiscussion = async () => {
         if (!pageId) return;
@@ -33,6 +35,7 @@ const Issue = ({ pageId }:{pageId:string}) =>  {
           }
           const data = await response.json();
           setDiscussion(data.discussions); 
+          setIssueNumber(data.discussions.length);
         } catch (error:any) {
           console.error('Fetch error:', error);
           setError(error.message);
@@ -51,6 +54,9 @@ const Issue = ({ pageId }:{pageId:string}) =>  {
 
   return (
           <div className="divide-y divide-gray-200">
+            <div className="flex justify-start items-center py-4 px-6">
+              <span className="flex-shrink-0 text-md text-black-600 font-bold">Total Issues: {issueNumber}</span>
+            </div>
             {discussions.map((discussion) => (
               <Disclosure as="div" key={discussion.id} className="bg-white">
                 {({ open }) => (
@@ -113,3 +119,7 @@ const Issue = ({ pageId }:{pageId:string}) =>  {
 }
 
 export default Issue;
+
+function len(data: any): any {
+  throw new Error("Function not implemented.");
+}
