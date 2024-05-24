@@ -12,17 +12,17 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose }) => {
 
   const handleSubmit = () => {
     onClose(); // Close the dialog
-    router.push('/adminPage'); // Navigate to the "/submits" page
+    router.push('/'); // Navigate to the "/submits" page
   };
 
   const handlDiscussion = () => {
     onClose(); // Close the dialog
-    router.push('/adminPage'); // Navigate to the "/submits" page
+    router.push('/'); // Navigate to the "/submits" page
   };
 
   const handlHome = () => {
     onClose(); // Close the dialog
-    router.push('/adminPage'); // Navigate to the "/submits" page
+    router.push('/'); // Navigate to the "/submits" page
   };
 
   return (
