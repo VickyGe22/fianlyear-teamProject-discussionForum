@@ -25,25 +25,10 @@ const predefinedLabels = {
 };
 
 // 处理数据的函数
-const processCategories = (data: Product[]) => {
-  return data.map(item => {
-    return {
-      ...item,
-      levels: predefinedLabels.levels.includes(item.levels) ? item.levels : "Others",
-      languages: predefinedLabels.languages.includes(item.languages) ? item.languages : "Others",
-      types: predefinedLabels.types.includes(item.types) ? item.types : "Others"
-    };
-  });
-};
-
-
 export default function Home() {
-  const [submits, setSubmits] = useState<Product[] >([]);
+  const [submits, setSubmits] = useState<Product[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState<Product[]>([]);
-
-
-
 
   const fetchSubmit = async () => {
     try {
@@ -53,9 +38,8 @@ export default function Home() {
       }
       const data = await response.json();
       console.log(data.submits);
-      const processedData = processCategories(data.submits);
-      setSubmits(processedData); 
-      setFilteredData(processedData);
+      setSubmits(data.submits); 
+      setFilteredData(data.submits);
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -78,9 +62,9 @@ export default function Home() {
   };
 
   const categories = {
-    levels: ["Bachelor-cs1", "Bachelor-cs2", "Bachelor-cs3", "Bachelor-cs4", "Master-cs1", "Master-cs2", "Others"],
-    languages: ["Python", "Java", "JavaScript", "C", "C#", "C++", "Others"],
-    types: ["Assignments", "Exam", "Quiz", "Group Project", "Others"]
+    levels: ["Bachelor-cs1", "Bachelor-cs2", "Bachelor-cs3", "Bachelor-cs4", "Master-cs1", "Master-cs2", "Other levels"],
+    languages: ["Python", "Java", "JavaScript", "C", "C#", "C++", "Other languages"],
+    types: ["Assignments", "Exam", "Quiz", "Group Project", "Other types"]
   };
 
   const handleCategoryChange = (category: string) => {
@@ -93,48 +77,47 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedCategories.length === 0) {
-      setFilteredData(submits );
+      setFilteredData(submits);
     } else {
       setFilteredData(
-        (submits ).filter(product =>
+        submits.filter(product =>
           selectedCategories.includes(product.levels) ||
           selectedCategories.includes(product.languages) ||
-          selectedCategories.includes(product.types))
+          selectedCategories.includes(product.types) ||
+          (selectedCategories.includes("Other levels") && !predefinedLabels.levels.includes(product.levels)) ||
+          (selectedCategories.includes("Other languages") && !predefinedLabels.languages.includes(product.languages)) ||
+          (selectedCategories.includes("Other types") && !predefinedLabels.types.includes(product.types))
+        )
       );
-      console.log(filteredData);
     }
+    console.log("Filtered Data:", filteredData);
   }, [selectedCategories, submits]);
 
   return (
     <>
-
-      
-
       <section>
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="py-8 md:py-16">
             <div className="md:flex md:justify-between" data-sticky-container>
 
               <Sidebar 
-              categories={categories}
-              selectedCategories={selectedCategories}
-              onCategoryChange={handleCategoryChange}
+                categories={categories}
+                selectedCategories={selectedCategories}
+                onCategoryChange={handleCategoryChange}
               />
               <div className="md:grow">
-                <SubmitList currentSubmits={currentSubmits}/>
+                <SubmitList currentSubmits={currentSubmits} />
               </div>
               
             </div>
             <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
           </div>
-          
         </div>
       </section>
-      
     </>
-  )
+  );
 }
