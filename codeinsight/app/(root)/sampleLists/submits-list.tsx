@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import user from '@/app/(root)/page';
 
 interface SubmitListProps {
   currentSubmits: any[];
@@ -9,38 +10,7 @@ interface SubmitListProps {
 
 const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits }) =>{
 
-  const [submits, setSubmits] = useState(null);
 
-  const fetchSubmit = async () => {
-    try {
-      const response = await fetch("./api/submits?acceptance=true");
-      if (!response.ok) {
-        throw new Error('Failed to fetch submit');
-      }
-      const data = await response.json();
-      console.log(data.submits);
-      setSubmits(data.submits); 
-    } catch (error) {
-      console.error('Fetch error:', error);
-    }
-  };
-  
-  useEffect(() => {
-    fetchSubmit();
-  }, []); 
-
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 20;
-  const totalPages = submits ? Math.ceil(submits.length / postsPerPage) : 0;
-
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentSubmits = submits ? submits.slice(indexOfFirstPost, indexOfLastPost) : [];
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
 
 
   return (
