@@ -8,6 +8,10 @@ import Modal from "@/components/modal";
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
+
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pageId, setPageId] = useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
@@ -15,6 +19,11 @@ export default function Home() {
     const router = useRouter();
 
     const handleOpenModal = () => {
+        if (isLoggedIn===false) {
+            toast.error('You need to be logged in to submit.');
+            alert('You need to be logged in to submit.');
+            return;
+          }
         setIsModalOpen(true);
     };
 
@@ -36,7 +45,40 @@ export default function Home() {
         return ''; // 如果没有找到匹配项，返回空字符串
     };
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState<any>(null);
+
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/auth/users');
+        console.log('Fetched user:', response.data.data.isAdmin);
+        setIsLoggedIn(true);
+        setUser(response.data.data);
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+      }
+    };
+
+    useEffect(() => {
+      const token = Cookies.get('token');
+      setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
+      console.log("useEffect triggered"); // 调试信息
+      console.log("Token found:", token); // 调试信息
+      console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
+      const loggedIn = true;  
+      if (loggedIn){
+        fetchUser();
+      }
+    }, [setIsLoggedIn]);
+
     const handleCloseDiscussion = async (id: string) => {
+
+        if (isLoggedIn===false) {
+            toast.error('You need to be logged in to submit.');
+            alert('You need to be logged in to submit.');
+            return;
+          }
+
         console.log("Submitting:", id);
         const res = await fetch(`/api/submits/${id}`, {
             method: "PUT",
@@ -71,16 +113,18 @@ export default function Home() {
                         </svg>
                         Back to discuss other samples
                     </a>
-                    <button
-                        type="button"
-                        className="flex items-center text-sm font-medium text-red-600 hover:text-red-800 border border-gray-300 rounded-full px-4 py-2 mr-8"
-                        onClick={() => handleCloseDiscussion(pageId as string)}
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                        Close Discussion
-                    </button>
+                    {user?.isAdmin && (
+                        <button
+                            type="button"
+                            className="flex items-center text-sm font-medium text-red-600 hover:text-red-800 border border-gray-300 rounded-full px-4 py-2 mr-8"
+                            onClick={() => handleCloseDiscussion(pageId as string)}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Close Discussion
+                        </button>
+                    )}
                 </div>
 
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
@@ -104,7 +148,7 @@ export default function Home() {
 
                 <div className="py-5 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                     <div className="px-4 py-4 sm:px-6">
-                        <Issue pageId={pageId} />
+                        <Issue pageId={pageId} isLoggedIn={isLoggedIn}/>
                     </div>
                 </div>
 
@@ -113,17 +157,19 @@ export default function Home() {
                 </Modal>
                 
                 <div className="flex justify-center items-center mt-6 px-4">
-                    <button
-                        type="button"
-                        className="flex justify-center items-center gap-x-1.5 rounded-full bg-red-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-red-300 hover:bg-red-500"
-                        onClick={handleDisableAddIssue}
-                    >
-                        Close Add Issue
-                    </button>
+                    {user?.isAdmin && (
+                        <button
+                            type="button"
+                            className="flex justify-center items-center gap-x-1.5 rounded-full bg-red-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-red-300 hover:bg-red-500"
+                            onClick={handleDisableAddIssue}
+                        >
+                            Close Add Issue
+                        </button>
+                    )}
                 </div>
 
                 <div className="divide-y py-10 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
-                    <GeneralComments pageId={pageId} />
+                    <GeneralComments pageId={pageId} isLoggedIn={isLoggedIn} isAdmin={user?.isAdmin}/>
                 </div>
             </div>
         </>

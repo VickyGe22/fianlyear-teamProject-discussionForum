@@ -3,6 +3,9 @@ import './css/style.css'
 import { Inter, Nothing_You_Could_Do } from 'next/font/google'
 import ClientSideEffect from './ClientSideEffect';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const inter = Inter({
@@ -35,6 +38,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${nycd.variable} font-inter antialiased bg-white text-gray-800 tracking-tight`}>
         <ClientSideEffect />
         <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+          <ToastContainer />
           {children}
         </div>
       </body>

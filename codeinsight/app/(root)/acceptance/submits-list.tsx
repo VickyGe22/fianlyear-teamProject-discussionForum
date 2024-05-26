@@ -3,7 +3,8 @@ import Link from 'next/link';
 import Pagination from './submit-pagination';
 import { useEffect, useState } from 'react';
 import Modal from '@/components/modal';
-import SubmitDialog from './submitpopup';
+import SubmitDialog from './deletepopup';
+import { toast } from 'react-toastify';
 
 
 export default function SubmitList() {
@@ -37,24 +38,12 @@ export default function SubmitList() {
       },
       body: JSON.stringify({ acceptance: true }),
     });
-  };
-
-  const handleDeletion = async (id) => {
-    try {
-      const response = await fetch(`/api/submits/${id}/`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete sample');
-      }
-      // After successful deletion, close modal if it's open
-      if (isModalOpen) {
-        setIsModalOpen(false);
-      }
-    } catch (error) {
-      console.error('Deletion error:', error);
+    if (res.ok) {
+      // Refresh the page if the request was successful
+      window.location.reload();
     }
   };
+
 
   const handleOpenModal = (id) => {
     setSelectedSampleId(id);
@@ -62,6 +51,10 @@ export default function SubmitList() {
   };
 
   const handleCloseModal = () => {
+    // console.log("关闭关闭关闭关闭关闭关闭", toast.success);
+    // toast.success('Sample has been deleted successfully');
+    alert('Sample has been deleted successfully');
+    window.location.reload();
     setIsModalOpen(false);
   };
 
