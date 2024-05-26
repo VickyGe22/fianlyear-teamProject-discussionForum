@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pageId, setPageId] = useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
+    const [isAddIssueVisible, setIsAddIssueVisible] = useState(true);
     const router = useRouter();
 
     const handleOpenModal = () => {
@@ -19,6 +20,10 @@ export default function Home() {
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
+    };
+
+    const handleDisableAddIssue = () => {
+        setIsAddIssueVisible(false);
     };
 
     const pathname = usePathname();
@@ -84,14 +89,16 @@ export default function Home() {
                     </div>
                     <div className="border-t border-gray-300" />
                     <div className="flex justify-center items-center mt-6 px-4">
-                        <button
-                            type="button"
-                            className="flex justify-center items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                            onClick={handleOpenModal}
-                        >
-                            <PlusIcon className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                            Click to Share and Discuss Your New Issues Found
-                        </button>
+                        {isAddIssueVisible && (
+                            <button
+                                type="button"
+                                className="flex justify-center items-center gap-x-1.5 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                                onClick={handleOpenModal}
+                            >
+                                <PlusIcon className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                Click to Share and Discuss Your New Issues Found
+                            </button>
+                        )}
                     </div>
                 </div>
 
@@ -104,6 +111,16 @@ export default function Home() {
                 <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
                     <AddIssue pageId={pageId} />
                 </Modal>
+                
+                <div className="flex justify-center items-center mt-6 px-4">
+                    <button
+                        type="button"
+                        className="flex justify-center items-center gap-x-1.5 rounded-full bg-red-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-red-300 hover:bg-red-500"
+                        onClick={handleDisableAddIssue}
+                    >
+                        Close Add Issue
+                    </button>
+                </div>
 
                 <div className="divide-y py-10 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                     <GeneralComments pageId={pageId} />
