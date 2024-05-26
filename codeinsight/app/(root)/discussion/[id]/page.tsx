@@ -107,6 +107,7 @@
 import GeneralComments from "../generalcomments";
 import Issue from "../issuepage";
 import { PlusIcon } from '@heroicons/react/20/solid';
+import { PlusIcon } from '@heroicons/react/20/solid';
 import SolutionDisplay from "../solution_display";
 import AddIssue from '../addissue';
 import Modal from "@/components/modal";
@@ -136,6 +137,7 @@ export default function Home() {
         const match = pathname.match(/\/discussion\/([a-f0-9]+)/);
         if (match && match[1]) {
             return match[1];
+            return match[1];
         }
         return '';
     };
@@ -147,6 +149,8 @@ export default function Home() {
         if (pageId) {
             setPageId(pageId);
         }
+    }, [pathname]);
+
     }, [pathname]);
 
     return (
@@ -179,12 +183,16 @@ export default function Home() {
                 </div>
 
                 <div className="py-5 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+
+                <div className="py-5 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                     <div className="px-4 py-4 sm:px-6">
+                        <Issue pageId={pageId} />
                         <Issue pageId={pageId} />
                     </div>
                 </div>
 
                 <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
+                    <AddIssue pageId={pageId} />
                     <AddIssue pageId={pageId} />
                 </Modal>
                 <div className="flex justify-center items-center mt-6 px-4">
@@ -210,3 +218,4 @@ export default function Home() {
         </>
     );
 }
+

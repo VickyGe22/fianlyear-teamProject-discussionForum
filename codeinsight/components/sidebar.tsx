@@ -10,15 +10,16 @@ interface SidebarProps {
   };
   selectedCategories: string[];
   onCategoryChange: (category: string) => void;
+  clearCategories: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ categories, selectedCategories, onCategoryChange }) => {
+const Sidebar: React.FC<SidebarProps> = ({ categories, selectedCategories, onCategoryChange, clearCategories }) => {
   return (
     <aside className="mb-8 md:mb-0 md:w-64 lg:w-72 md:ml-12 lg:ml-20 md:shrink-0 md:order-1">
       <div data-sticky="" data-margin-top="32" data-sticky-for="768" data-sticky-wrap="">
         <div className="relative bg-gray-50 rounded-xl border border-gray-200 p-5">
           <div className="absolute top-5 right-5 leading-none">
-            <button className="text-sm font-medium text-indigo-500 hover:underline">Clear</button>
+            <button className="text-sm font-medium text-indigo-500 hover:underline" onClick={clearCategories}>Clear</button>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-1 gap-6">
