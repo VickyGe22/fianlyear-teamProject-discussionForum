@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Like from '@/public/images/like.png';
 import Like2 from '@/public/images/like-2.png';
 import Image from 'next/image'
+import toast from 'react-hot-toast';
 
 
 const people = [
@@ -12,7 +13,7 @@ const people = [
 ];
 
 
-export default function Example({ pageId, disId }:{pageId:string, disId:string}) {
+export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, disId:string, isLoggedIn: boolean}) {
 
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<Array<{ text: string; user: { name: string; imageUrl: string; }; likes: number; isLiked: boolean; }>>([]);
@@ -64,6 +65,11 @@ export default function Example({ pageId, disId }:{pageId:string, disId:string})
 
   
   const handleSubmit = async (e:any) => {
+    if (isLoggedIn===false) {
+      toast.error('You need to be logged in to post your new finding issues.');
+      alert('You need to be logged in to post your new finding issues.');
+      return;
+    }
     e.preventDefault(); // Prevent default form submit behavior
     const person = people[0];
     const newComment = {text: comment,user: person,likes: 0, // Initialize likes to 0

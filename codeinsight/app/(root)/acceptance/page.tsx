@@ -16,7 +16,6 @@ export default function Home() {
               <div className="md:grow">
                 <SubmitList />
               </div>
-
             </div>
           </div>
         </div>

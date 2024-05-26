@@ -16,32 +16,48 @@ import nlp from 'compromise';
 import { WordTokenizer } from 'natural';
 import stopwords from 'stopword';
 
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
-function generateTitle(codeDescription: string): string {
 
-    let doc = nlp(codeDescription);
-    doc.verbs().toInfinitive();
-    doc.nouns().toSingular();
-    const words = doc.text('normal').split(/\s+/);
-    const frequencyMap = new Map();
-    words.forEach(word => {
-        frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
-    });
-    const tfidfMap = new Map();
-    words.forEach(word => {
-        const tf = frequencyMap.get(word);
-        const idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
-        tfidfMap.set(word, tf * idf);
-    });
 
-    const sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
+function generateTitle(codeDescription: string, tags: string[]) {
+  // Process the text with NLP
+  let doc = nlp(codeDescription);
 
-    const importantWords = sortedWords.slice(0, 5).map(([word]) => word);
+  // Extract important parts of speech
+  let verbs = doc.verbs().out('array');
+  let nouns = doc.nouns().out('array');
+  let adjectives = doc.adjectives().out('array');
 
-    const title = importantWords.join(' ');
-    return title;
+  // Combine all parts of speech and tags
+  let words = [...verbs, ...nouns, ...adjectives, ...tags];
+
+  // Compute word frequencies
+  let frequencyMap = new Map();
+  words.forEach(word => {
+    frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
+  });
+
+  // Compute TF-IDF values
+  let tfidfMap = new Map();
+  words.forEach(word => {
+    let tf = frequencyMap.get(word);
+    let idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
+    tfidfMap.set(word, tf * idf);
+  });
+
+  // Sort words by TF-IDF value
+  let sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
+
+  // Select the top 10 words for a longer title
+  let importantWords = sortedWords.slice(0, 5).map(([word]) => word);
+
+  // Form the title from the important words
+  let title = importantWords.join(' ');
+  return title;
 }
-
 
 
 export default function SubmitSample() {
@@ -66,7 +82,7 @@ export default function SubmitSample() {
     const [tags, setTags] = useState<string[]>([]);
     const [error, setError] = useState([]);
     const [success, setSuccess] = useState(false);
-    const [title = generateTitle(comment), setTitle] = useState('');
+    const [title, setTitle] = useState('');
     
 
 
@@ -74,12 +90,22 @@ export default function SubmitSample() {
       console.log("Code status:", code);
     }, [code]);
 
-     useEffect(() => {
-        const title = generateTitle(comment);
-      }, [setTitle]); // This ensures the loop runs only after `submits` is set.
+    useEffect(() => {
+      if (comment || tags.length > 0) {
+          const generatedTitle = generateTitle(comment, tags);
+          setTitle(generatedTitle);
+      }
+  }, [comment, tags]);
 
     const handleSubmit = async (e:any) => {
-  
+      
+      console.log("检查检查检查",isLoggedIn);
+      if (isLoggedIn===false) {
+        toast.error('You need to be logged in to submit.');
+        alert('You need to be logged in to submit.');
+        return;
+      }
+      
       const res = await fetch("./api/submits", {
         method: "POST",
         headers: {
@@ -88,8 +114,6 @@ export default function SubmitSample() {
         body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
                   issuedescriptions:comment, tags: tags, sampletitles: title} ),
       });
-
-      
   
       const { msg, success } = await res.json();
       setError(msg);
@@ -104,8 +128,36 @@ export default function SubmitSample() {
         setComment("");
         setTags([]);
         setIsModalOpen(true);
+        setTitle("");
       }
     };
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState<any>(null);
+
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('/api/auth/users');
+        console.log('Fetched user:', response.data.data.isAdmin);
+        setIsLoggedIn(true);
+        setUser(response.data.data);
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+      }
+    };
+
+    useEffect(() => {
+      const token = Cookies.get('token');
+      setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
+      console.log("useEffect triggered"); // 调试信息
+      console.log("Token found:", token); // 调试信息
+      console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
+      const loggedIn = true;  
+      if (loggedIn){
+        fetchUser();
+      }
+    }, [setIsLoggedIn]);
+
 
   return (
     <>
@@ -199,7 +251,7 @@ export default function SubmitSample() {
         </div>
          
         <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
-          <SubmitDialog onClose={handleCloseModal} />
+          <SubmitDialog onClose={handleCloseModal} user={user}/>
         </Modal>
       </div>
 

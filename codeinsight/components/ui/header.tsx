@@ -42,8 +42,9 @@ export default function Example() {
       setIsLoggedIn(true);
       if (response.data.data.isAdmin) {
         setNavigation([
-          ...baseNavigation,
-          { name: 'Acceptance', href: '/acceptance', current: false }
+          ...baseNavigation.slice(0, 2),
+          { name: 'Acceptance', href: '/acceptance', current: false },
+          ...baseNavigation.slice(2)
         ]);
       }
     } catch (error) {
@@ -69,22 +70,22 @@ export default function Example() {
       await axios.get('/api/auth/signout');
       toast.success('Signout successful');
       setIsLoggedIn(false);
-      window.location.href = '/signin'; // Use JavaScript to redirect
+      window.location.href = '/'; // Use JavaScript to redirect
     } catch (error: any) {
       console.log(error.message);
       toast.error(error.message);
     }
   };
 
-  const handleNavigation = (event: any, href: string) => {
-    if (!isLoggedIn) {
-      event.preventDefault();
-      toast.error('You need to be logged in to access this page.');
-      alert('You need to be logged in to access this page.');
-    } else {
-      window.location.href = href;
-    }
-  };
+  // const handleNavigation = (event: any, href: string) => {
+  //   if (!isLoggedIn) {
+  //     event.preventDefault();
+  //     toast.error('You need to be logged in to access this page.');
+  //     alert('You need to be logged in to access this page.');
+  //   } else {
+  //     window.location.href = href;
+  //   }
+  // };
 
 
   return (
@@ -104,7 +105,7 @@ export default function Example() {
                         <a
                           key={item.name}
                           href={item.href}
-                          onClick={(event) => handleNavigation(event, item.href)}
+                          // onClick={(event) => handleNavigation(event, item.href)}
                           className={classNames(
                             item.current
                               ? ' text-gray-900'
@@ -166,7 +167,7 @@ export default function Example() {
                       key={item.name}
                       as="a"
                       href ={item.href}
-                      onClick={(event) => handleNavigation(event, item.href)}
+                      // onClick={(event) => handleNavigation(event, item.href)}
                       className ={classNames(
                         item.current
                           ? ' bg-indigo-50 '

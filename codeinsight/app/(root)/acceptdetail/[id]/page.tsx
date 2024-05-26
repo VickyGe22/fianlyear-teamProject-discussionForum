@@ -43,18 +43,29 @@ export default function Home() {
     
     return (
         <>
-            <div className='fadeIn' >
-                <a href="/acceptance" className=" flex py-10 px-16 items-center text-sm font-medium text-blue-600 hover:text-blue-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17l-5-5m0 0l5-5m-5 5h12">Reply</path>
-                        </svg>
-                        Back to acceptance 
+            <div className='fadeIn'>
+                <a href="/acceptance" className="flex py-10 px-16 items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                    </svg>
+                    Back to acceptance
                 </a>
-
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
                     <div className="px-4 py-5 sm:p-6 shadow-lg">
                         <SolutionDisplay pageId={pageId} />
                     </div>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <br></br>
                 </div>
             </div>
         </>

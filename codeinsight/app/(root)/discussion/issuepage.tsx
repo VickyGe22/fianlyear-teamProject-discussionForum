@@ -17,7 +17,7 @@ const authorAvatars: AuthorAvatars = {
 };
 
 
-const Issue = ({ pageId }:{pageId:string}) =>  {
+const Issue = ({ pageId, isLoggedIn }: { pageId: string, isLoggedIn: boolean })  =>  {
 
     const [discussions, setDiscussion] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -106,7 +106,7 @@ const Issue = ({ pageId }:{pageId:string}) =>  {
                     </div>
                     <Disclosure.Panel as="div" className="pb-4 px-6">
                       {/* IssueReply component and other content */}
-                      <IssueReply pageId={pageId} disId={discussion._id}/>
+                      <IssueReply pageId={pageId} disId={discussion._id} isLoggedIn={isLoggedIn}/>
                     </Disclosure.Panel>
                   </>
                 )}
@@ -119,7 +119,3 @@ const Issue = ({ pageId }:{pageId:string}) =>  {
 }
 
 export default Issue;
-
-function len(data: any): any {
-  throw new Error("Function not implemented.");
-}

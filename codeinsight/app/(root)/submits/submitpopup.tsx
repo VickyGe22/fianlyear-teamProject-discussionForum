@@ -4,15 +4,21 @@ import { useRouter } from 'next/navigation';
 
 interface SubmitDialogProps {
   onClose: () => void;
+  user: any;
 }
 
-const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose }) => {
+const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose, user }) => {
   
   const router = useRouter();
 
   const handleSubmit = () => {
     onClose(); // Close the dialog
     router.push('/submits'); // Navigate to the "/submits" page
+  };
+
+  const handleAcceptance = () => {
+    onClose(); // Close the dialog
+    router.push('/acceptance'); // Navigate to the "/submits" page
   };
 
   const handlDiscussion = () => {
@@ -39,12 +45,21 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose }) => {
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-3 sm:gap-3">
-                  <button
-                    className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    onClick={handleSubmit}
-                  >
-                    Submit Another Sample
-                  </button>
+                {user?.isAdmin ? (
+                    <button
+                      className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      onClick={handleAcceptance}
+                    >
+                      Go to Acceptance
+                    </button>
+                  ) : (
+                    <button
+                      className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      onClick={handleSubmit}
+                    >
+                      Submit Another Sample
+                    </button>
+                  )}
                   <button
                     className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handlDiscussion}
