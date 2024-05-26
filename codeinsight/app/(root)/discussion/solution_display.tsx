@@ -135,7 +135,7 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
                   )}
                 </span>
               ))}
-              {submit?.tags.length === 0 && editingTag === null && (
+              {editingTag === null && (
                 <button
                   onClick={handleAddTag}
                   className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded"
