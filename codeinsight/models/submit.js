@@ -79,7 +79,12 @@ const submitSchema = new Schema({
     type: Boolean,
     required:false,
     default:false
-  }
+  },
+
+  discuss_close:{
+    type: Boolean,
+    default:false
+}
 
 
 });

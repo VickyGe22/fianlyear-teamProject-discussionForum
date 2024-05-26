@@ -67,6 +67,7 @@ export default function SubmitSample() {
     const [error, setError] = useState([]);
     const [success, setSuccess] = useState(false);
     const [title = generateTitle(comment), setTitle] = useState('');
+    
 
 
     useEffect(() => {

@@ -6,12 +6,16 @@ export async function PUT(req, { params }) {
   const { submitId: id } = params; // Correctly extract id from params
   console.log("ID:", id);
   
-  const { acceptance } = await req.json(); // Get acceptance directly
+  const { acceptance, discuss_close } = await req.json(); // Get both fields if they exist
   
   try {
     await connectDB();
-    const result = await Submit.findByIdAndUpdate(id, { $set: { acceptance } }, { new: true });
-    console.log("hhhhhhhhhhhhhhh:", acceptance);
+    const updateData = {};
+    if (acceptance !== undefined) updateData.acceptance = acceptance;
+    if (discuss_close !== undefined) updateData.discuss_close = discuss_close;
+
+    const result = await Submit.findByIdAndUpdate(id, { $set: updateData }, { new: true });
+    console.log("Updated data:", updateData);
     return NextResponse.json({ msg: ["Submit updated successfully"], result });
   } catch (error) {
     console.error("Error updating submit:", error);

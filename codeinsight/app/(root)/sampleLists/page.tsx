@@ -61,6 +61,10 @@ export default function Home() {
     setCurrentPage(pageNumber);
   };
 
+  const clearCategories = () => {
+    setSelectedCategories([]);
+  };
+
   const categories = {
     levels: ["Bachelor-cs1", "Bachelor-cs2", "Bachelor-cs3", "Bachelor-cs4", "Master-cs1", "Master-cs2", "Other levels"],
     languages: ["Python", "Java", "JavaScript", "C", "C#", "C++", "Other languages"],
@@ -77,21 +81,26 @@ export default function Home() {
 
   useEffect(() => {
     if (selectedCategories.length === 0) {
-      setFilteredData(submits);
+      setFilteredData(submits.filter(product => !product.discuss_close));
     } else {
       setFilteredData(
         submits.filter(product =>
-          selectedCategories.includes(product.levels) ||
-          selectedCategories.includes(product.languages) ||
-          selectedCategories.includes(product.types) ||
-          (selectedCategories.includes("Other levels") && !predefinedLabels.levels.includes(product.levels)) ||
-          (selectedCategories.includes("Other languages") && !predefinedLabels.languages.includes(product.languages)) ||
-          (selectedCategories.includes("Other types") && !predefinedLabels.types.includes(product.types))
+          !product.discuss_close &&
+          (
+            selectedCategories.includes(product.levels) ||
+            selectedCategories.includes(product.languages) ||
+            selectedCategories.includes(product.types) ||
+            (selectedCategories.includes("Other levels") && !predefinedLabels.levels.includes(product.levels)) ||
+            (selectedCategories.includes("Other languages") && !predefinedLabels.languages.includes(product.languages)) ||
+            (selectedCategories.includes("Other types") && !predefinedLabels.types.includes(product.types))
+          )
         )
       );
     }
     console.log("Filtered Data:", filteredData);
   }, [selectedCategories, submits]);
+
+ 
 
   return (
     <>
@@ -104,6 +113,7 @@ export default function Home() {
                 categories={categories}
                 selectedCategories={selectedCategories}
                 onCategoryChange={handleCategoryChange}
+                clearCategories={clearCategories}
               />
               <div className="md:grow">
                 <SubmitList currentSubmits={currentSubmits} />
