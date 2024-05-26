@@ -7,14 +7,13 @@ import Submit from "@/models/submit";
 import { NextRequest, NextResponse } from "next/server";
 
 
-export default async function POST(request: NextRequest) {
+export async function POST(request: NextRequest,res: NextResponse) {
   
   const reqBody = await request.json()
   console.log('hhahahaaaaaaaaaaa',reqBody);
   
   {
     try {
-      
       await connectDB();
       const {code} = reqBody;
       console.log('hahohaohoahoa',code);

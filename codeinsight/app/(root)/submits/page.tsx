@@ -61,7 +61,7 @@ function generateTitle(codeDescription: string, tags: string[]) {
 
 async function performAnalysis(code) {
   console.log("hahaahhahah测试测试测试测试", code);
-  const analysisResponse = await axios.post('./api/analyze', code );
+  const analysisResponse = await axios.post('./api/analyze', code);
   console.log("好的好的好的测试测试测试测试", analysisResponse.data);
   return analysisResponse.data;
 }
