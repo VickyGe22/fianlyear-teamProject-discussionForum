@@ -59,6 +59,13 @@ function generateTitle(codeDescription: string, tags: string[]) {
   return title;
 }
 
+async function performAnalysis(code) {
+  console.log("hahaahhahah测试测试测试测试", code);
+  const analysisResponse = await axios.post('./api/analyze', code );
+  console.log("好的好的好的测试测试测试测试", analysisResponse.data);
+  return analysisResponse.data;
+}
+
 
 export default function SubmitSample() {
 
@@ -83,9 +90,9 @@ export default function SubmitSample() {
     const [error, setError] = useState([]);
     const [success, setSuccess] = useState(false);
     const [title, setTitle] = useState('');
+    const [analysisResult, setAnalysisResults] = useState(null);
+
     
-
-
     useEffect(() => {
       console.log("Code status:", code);
     }, [code]);
@@ -95,7 +102,14 @@ export default function SubmitSample() {
           const generatedTitle = generateTitle(comment, tags);
           setTitle(generatedTitle);
       }
-  }, [comment, tags]);
+    }, [comment, tags]);
+
+    useEffect(() => {
+        if (code) {
+          performAnalysis(code).then((result) => setAnalysisResults(result));
+        }
+    }, [code]);
+
 
     const handleSubmit = async (e:any) => {
       
@@ -114,6 +128,8 @@ export default function SubmitSample() {
         body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
                   issuedescriptions:comment, tags: tags, sampletitles: title} ),
       });
+
+      
   
       const { msg, success } = await res.json();
       setError(msg);
@@ -137,7 +153,7 @@ export default function SubmitSample() {
 
     const fetchUser = async () => {
       try {
-        const response = await axios.get('/api/auth/users');
+        const response = await axios.get('./api/auth/users');
         console.log('Fetched user:', response.data.data.isAdmin);
         setIsLoggedIn(true);
         setUser(response.data.data);
@@ -182,6 +198,13 @@ export default function SubmitSample() {
                   </label>
                   <CodeBox code={code} setCode={setCode} />               
                 </div>
+                {analysisResult && (
+                  <div>
+                    <h2>Analysis Results:</h2>
+                    <p><strong>Static Analysis:</strong> {analysisResult.staticAnalysis}</p>
+                    <p><strong>Complexity Analysis:</strong> {analysisResult.complexityAnalysis}</p>
+                  </div>
+                )}
                 {/* gap-8是两个flexbox之间的间隔 */}
                 <div className="flex justify-left  gap-8">
                   <MenuBox selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> 
