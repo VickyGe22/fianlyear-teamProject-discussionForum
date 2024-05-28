@@ -53,7 +53,6 @@ export default function SubmitList() {
   const handleCloseModal = () => {
     // console.log("关闭关闭关闭关闭关闭关闭", toast.success);
     // toast.success('Sample has been deleted successfully');
-    alert('Sample has been deleted successfully');
     window.location.reload();
     setIsModalOpen(false);
   };

@@ -111,7 +111,7 @@ export default function Home() {
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 17l-5-5m0 0l5-5m-5 5h12">Reply</path>
                         </svg>
-                        Back to discuss other samples
+                        Back to code samples list
                     </a>
                     {user?.isAdmin && (
                         <button
@@ -122,7 +122,7 @@ export default function Home() {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
-                            Close Discussion
+                            Close discussion
                         </button>
                     )}
                 </div>
@@ -140,7 +140,7 @@ export default function Home() {
                                 onClick={handleOpenModal}
                             >
                                 <PlusIcon className="-ml-1 -mr-0.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                                Click to Share and Discuss Your New Issues Found
+                                Click to post new issues
                             </button>
                         )}
                     </div>

@@ -31,7 +31,7 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose }) => {
       </div> */}
       <div className="mt-3 text-center sm:mt-5">
           <h3 className="tracking-wide text-lg font-bold leading-6 text-gray-900">
-            Please Select One Reason For Rejection
+            Please select one reason for rejection
           </h3>
         </div>
         <div className="mt-5 sm:mt-6 flex flex-col items-center space-y-3">

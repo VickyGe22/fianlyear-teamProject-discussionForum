@@ -164,9 +164,9 @@ export default function SubmitSample() {
       <div className='fadeIn py-10 px-32' >
         <div className="mb-3 pl-10 ">
           <br></br>
-          <h1 className="text-4xl font-extrabold font-inter mb-5">Share Your Code Samples</h1>
+          <h1 className="text-4xl font-extrabold font-inter mb-5">Submit your code sample</h1>
           <div className="text-gray-500  text-1xl">Welcome to the CodeInsight submission page, here you can submit 
-          code samples and offer your insights to enlighten and inspire. <br/>Try to transform suboptimal code into learning opportunities!</div>
+          code samples.<br/>Try to transform sub-optimal code into learning opportunities!</div>
         </div>
         
 
@@ -191,7 +191,7 @@ export default function SubmitSample() {
               {/*comments*/}
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="email">
-                    Issue Description <span className="text-red-500">*</span>
+                    Issue description <span className="text-red-500">*</span>
                   </label>
                   <div onSubmit={handleSubmit}>
                     <textarea

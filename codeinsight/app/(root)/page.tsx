@@ -92,7 +92,7 @@ export default function Home() {
                   />
                   {/* Overlay that appears on hover */}
                   <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-300 ease-in-out flex flex-col justify-center items-center">
-                    <Link legacyBehavior href="/samplelists">
+                    <Link legacyBehavior href="/sampleLists">
                         <a 
                           className="text-center"
                         >
@@ -100,7 +100,7 @@ export default function Home() {
                             Discussion
                           </h3>
                           <p aria-hidden="true" className="mt-1 font-medium px-10 text-xl text-pretty text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                            Join in discussion and exchange teaching tactics to optimize your code samples 
+                            Join in discussion and exchange teaching tactics to optimise your code samples 
                           </p>
                         </a>
                     </Link>
@@ -142,10 +142,10 @@ export default function Home() {
                       <Link legacyBehavior href="/acceptance">
                         <a className="text-center">
                         <h3 className="text-2xl zoomIn font-extrabold text-black px-2 ease-in-out mt-4 " style={{ position: 'absolute', top: '5%', left: '50%', transform: 'translateX(-50%)' }}>
-                            Acceptence
+                            Acceptance
                           </h3>
                           <p aria-hidden="true" className="mt-1 font-medium px-10 text-xl text-pretty text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                          Review and approve user submissions, or close the submission process to finalize entries 
+                          Review and approve user submissions
                             </p>
                         </a>
                       </Link>
@@ -166,7 +166,7 @@ export default function Home() {
                             Discussion
                           </h3>
                           <p aria-hidden="true" className="mt-1 font-medium px-10 text-xl text-pretty text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out">
-                            Step into our Review zone <br></br>for a reflective deep dive into your code
+                          Join in discussion and exchange teaching tactics to optimise your code samples 
                           </p>
                         </a>
                       </Link>
