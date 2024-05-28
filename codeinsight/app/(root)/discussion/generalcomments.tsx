@@ -99,7 +99,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4 text-black">General Comments</h1>
+      <h1 className="text-2xl font-bold mb-4 text-black">General comments</h1>
       <div className="py-8 px-10">
         {/* Display comments */}
         <div className="comments py-4 mb-4">

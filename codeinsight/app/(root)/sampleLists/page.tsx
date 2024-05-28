@@ -21,7 +21,7 @@ interface Product {
 const predefinedLabels = {
   levels: ["Bachelor-cs1","Bachelor-cs2","Bachelor-cs3","Bachelor-cs4","Master-cs1","Master-cs2"],
   languages: ["Python","Java","JavaScript","C","C#","C++"],
-  types: ["Assignments","Exam","Quiz","Group Project"]
+  types: ["Assignment","Exam","Quiz","Group project"]
 };
 
 // 处理数据的函数
@@ -68,7 +68,7 @@ export default function Home() {
   const categories = {
     levels: ["Bachelor-cs1", "Bachelor-cs2", "Bachelor-cs3", "Bachelor-cs4", "Master-cs1", "Master-cs2", "Other levels"],
     languages: ["Python", "Java", "JavaScript", "C", "C#", "C++", "Other languages"],
-    types: ["Assignments", "Exam", "Quiz", "Group Project", "Other types"]
+    types: ["Assignment", "Exam", "Quiz", "Group project", "Other types"]
   };
 
   const handleCategoryChange = (category: string) => {

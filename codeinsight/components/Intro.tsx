@@ -18,7 +18,7 @@ export default function Intro() {
             CodeInsight
           </p>
           <p className="zoomIn italic mt-6 text-xl text-pretty leading-8 text-gray-300">
-            a code issues discussion forum displaying valuable code examples to advance learning 
+            A code issues discussion forum displaying valuable code examples to advance learning 
            <br className="hidden md:block" /> and optimize code structure.
           </p>
         </div>

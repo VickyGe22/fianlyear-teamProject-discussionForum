@@ -42,6 +42,9 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose, user }) => {
                     <h3 className="tracking-wide text-lg font-semibold leading-6 text-gray-900">
                         Thanks for your submission!
                     </h3>
+                    <h3 className="tracking-wide text-lg font-semibold leading-6 text-gray-900">
+                        Please wait for admin approval.
+                    </h3>
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-3 sm:gap-3">
@@ -50,27 +53,27 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose, user }) => {
                       className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       onClick={handleAcceptance}
                     >
-                      Go to Acceptance
+                      Go to acceptance
                     </button>
                   ) : (
                     <button
                       className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       onClick={handleSubmit}
                     >
-                      Submit Another Sample
+                      Submit another sample
                     </button>
                   )}
                   <button
                     className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handlDiscussion}
                   >
-                    Go to Discussion
+                    Go to discussion
                   </button>
                   <button
                     className="tracking-wide inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     onClick={handlHome}
                   >
-                    Back to Homepage
+                    Back to homepage
                   </button>
 
                 </div>
