@@ -67,6 +67,7 @@ async function performAnalysis(code) {
 }
 
 
+
 export default function SubmitSample() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);

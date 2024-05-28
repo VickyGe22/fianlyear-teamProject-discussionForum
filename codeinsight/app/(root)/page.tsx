@@ -92,7 +92,7 @@ export default function Home() {
                   />
                   {/* Overlay that appears on hover */}
                   <div className="absolute inset-0 bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-300 ease-in-out flex flex-col justify-center items-center">
-                    <Link legacyBehavior href="/samplelists">
+                    <Link legacyBehavior href="/sampleLists">
                         <a 
                           className="text-center"
                         >
