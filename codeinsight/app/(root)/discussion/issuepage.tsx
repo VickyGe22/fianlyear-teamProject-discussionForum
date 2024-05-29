@@ -75,7 +75,7 @@ const Issue = ({ pageId, isLoggedIn }: { pageId: string, isLoggedIn: boolean }) 
                             {discussion.creator}
                           </span>
                           <span className="text-xs text-gray-500 block">
-                            {discussion.createdAt}
+                            {new Date(discussion.createdAt).toLocaleString()}
                           </span>
                           <p className="mt-1 text-gray-800 text-sm">
                             {discussion.issuetitle}
