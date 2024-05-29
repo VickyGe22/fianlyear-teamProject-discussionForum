@@ -59,7 +59,7 @@ const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits }) =>{
                      
                       {sample.tags.map((tag:any) => (
                                 <a
-                                className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
+                                className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20 ml-1 mr-1 "
                                 href="#0"
                               > { tag } </a>
                           ))}
