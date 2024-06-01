@@ -13,6 +13,10 @@ const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits }) =>{
 
 
 
+  function handleCloseDiscussion(_id: any): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <div className="pb-8 md:pb-16">
       <h2 className="text-3xl font-bold font-inter mb-10">Code samples list</h2>
