@@ -45,19 +45,19 @@ const SubmitDialog: React.FC<SubmitDialogProps> = ({ onClose, id }) => {
           className="tracking-wide inline-flex w-64 justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           onClick={() => back('Lack subjective error')}
         >
-          Lack subjective error
+          Missing subjective error
         </button>
         <button
           className="tracking-wide inline-flex w-64 justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           onClick={() => back('Complex Code example')}
         >
-          Complex Code example
+          Code example too complex
         </button>
         <button
           className="tracking-wide inline-flex w-64 justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           onClick={() => back('Already discussed before')}
         >
-          Already discussed before
+          Already discussed
         </button>
       </div>
     </div>
