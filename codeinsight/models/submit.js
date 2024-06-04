@@ -59,21 +59,9 @@ const submitSchema = new Schema({
   }],
 
   generalreply: [{
-    replystring: {
-      type: String,
-      required: false,
-      trim: true
-    },
-    username: {
-      type: String,
-      required: false,
-      trim: true
-    },
-    imageURL: {
-      type: String,
-      required: false,
-      trim: true
-    }
+    type: String,
+    required: false, 
+    trim: true
   }],
 
   creator: { 
