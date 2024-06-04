@@ -31,7 +31,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
       const data = await response.json();
       const mappedComments = data.submit.generalreply.map((reply: any) => ({
         text: reply.replystring, // the comment text
-        user: { name: reply.username, imageUrl: reply.imageURL }, // user information
+        user: { name: reply.username, imageUrl: reply.userimage }, // user information
         likes: 0, // initializing likes to 0
         isLiked: false // initializing isLiked to false
       }));
@@ -122,10 +122,10 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
               className="mb-4 relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
             >
               <div className="flex-shrink-0">
-                <img className="h-10 w-10 rounded-full" src={userURL} alt="" />
+                <img className="h-10 w-10 rounded-full" src={comment.user.imageUrl} alt="" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-900">{username}</p>
+                <p className="text-sm font-medium text-gray-900">{comment.user.name}</p>
                 <div className="comment text-gray-800 text-sm my-2">
                   {comment.text}
                 </div>
