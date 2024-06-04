@@ -5,13 +5,13 @@ import { useEffect, useState } from "react";
 import { Disclosure } from '@headlessui/react';
 import IssueReply from "./issuereply";
 
-// type AuthorAvatars = {
-//   [key: string]: string;
-// };
+type AuthorAvatars = {
+  [key: string]: string;
+};
 
-// const authorAvatars: AuthorAvatars = {
-//   'Anonymous': 'https://randomuser.me/api/portraits/women/1.jpg'
-// };
+const authorAvatars: AuthorAvatars = {
+  'Anonymous': 'https://randomuser.me/api/portraits/women/1.jpg'
+};
 
 
 const Issue = ({ pageId, isLoggedIn, userURL, username }: { pageId: string, isLoggedIn: boolean, userURL:string, username:string })  =>  {
