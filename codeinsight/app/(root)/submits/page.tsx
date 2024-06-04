@@ -98,10 +98,10 @@ export default function SubmitSample() {
   }, [comment, tags]);
 
     const handleSubmit = async (e:any) => {
-      console.log("检查检查检查",isLoggedIn);
       if (isLoggedIn===false) {
         toast.error('You need to be logged in to submit.');
         alert('You need to be logged in to submit.');
+        window.location.href = '/signin'
         return;
       }
       
@@ -150,9 +150,6 @@ export default function SubmitSample() {
     useEffect(() => {
       const token = Cookies.get('token');
       setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
-      console.log("useEffect triggered"); // 调试信息
-      console.log("Token found:", token); // 调试信息
-      console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
       const loggedIn = true;  
       if (loggedIn){
         fetchUser();
@@ -183,7 +180,7 @@ export default function SubmitSample() {
                   </label>
                   <CodeBox code={code} setCode={setCode} />               
                 </div>
-                {/* gap-8是两个flexbox之间的间隔 */}
+
                 <div className="flex justify-left  gap-8">
                   <MenuBox selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> 
                   <MenuBox1 selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} /> 
@@ -224,7 +221,6 @@ export default function SubmitSample() {
           </div>
         </form>
 
-{/* 显示错误信息 */}
       <div className="flex flex-col pl-6">
         {error && !success &&
           error.map((e) => (

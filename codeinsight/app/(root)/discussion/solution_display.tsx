@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const SolutionDisplay = ({ pageId }: { pageId: string }) => {
+const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean }) => {
   const [submit, setSubmit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -119,7 +119,7 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
               </span>
               {submit?.tags.map((tag: any, index: number) => (
                 <span key={index} className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">
-                  {editingTag === tag ? (
+                  {isAdmin && editingTag === tag ? (
                     <form onSubmit={handleSubmit} className="inline-flex items-center">
                       <input
                         type="text"
@@ -138,7 +138,7 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
                   )}
                 </span>
               ))}
-              {editingTag === null && (
+              {isAdmin && editingTag === null && (
                 <button
                   onClick={handleAddTag}
                   className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded"
@@ -146,7 +146,7 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
                   Add Tag
                 </button>
               )}
-              {editingTag === "" && (
+              {isAdmin && editingTag === "" && (
                 <form onSubmit={handleSubmit} className="inline-flex items-center">
                   <input
                     type="text"
