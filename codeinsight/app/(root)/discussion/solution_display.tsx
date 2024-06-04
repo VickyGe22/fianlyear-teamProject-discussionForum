@@ -8,6 +8,9 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
   const [error, setError] = useState(null);
   const [editingTag, setEditingTag] = useState<string | null>(null);
   const [tagValue, setTagValue] = useState<string>("");
+  const createdAt = new Date(submit?.createdAt);
+  const formattedDate = createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const formattedTime = createdAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
 
   const fetchSubmit = async () => {
     if (!pageId) return;
@@ -102,7 +105,7 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
               {submit?.tags[0]}
             </p>
             <p className="text-sm text-gray-500">
-              April 1 at 11:43 AM, 2024
+              {formattedDate} at {formattedTime}
             </p>
             <div className="flex flex-wrap gap-2 mb-5">
               <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-xs font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">

@@ -98,7 +98,6 @@ export default function SubmitSample() {
   }, [comment, tags]);
 
     const handleSubmit = async (e:any) => {
-      
       console.log("检查检查检查",isLoggedIn);
       if (isLoggedIn===false) {
         toast.error('You need to be logged in to submit.');
@@ -130,6 +129,8 @@ export default function SubmitSample() {
         setIsModalOpen(true);
         setTitle("");
       }
+
+      
     };
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
