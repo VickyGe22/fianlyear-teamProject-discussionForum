@@ -40,7 +40,7 @@ const MenuBox2 = ({
             <div className="flex flex-col">
                 {/* type*/}
                 <div className="flex flex-col  mb-4">
-                    <label className="block text-sm text-gray-800 font-medium mb-1" htmlFor="types">
+                    <label className="block text-xl text-gray-800 font-medium mb-1" htmlFor="types">
                     Types <span className="text-rose-500">*</span>
                     </label>
                     <select
