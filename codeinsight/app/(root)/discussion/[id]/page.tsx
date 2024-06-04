@@ -149,7 +149,7 @@ export default function Home() {
 
                 <div className="py-5 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                     <div className="px-4 py-4 sm:px-6">
-                        <Issue pageId={pageId} isLoggedIn={isLoggedIn}/>
+                        <Issue pageId={pageId} isLoggedIn={isLoggedIn} username={user?.username} userURL={user?.imageURL} />
                     </div>
                 </div>
 
@@ -170,7 +170,7 @@ export default function Home() {
                 </div>
 
                 <div className="divide-y py-10 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
-                    <GeneralComments pageId={pageId} isLoggedIn={isLoggedIn} isAdmin={user?.isAdmin}/>
+                    <GeneralComments pageId={pageId} isLoggedIn={isLoggedIn} isAdmin={user?.isAdmin} username={user?.username} userURL={user?.imageURL}/>
                 </div>
             </div>
         </>

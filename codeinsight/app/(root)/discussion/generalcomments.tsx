@@ -11,7 +11,7 @@ const people = [
   },
 ];
 
-export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: string, isLoggedIn: boolean, isAdmin: boolean }) {
+export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL }: { pageId: string, isLoggedIn: boolean, isAdmin: boolean, username:string, userURL:string }) {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<Array<{ text: string; user: { name: string; imageUrl: string; }; likes: number; isLiked: boolean; }>>([]);
   const [isPostButtonVisible, setIsPostButtonVisible] = useState(true);
@@ -109,10 +109,10 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
               className="mb-4 relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
             >
               <div className="flex-shrink-0">
-                <img className="h-10 w-10 rounded-full" src={comment.user.imageUrl} alt="" />
+                <img className="h-10 w-10 rounded-full" src={userURL} alt="" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-900">{comment.user.name}</p>
+                <p className="text-sm font-medium text-gray-900">{username}</p>
                 <div className="comment text-gray-800 text-sm my-2">
                   {comment.text}
                 </div>

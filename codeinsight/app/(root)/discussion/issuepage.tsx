@@ -10,14 +10,11 @@ type AuthorAvatars = {
 };
 
 const authorAvatars: AuthorAvatars = {
-  'Anonymous': 'https://randomuser.me/api/portraits/women/1.jpg',
-  // 'Anonymous': 'https://randomuser.me/api/portraits/men/2.jpg',
-  // 'Anonymous': 'https://randomuser.me/api/portraits/men/3.jpg',
-  // 'Anonymous': 'https://randomuser.me/api/portraits/women/4.jpg'
+  'Anonymous': 'https://randomuser.me/api/portraits/women/1.jpg'
 };
 
 
-const Issue = ({ pageId, isLoggedIn }: { pageId: string, isLoggedIn: boolean })  =>  {
+const Issue = ({ pageId, isLoggedIn, userURL, username }: { pageId: string, isLoggedIn: boolean, userURL:string, username:string })  =>  {
 
     const [discussions, setDiscussion] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -66,13 +63,14 @@ const Issue = ({ pageId, isLoggedIn }: { pageId: string, isLoggedIn: boolean }) 
                         {/* User Avatar */}
                         <img
                           className="h-10 w-10 rounded-full"
-                          src={authorAvatars[discussion.creator]}
+                          // src={authorAvatars[discussion.creator]}
+                          src= {userURL}
                           alt={`${discussion.creator}'s avatar`}
                         />
                         {/* Author Name and Metadata */}
                         <div>
                           <span className="font-semibold text-gray-900">
-                            {discussion.creator}
+                            {username}
                           </span>
                           <span className="text-xs text-gray-500 block">
                             {new Date(discussion.createdAt).toLocaleString()}
