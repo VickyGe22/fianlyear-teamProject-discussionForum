@@ -4,12 +4,12 @@ import Like2 from '@/public/images/like-2.png';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 
-const people = [
-  {
-    name: 'Chelsea Hagon',
-    imageUrl: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-];
+// const people = [
+//   {
+//     name: 'Chelsea Hagon',
+//     imageUrl: 'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+//   },
+// ];
 
 export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL }: { pageId: string, isLoggedIn: boolean, isAdmin: boolean, username:string, userURL:string }) {
   const [comment, setComment] = useState('');
@@ -29,11 +29,11 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
         throw new Error('Failed to fetch submit');
       }
       const data = await response.json();
-      const mappedComments = data.submit.generalreply.map((text: any) => ({
-        text: text, // the comment text
-        user: people[0], // assigning a default user for each comment
+      const mappedComments = data.submit.generalreply.map((reply: any) => ({
+        text: reply.replystring, // the comment text
+        user: { name: reply.username, imageUrl: reply.imageURL }, // user information
         likes: 0, // initializing likes to 0
-        isLiked: false // initializing isLiked to false
+        isLiked: false, // initializing isLiked to false
       }));
       setComments(mappedComments);// 这里假设响应结构是 { submit: {...} }
       
@@ -57,14 +57,13 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
   };
 
   const handleSubmit = async (e: any) => {
-    if (isLoggedIn===false) {
+    if (!isLoggedIn) {
       toast.error('You need to be logged in to post your comments.');
       alert('You need to be logged in to post your comments.');
       return;
     }
     e.preventDefault(); // Prevent default form submit behavior
-    const person = people[0];
-    const newComment = { text: comment, user: person, likes: 0, isLiked: false };
+    const newComment = { text: comment, user: { name: username, imageUrl: userURL }, likes: 0, isLiked: false };
     setComments([...comments, newComment]);
 
     console.log("Submitting comment:", comment);
@@ -73,7 +72,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ type: "generalreply", generalreply: comment, pageId: pageId }),
+      body: JSON.stringify({ type: "generalreply", generalreply: { replystring: comment, username: username, imageURL: userURL }, pageId: pageId }),
     });
     setComment(''); // Clear the input after submit
   };
@@ -136,7 +135,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
           <div className="flex-shrink-0">
             <img
               className="inline-block h-10 w-10 rounded-full"
-              src={people[0].imageUrl}
+              src={userURL}
               alt=""
             />
           </div>
