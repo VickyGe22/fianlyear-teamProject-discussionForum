@@ -29,9 +29,9 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
         throw new Error('Failed to fetch submit');
       }
       const data = await response.json();
-      const mappedComments = data.submit.generalreply.map((text: any) => ({
-        text: text, // the comment text
-        user: people[0], // assigning a default user for each comment
+      const mappedComments = data.submit.generalreply.map((reply: any) => ({
+        text: reply.replystring, // the comment text
+        user: { name: reply.username, imageUrl: reply.imageURL }, // user information
         likes: 0, // initializing likes to 0
         isLiked: false // initializing isLiked to false
       }));
@@ -149,7 +149,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
           <div className="flex-shrink-0">
             <img
               className="inline-block h-10 w-10 rounded-full"
-              src={people[0].imageUrl}
+              src={userURL}
               alt=""
             />
           </div>
