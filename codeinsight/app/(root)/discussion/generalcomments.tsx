@@ -63,19 +63,33 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
       return;
     }
     e.preventDefault(); // Prevent default form submit behavior
-    const newComment = { text: comment, user: { name: username, imageUrl: userURL }, likes: 0, isLiked: false };
+    const newComment = {
+      text: comment,
+      user: { name: username, imageUrl: userURL },
+      likes: 0,
+      isLiked: false
+    };
     setComments([...comments, newComment]);
-
+  
     console.log("Submitting comment:", comment);
     const res = await fetch(`/api/submits/${pageId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ type: "generalreply", generalreply: { replystring: comment, username: username, imageURL: userURL }, pageId: pageId }),
+      body: JSON.stringify({
+        type: "generalreply",
+        generalreply: {
+          replystring: comment,
+          username: username,
+          userimage: userURL
+        },
+        pageId: pageId
+      }),
     });
     setComment(''); // Clear the input after submit
   };
+  
 
   const handleLike = (index: number) => {
     const updatedComments = [...comments];
