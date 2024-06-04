@@ -13,6 +13,7 @@ import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
 export default function Home() {
+   
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [pageId, setPageId] = useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
     const [isAddIssueVisible, setIsAddIssueVisible] = useState(true);
@@ -129,7 +130,7 @@ export default function Home() {
 
                 <div className="overflow-hidden px-28 rounded-lg bg-white shadow">
                     <div className="px-4 py-5 sm:p-6 shadow-lg">
-                        <SolutionDisplay pageId={pageId} />
+                        <SolutionDisplay pageId={pageId} isAdmin={user?.isAdmin}/>
                     </div>
                     <div className="border-t border-gray-300" />
                     <div className="flex justify-center items-center mt-6 px-4">
