@@ -123,7 +123,7 @@ export default function Example({ pageId, disId, isLoggedIn, username, userURL}:
               <div className="min-w-0 flex-1">
                 <br/>
                 <p className="text-sm font-medium text-gray-900">{comment.user.name}</p>
-                <div className="comment text-gray-800 text-sm my-2">
+                <div className="comment text-gray-800 text-lg my-2">
                   {comment.text}
                 </div>
               </div>
@@ -158,7 +158,7 @@ export default function Example({ pageId, disId, isLoggedIn, username, userURL}:
                     rows={2}
                     name="comment"
                     id="comment"
-                    className="block w-full  border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    className="block w-full  border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 lg:text-lg lg:leading-6"
                     placeholder="Reply for this issue..."
                     value={comment}
                     onChange={handleCommentChange}
@@ -168,7 +168,7 @@ export default function Example({ pageId, disId, isLoggedIn, username, userURL}:
                   <button
                     type="submit"
                     onClick={handleSubmit}
-                    className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-indigo-600"
+                    className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-indigo-600"
                   >
                     Post
                   </button>

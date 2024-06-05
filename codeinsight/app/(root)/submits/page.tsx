@@ -19,17 +19,17 @@ import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
 
-function generateTitle(tags: string[]) {
+function generateTitle(comment: string, tags: string[]) {
   // Process the text with NLP
-  // let doc = nlp(tags);
+  let doc = nlp(comment);
 
   // Extract important parts of speech
-  // let verbs = doc.verbs().out('array');
-  // let nouns = doc.nouns().out('array');
-  // let adjectives = doc.adjectives().out('array');
+  let verbs = doc.verbs().out('array');
+  let nouns = doc.nouns().out('array');
+  let adjectives = doc.adjectives().out('array');
 
   // Combine all parts of speech and tags
-  let words = [...tags];
+  let words = [...verbs, ...nouns, ...adjectives, ...tags];
 
   // Compute word frequencies
   let frequencyMap = new Map();
@@ -114,11 +114,11 @@ export default function SubmitSample() {
     }, [code]);
 
     useEffect(() => {
-      if (tags.length > 0) {
-          const generatedTitle = generateTitle(tags);
+      if (comment || tags.length > 0) {
+          const generatedTitle = generateTitle(comment, tags);
           setTitle(generatedTitle);
       }
-  }, [tags]);
+  }, [comment, tags]);
 
     const handleSubmit = async (e:any) => {
       if (isLoggedIn===false) {
@@ -186,8 +186,8 @@ export default function SubmitSample() {
         <div className="mb-3 pl-10 ">
           <br></br>
           <h1 className="text-4xl font-extrabold font-inter mb-5">Submit your code sample</h1>
-          <div className="text-gray-500  text-1xl">Welcome to the CodeInsight submission page, here you can submit 
-          code samples.<br/>Try to transform sub-optimal code into learning opportunities!</div>
+          <div className="text-gray-500  text-xl">Welcome to the CodeInsight submission page, here you can submit 
+          code samples.<br/>Try to transform sub-optimal code into learning opportunities !</div>
         </div>
         
 
@@ -198,7 +198,7 @@ export default function SubmitSample() {
             <div className="py-6">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="name">
+                  <label className="block text-xl font-medium mb-1" htmlFor="name">
                   Code sample <span className="text-red-500">*</span>
                   </label>
                   <CodeBox code={code} setCode={setCode} />               
@@ -211,7 +211,7 @@ export default function SubmitSample() {
                 </div>
               {/*comments*/}
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="email">
+                  <label className="block text-xl font-medium mb-1" htmlFor="email">
                     Issue description <span className="text-red-500">*</span>
                   </label>
                   <div onSubmit={handleSubmit}>
@@ -232,12 +232,12 @@ export default function SubmitSample() {
             <div className="py-6">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="salary">
+                  <label className="block text-xl font-medium mb-1" htmlFor="salary">
                     Tags <span className="text-gray-500">(optional)</span>
                   </label>
                   {/* <input id="salary" className="form-input w-full" type="text" /> */}
                   <TagInput tags={tags} setTags={setTags}/>
-                  <div className="text-xs text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
+                  <div className="text-xl text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
                 </div>
               </div>
             </div>

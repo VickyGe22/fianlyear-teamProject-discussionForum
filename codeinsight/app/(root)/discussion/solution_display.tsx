@@ -101,33 +101,33 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
             />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-xl font-semibold text-gray-900">
+            <p className="text-lg font-semibold text-gray-900">
               {submit?.tags[0]}
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-lg text-gray-500">
               {formattedDate} at {formattedTime}
             </p>
             <div className="flex flex-wrap gap-2 mb-5">
-              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-xs font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
+              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-lg font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
                 {submit?.languages}
               </span>
-              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-xs font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
+              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-lg font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
                 {submit?.levels}
               </span>
-              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-xs font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
+              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-lg font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
                 {submit?.types}
               </span>
               {submit?.tags.map((tag: any, index: number) => (
-                <span key={index} className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">
+                <span key={index} className="inline-flex items-center rounded-md px-3 bg-green-50 text-lg font-normal text-green-700 ring-1 ring-inset ring-green-600/20">
                   {isAdmin && editingTag === tag ? (
                     <form onSubmit={handleSubmit} className="inline-flex items-center">
                       <input
                         type="text"
                         value={tagValue}
                         onChange={handleInputChange}
-                        className="rounded-md px-3 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
+                        className="rounded-md px-3 text-lg font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
                       />
-                      <button type="submit" className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded">
+                      <button type="submit" className="ml-2 px-2 py-1 bg-green-600 text-white text-lg rounded">
                         Save
                       </button>
                     </form>
@@ -141,7 +141,7 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
               {isAdmin && editingTag === null && (
                 <button
                   onClick={handleAddTag}
-                  className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded"
+                  className="ml-2 px-2 py-1 bg-green-600 text-white text-lg rounded"
                 >
                   Add Tag
                 </button>
@@ -153,20 +153,20 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
                     value={tagValue}
                     onChange={handleInputChange}
                     placeholder="Enter new tag"
-                    className="rounded-md px-3 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
+                    className="rounded-md px-3 text-lg font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
                   />
-                  <button type="submit" className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded">
+                  <button type="submit" className="ml-2 px-2 py-1 bg-green-600 text-white text-lg rounded">
                     Save
                   </button>
                 </form>
               )}
             </div>
             <pre className="bg-gray-100 overflow-auto touch-auto p-4 rounded-md min-w-max">
-              <code className="text-sm text-black-600 font-mono whitespace-pre-wrap">
+              <code className="text-xl text-black-600 font-mono whitespace-pre-wrap">
                 {submit?.codesamples}
               </code>
             </pre>
-            <p className="text-sm text-gray-900 mt-4">{submit?.issuedescriptions}</p>
+            <p className="text-2xl text-gray-900 mt-4">{submit?.issuedescriptions}</p>
           </div>
         </div>
       </div>

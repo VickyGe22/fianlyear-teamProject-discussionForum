@@ -125,8 +125,8 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
                 <img className="h-10 w-10 rounded-full" src={comment.user.imageUrl} alt="" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-900">{comment.user.name}</p>
-                <div className="comment text-gray-800 text-sm my-2">
+                <p className="text-md font-medium text-gray-900">{comment.user.name}</p>
+                <div className="comment text-gray-800 text-lg my-2">
                   {comment.text}
                 </div>
               </div>
@@ -161,7 +161,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
                   rows={3}
                   name="comment"
                   id="comment"
-                  className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 lg:text-lg lg:leading-6"
                   placeholder="Add your comment..."
                   value={comment}
                   onChange={handleCommentChange}
@@ -175,7 +175,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
                   {isPostButtonVisible && (
                     <button
                       type="submit"
-                      className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       onClick={handleSubmit}>
                       Post
                     </button>
@@ -189,7 +189,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
           {isAdmin && (
               <button
                 type="button"
-                className="inline-flex items-center rounded-full bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                className="inline-flex items-center rounded-full bg-red-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                 onClick={handleDisablePostButton}
               >
                 Close General Comments
