@@ -1,7 +1,7 @@
 'use client' ;
 import { useEffect, useState } from "react";
 
-export function AddIssue({pageId}: {pageId: string}) {
+export function AddIssue({pageId, username, userURL}: {pageId: string, username:string, userURL:string}) {
     
     const [issues, setIssues] = useState('');
     const [description, setDescription] = useState('');
@@ -20,7 +20,7 @@ export function AddIssue({pageId}: {pageId: string}) {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ issuetitle: issues, description: description, pageId: pageId} ),
+        body: JSON.stringify({ issuetitle: issues, description: description, pageId: pageId, username:username, userimage:userURL} ),
       });
 
       
@@ -47,7 +47,7 @@ export function AddIssue({pageId}: {pageId: string}) {
           type="text"
           name="title"
           id="title"
-          className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0"
+          className="block w-full border-0 pt-2.5 text-xl font-medium placeholder:text-gray-400 focus:ring-0"
           placeholder="Issue"
           value={issues}
           onChange={(e) => setIssues(e.target.value)}
@@ -59,7 +59,7 @@ export function AddIssue({pageId}: {pageId: string}) {
           rows={2}
           name="description"
           id="description"
-          className="block w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+          className="block w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 xl:text-xl xl:leading-6"
           placeholder="Write a description..."
           defaultValue={''}
           value={description}
@@ -69,7 +69,7 @@ export function AddIssue({pageId}: {pageId: string}) {
       <div className="flex-shrink-0">
             <button
               type="submit"
-              className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-xl font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               onClick={handleAddIssue}>
               Create
             </button>

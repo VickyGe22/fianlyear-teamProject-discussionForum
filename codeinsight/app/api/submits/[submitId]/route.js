@@ -67,7 +67,9 @@ export async function POST(req) {
     if (type === "generalreply") {
       updatedSubmit = await Submit.findByIdAndUpdate(
         pageId,
-        { $push: { generalreply: generalreply } }, // 将新的回复添加到 generalreply 数组中
+        { $push: { generalreply: generalreply },
+          $inc: { numberReply: 1 }
+       }, // 将新的回复添加到 generalreply 数组中
         { new: true, runValidators: true } // 返回更新后的文档并运行模式验证器
       );
     } else if (type === "tags") {

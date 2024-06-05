@@ -13,18 +13,15 @@ import Button from '../../../components/animation/button'
 import { XCircleIcon } from '@heroicons/react/20/solid'
 
 import nlp from 'compromise';
-import { WordTokenizer } from 'natural';
-import stopwords from 'stopword';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
 
-
-function generateTitle(codeDescription: string, tags: string[]) {
+function generateTitle(comment: string, tags: string[]) {
   // Process the text with NLP
-  let doc = nlp(codeDescription);
+  let doc = nlp(comment);
 
   // Extract important parts of speech
   let verbs = doc.verbs().out('array');
@@ -58,14 +55,32 @@ function generateTitle(codeDescription: string, tags: string[]) {
   let title = importantWords.join(' ');
   return title;
 }
+// import { Configuration, OpenAIApi } from 'openai';
+// import dotenv from 'dotenv';
 
-async function performAnalysis(code) {
-  console.log("hahaahhahah测试测试测试测试", code);
-  const analysisResponse = await axios.post('./api/analyze', code);
-  console.log("好的好的好的测试测试测试测试", analysisResponse.data);
-  return analysisResponse.data;
-}
+// dotenv.config();
 
+// const openaiApiKey = process.env.OPENAI_API_KEY;
+
+// const configuration = new Configuration({
+//   apiKey: openaiApiKey,
+// });
+// const openai = new OpenAIApi(configuration);
+
+// // OpenAI API 调用
+// async function generateTitle(content: string): Promise<string> {
+//   try {
+//     const response = await openai.createCompletion({
+//       model: 'text-davinci-003',
+//       prompt: `Generate a catchy title for the following content:\n${content}`,
+//       max_tokens: 10,
+//     });
+//     return response.data.choices[0].text.trim();
+//   } catch (error) {
+//     console.error('Error generating title:', error);
+//     return 'Default Title';
+//   }
+// }
 
 
 export default function SubmitSample() {
@@ -113,11 +128,10 @@ export default function SubmitSample() {
 
 
     const handleSubmit = async (e:any) => {
-      
-      console.log("检查检查检查",isLoggedIn);
       if (isLoggedIn===false) {
         toast.error('You need to be logged in to submit.');
         alert('You need to be logged in to submit.');
+        window.location.href = '/signin'
         return;
       }
       
@@ -147,6 +161,8 @@ export default function SubmitSample() {
         setIsModalOpen(true);
         setTitle("");
       }
+
+      
     };
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -166,9 +182,6 @@ export default function SubmitSample() {
     useEffect(() => {
       const token = Cookies.get('token');
       setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
-      console.log("useEffect triggered"); // 调试信息
-      console.log("Token found:", token); // 调试信息
-      console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
       const loggedIn = true;  
       if (loggedIn){
         fetchUser();
@@ -181,9 +194,9 @@ export default function SubmitSample() {
       <div className='fadeIn py-10 px-32' >
         <div className="mb-3 pl-10 ">
           <br></br>
-          <h1 className="text-4xl font-extrabold font-inter mb-5">Share Your Code Samples</h1>
-          <div className="text-gray-500  text-1xl">Welcome to the CodeInsight submission page, here you can submit 
-          code samples and offer your insights to enlighten and inspire. <br/>Try to transform suboptimal code into learning opportunities!</div>
+          <h1 className="text-4xl font-extrabold font-inter mb-5">Submit your code sample</h1>
+          <div className="text-gray-500  text-xl">Welcome to the CodeInsight submission page, here you can submit 
+          code samples.<br/>Try to transform sub-optimal code into learning opportunities !</div>
         </div>
         
 
@@ -194,19 +207,12 @@ export default function SubmitSample() {
             <div className="py-6">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="name">
+                  <label className="block text-xl font-medium mb-1" htmlFor="name">
                   Code sample <span className="text-red-500">*</span>
                   </label>
                   <CodeBox code={code} setCode={setCode} />               
                 </div>
-                {analysisResult && (
-                  <div>
-                    <h2>Analysis Results:</h2>
-                    <p><strong>Static Analysis:</strong> {analysisResult.staticAnalysis}</p>
-                    <p><strong>Complexity Analysis:</strong> {analysisResult.complexityAnalysis}</p>
-                  </div>
-                )}
-                {/* gap-8是两个flexbox之间的间隔 */}
+
                 <div className="flex justify-left  gap-8">
                   <MenuBox selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> 
                   <MenuBox1 selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} /> 
@@ -214,8 +220,8 @@ export default function SubmitSample() {
                 </div>
               {/*comments*/}
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="email">
-                    Issue Description <span className="text-red-500">*</span>
+                  <label className="block text-xl font-medium mb-1" htmlFor="email">
+                    Issue description <span className="text-red-500">*</span>
                   </label>
                   <div onSubmit={handleSubmit}>
                     <textarea
@@ -235,19 +241,18 @@ export default function SubmitSample() {
             <div className="py-6">
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="salary">
+                  <label className="block text-xl font-medium mb-1" htmlFor="salary">
                     Tags <span className="text-gray-500">(optional)</span>
                   </label>
                   {/* <input id="salary" className="form-input w-full" type="text" /> */}
                   <TagInput tags={tags} setTags={setTags}/>
-                  <div className="text-xs text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
+                  <div className="text-xl text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
                 </div>
               </div>
             </div>
           </div>
         </form>
 
-{/* 显示错误信息 */}
       <div className="flex flex-col pl-6">
         {error && !success &&
           error.map((e) => (

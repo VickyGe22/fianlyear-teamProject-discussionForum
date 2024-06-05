@@ -71,9 +71,9 @@ const submitSchema = new Schema({
   }],
 
   generalreply: [{
-    type: String,
-    required: false, 
-    trim: true
+    replystring: String,
+    username: String,
+    userimage: String
   }],
 
   creator: { 

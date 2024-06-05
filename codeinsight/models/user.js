@@ -11,6 +11,10 @@ const userSchema = new Schema({
         required: [true, "Please provide a vaid email"],
         unique: true,
     },
+    imageURL: {
+        type: String,
+        required: false,
+    },
     password: {
         type: String,
         required: [true, "Please provide a password"],

@@ -11,7 +11,7 @@ const people = [
   },
 ];
 
-export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: string, isLoggedIn: boolean, isAdmin: boolean }) {
+export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL }: { pageId: string, isLoggedIn: boolean, isAdmin: boolean, username:string, userURL:string }) {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<Array<{ text: string; user: { name: string; imageUrl: string; }; likes: number; isLiked: boolean; }>>([]);
   const [isPostButtonVisible, setIsPostButtonVisible] = useState(true);
@@ -29,9 +29,9 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
         throw new Error('Failed to fetch submit');
       }
       const data = await response.json();
-      const mappedComments = data.submit.generalreply.map((text: any) => ({
-        text: text, // the comment text
-        user: people[0], // assigning a default user for each comment
+      const mappedComments = data.submit.generalreply.map((reply: any) => ({
+        text: reply.replystring, // the comment text
+        user: { name: reply.username, imageUrl: reply.userimage }, // user information
         likes: 0, // initializing likes to 0
         isLiked: false // initializing isLiked to false
       }));
@@ -63,20 +63,33 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
       return;
     }
     e.preventDefault(); // Prevent default form submit behavior
-    const person = people[0];
-    const newComment = { text: comment, user: person, likes: 0, isLiked: false };
+    const newComment = {
+      text: comment,
+      user: { name: username, imageUrl: userURL },
+      likes: 0,
+      isLiked: false
+    };
     setComments([...comments, newComment]);
-
+  
     console.log("Submitting comment:", comment);
     const res = await fetch(`/api/submits/${pageId}`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ type: "generalreply", generalreply: comment, pageId: pageId }),
+      body: JSON.stringify({
+        type: "generalreply",
+        generalreply: {
+          replystring: comment,
+          username: username,
+          userimage: userURL
+        },
+        pageId: pageId
+      }),
     });
     setComment(''); // Clear the input after submit
   };
+  
 
   const handleLike = (index: number) => {
     const updatedComments = [...comments];
@@ -99,7 +112,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4 text-black">General Comments</h1>
+      <h1 className="text-2xl font-bold mb-4 text-black">General comments</h1>
       <div className="py-8 px-10">
         {/* Display comments */}
         <div className="comments py-4 mb-4">
@@ -112,8 +125,8 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
                 <img className="h-10 w-10 rounded-full" src={comment.user.imageUrl} alt="" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-gray-900">{comment.user.name}</p>
-                <div className="comment text-gray-800 text-sm my-2">
+                <p className="text-md font-medium text-gray-900">{comment.user.name}</p>
+                <div className="comment text-gray-800 text-lg my-2">
                   {comment.text}
                 </div>
               </div>
@@ -136,7 +149,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
           <div className="flex-shrink-0">
             <img
               className="inline-block h-10 w-10 rounded-full"
-              src={people[0].imageUrl}
+              src={userURL}
               alt=""
             />
           </div>
@@ -148,7 +161,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
                   rows={3}
                   name="comment"
                   id="comment"
-                  className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                  className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 lg:text-lg lg:leading-6"
                   placeholder="Add your comment..."
                   value={comment}
                   onChange={handleCommentChange}
@@ -162,7 +175,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
                   {isPostButtonVisible && (
                     <button
                       type="submit"
-                      className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       onClick={handleSubmit}>
                       Post
                     </button>
@@ -176,7 +189,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin }: { pageId: strin
           {isAdmin && (
               <button
                 type="button"
-                className="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                className="inline-flex items-center rounded-full bg-red-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                 onClick={handleDisablePostButton}
               >
                 Close General Comments

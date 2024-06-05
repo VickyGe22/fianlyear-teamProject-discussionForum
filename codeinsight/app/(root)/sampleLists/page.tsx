@@ -21,7 +21,7 @@ interface Product {
 const predefinedLabels = {
   levels: ["Bachelor-cs1","Bachelor-cs2","Bachelor-cs3","Bachelor-cs4","Master-cs1","Master-cs2"],
   languages: ["Python","Java","JavaScript","C","C#","C++"],
-  types: ["Assignments","Exam","Quiz","Group Project"]
+  types: ["Assignment","Exam","Quiz","Group project"]
 };
 
 // 处理数据的函数
@@ -29,6 +29,7 @@ export default function Home() {
   const [submits, setSubmits] = useState<Product[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState<Product[]>([]);
+  const [numbersamples, setNumbersamples] = useState(0);
 
   const fetchSubmit = async () => {
     try {
@@ -37,7 +38,11 @@ export default function Home() {
         throw new Error('Failed to fetch submit');
       }
       const data = await response.json();
-      console.log(data.submits);
+      // console.log("看看抓的什么", data.submits);
+      const samples = data.submits.filter((submit: { acceptance: boolean, discuss_close: boolean }) => submit.acceptance && !submit.discuss_close);
+      const numbersamples = samples.length
+      setNumbersamples(numbersamples);
+      console.log("看看抓的什么", numbersamples);
       setSubmits(data.submits); 
       setFilteredData(data.submits);
     } catch (error) {
@@ -68,7 +73,7 @@ export default function Home() {
   const categories = {
     levels: ["Bachelor-cs1", "Bachelor-cs2", "Bachelor-cs3", "Bachelor-cs4", "Master-cs1", "Master-cs2", "Other levels"],
     languages: ["Python", "Java", "JavaScript", "C", "C#", "C++", "Other languages"],
-    types: ["Assignments", "Exam", "Quiz", "Group Project", "Other types"]
+    types: ["Assignment", "Exam", "Quiz", "Group project", "Other types"]
   };
 
   const handleCategoryChange = (category: string) => {
@@ -124,6 +129,7 @@ export default function Home() {
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
+              numberOfItems={numbersamples}
             />
           </div>
         </div>

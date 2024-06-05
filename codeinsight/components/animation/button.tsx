@@ -72,7 +72,7 @@ export default function Animation({ onClick }: { onClick: (e?: any) => void | Pr
           variants={{ hover: { scale: 0.85 }, press: { scale: 1.1 } }}
           className="label tracking-wide"
         >
-          Submit Your Code Sample
+          Submit your code sample
         </motion.div>
       </motion.button>
     </MotionConfig>

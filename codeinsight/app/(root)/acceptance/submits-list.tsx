@@ -7,19 +7,28 @@ import SubmitDialog from './deletepopup';
 import { toast } from 'react-toastify';
 
 
+
 export default function SubmitList() {
   const [submits, setSubmits] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSampleId, setSelectedSampleId] = useState(null);
+  const [numbersamples, setNumbersamples] = useState(0);
 
   const fetchSubmit = async () => {
     try {
       const response = await fetch("./api/submits?acceptance=false");
+      
       if (!response.ok) {
         throw new Error('Failed to fetch submit');
       }
       const data = await response.json();
-      setSubmits(data.submits);
+      const samples = data.submits.filter((submit: { acceptance: boolean, discuss_close: boolean }) => !submit.acceptance && !submit.discuss_close);
+      const numbersamples = samples.length
+      setNumbersamples(numbersamples);
+      console.log("111111111111111111111111111111111111111111");
+      
+      console.log(data.submits);
+      setSubmits(data.submits.filter(product => !product.discuss_close));
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -53,7 +62,6 @@ export default function SubmitList() {
   const handleCloseModal = () => {
     // console.log("关闭关闭关闭关闭关闭关闭", toast.success);
     // toast.success('Sample has been deleted successfully');
-    alert('Sample has been deleted successfully');
     window.location.reload();
     setIsModalOpen(false);
   };
@@ -72,7 +80,7 @@ export default function SubmitList() {
 
   return (
     <div className="pb-8 md:pb-16">
-      <h2 className="text-3xl font-bold font-inter mb-10">Sample List</h2>
+      <h2 className="text-4xl font-bold font-inter mb-10">Sample List</h2>
       <div className="flex flex-col">
 
         {currentSubmits.map((sample) => (
@@ -113,7 +121,7 @@ export default function SubmitList() {
                       </a>
                       {sample.tags.map((tag) => (
                         <a
-                          className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
+                          className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20 ml-1 mr-1"
                           href="#0"
                         > {tag} </a>
                       ))}
@@ -123,39 +131,15 @@ export default function SubmitList() {
                     <div className="flex items-center space-x-3">
                       <button
                         onClick={() => handleAcceptance(sample._id)}
-                        className="text-sm text-black-500 hover:text-green-700 focus:outline-none bg-purple-100 hover:bg-green-200 p-3 rounded-full"
+                        className="text-sm text-black-500 hover:text-green-700 focus:outline-none bg-green-100 hover:bg-green-200 p-3 rounded-full"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
+                        Accept
                       </button>
                       <button
                         onClick={() => handleOpenModal(sample._id)}
                         className="text-sm text-red-500 hover:text-red-700 focus:outline-none"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-6 w-6"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5.707 5.293a1 1 0 011.414 0L10 8.586l3.293-3.293a1 1 0 111.414 1.414L11.414 10l3.293 3.293a1 1 0 11-1.414 1.414L10 11.414l-3.293 3.293a1 1 0 01-1.414-1.414L8.586 10 5.293 6.707a1 1 0 010-1.414z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                        Delete
                       </button>
                     </div>
                   </div>
@@ -169,10 +153,11 @@ export default function SubmitList() {
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
+          numberOfItems={numbersamples}
         />
 
         <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
-          <SubmitDialog onClose={handleCloseModal} />
+          <SubmitDialog onClose={handleCloseModal} id={selectedSampleId}/>
         </Modal>
 
       </div>

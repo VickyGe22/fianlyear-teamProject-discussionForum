@@ -13,7 +13,7 @@ const people = [
 ];
 
 
-export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, disId:string, isLoggedIn: boolean}) {
+export default function Example({ pageId, disId, isLoggedIn, username, userURL}:{pageId:string, disId:string, isLoggedIn: boolean, username:string, userURL:string}) {
 
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState<Array<{ text: string; user: { name: string; imageUrl: string; }; likes: number; isLiked: boolean; }>>([]);
@@ -33,8 +33,8 @@ export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, dis
           const data = await response.json();
           console.log("查看reply的data",data)
           const mappedComments = data.discuss.replies.map((text:any) => ({
-            text: text, // the comment text
-            user: people[0], // assigning a default user for each comment
+            text: text.replystring, // the comment text
+            user: {name: text.username, imageUrl: text.userimage}, // assigning a default user for each comment
             likes: 0, // initializing likes to 0
             isLiked: false // initializing isLiked to false
           }));
@@ -72,7 +72,7 @@ export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, dis
     }
     e.preventDefault(); // Prevent default form submit behavior
     const person = people[0];
-    const newComment = {text: comment,user: person,likes: 0, // Initialize likes to 0
+    const newComment = {text: comment,user:{ name: username, imageUrl: userURL },likes: 0, // Initialize likes to 0
     isLiked: false};
     setComments([...comments, newComment]);
   
@@ -81,7 +81,8 @@ export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, dis
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify({ replies: comment, disId: disId } ),
+      body: JSON.stringify({ replies:  {replystring: comment, username: username, userimage: userURL
+    }, disId: disId } ),
     });
     setComment(''); // Clear the input after submit
   };
@@ -122,7 +123,7 @@ export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, dis
               <div className="min-w-0 flex-1">
                 <br/>
                 <p className="text-sm font-medium text-gray-900">{comment.user.name}</p>
-                <div className="comment text-gray-800 text-sm my-2">
+                <div className="comment text-gray-800 text-lg my-2">
                   {comment.text}
                 </div>
               </div>
@@ -145,7 +146,7 @@ export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, dis
           <div className="flex-shrink-0">
             <img
               className="inline-block h-10 w-10 rounded-full"
-              src={people[0].imageUrl}
+              src={userURL}
               alt=""
             />
           </div>
@@ -157,7 +158,7 @@ export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, dis
                     rows={2}
                     name="comment"
                     id="comment"
-                    className="block w-full  border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                    className="block w-full  border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 lg:text-lg lg:leading-6"
                     placeholder="Reply for this issue..."
                     value={comment}
                     onChange={handleCommentChange}
@@ -167,7 +168,7 @@ export default function Example({ pageId, disId, isLoggedIn}:{pageId:string, dis
                   <button
                     type="submit"
                     onClick={handleSubmit}
-                    className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-indigo-600"
+                    className="inline-flex items-center rounded-md bg-indigo-600 px-2 py-1 text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-indigo-600"
                   >
                     Post
                   </button>

@@ -13,9 +13,13 @@ const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits }) =>{
 
 
 
+  function handleCloseDiscussion(_id: any): void {
+    throw new Error('Function not implemented.');
+  }
+
   return (
     <div className="pb-8 md:pb-16">
-      <h2 className="text-3xl font-bold font-inter mb-10">Discuss Your Code Samples</h2>
+      <h2 className="text-4xl font-bold font-inter mb-10">Code samples list</h2>
       {/* List container */}
       <div className="flex flex-col">
 
@@ -59,7 +63,7 @@ const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits }) =>{
                      
                       {sample.tags.map((tag:any) => (
                                 <a
-                                className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
+                                className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20 ml-1 mr-1 "
                                 href="#0"
                               > { tag } </a>
                           ))}

@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 
-const SolutionDisplay = ({ pageId }: { pageId: string }) => {
+const SolutionDisplay = ({ pageId, isAdmin }) => {
   const [submit, setSubmit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [editingTag, setEditingTag] = useState<string | null>(null);
-  const [tagValue, setTagValue] = useState<string>("");
+  const [editingTag, setEditingTag] = useState(null);
+  const [tagValue, setTagValue] = useState("");
+  const createdAt = new Date(submit?.createdAt);
+  const formattedDate = createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const formattedTime = createdAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
 
   const fetchSubmit = async () => {
     if (!pageId) return;
@@ -19,7 +22,7 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
       }
       const data = await response.json();
       setSubmit(data.submit); // 这里假设响应结构是 { submit: {...} }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Fetch error:", error);
       setError(error.message);
     } finally {
@@ -31,24 +34,24 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
     fetchSubmit();
   }, [pageId]);
 
-  const handleTagClick = (tag: string) => {
+  const handleTagClick = (tag) => {
     setEditingTag(tag);
     setTagValue(tag);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     setTagValue(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (submit !== null) {
       try {
         let updatedTags;
         if (editingTag) {
           updatedTags = tagValue
-            ? submit.tags.map((tag: string) => (tag === editingTag ? tagValue : tag))
-            : submit.tags.filter((tag: string) => tag !== editingTag);
+            ? submit.tags.map((tag) => (tag === editingTag ? tagValue : tag))
+            : submit.tags.filter((tag) => tag !== editingTag);
         } else {
           updatedTags = tagValue ? [...submit.tags, tagValue] : submit.tags;
         }
@@ -71,12 +74,11 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
         }));
         setEditingTag(null);
         setTagValue("");
-        } catch (error: any) {
+        } catch (error) {
         console.error("Update error:", error);
         }
       }
   };
-        
 
   const handleAddTag = () => {
     setEditingTag("");
@@ -98,33 +100,34 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
             />
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-xl font-semibold text-gray-900">
-              {submit?.tags[0]}
+            <p className="text-lg font-semibold text-gray-900">
+              {submit?.sampletitles}
             </p>
-            <p className="text-sm text-gray-500">
-              April 1 at 11:43 AM, 2024
+            <p className="text-lg text-gray-500">
+              {formattedDate} at {formattedTime}
             </p>
             <div className="flex flex-wrap gap-2 mb-5">
-              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-xs font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
+              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-lg font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
                 {submit?.languages}
               </span>
-              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-xs font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
+              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-lg font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
                 {submit?.levels}
               </span>
-              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-xs font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
+              <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-lg font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
                 {submit?.types}
               </span>
-              {submit?.tags.map((tag: any, index: number) => (
-                <span key={index} className="inline-flex items-center rounded-md px-3 bg-green-50 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20">
-                  {editingTag === tag ? (
+              
+              {submit?.tags.map((tag, index) => (
+                <span key={index} className="inline-flex items-center rounded-md px-3 bg-green-50 text-lg font-normal text-green-700 ring-1 ring-inset ring-green-600/20">
+                  {isAdmin && editingTag === tag ? (
                     <form onSubmit={handleSubmit} className="inline-flex items-center">
                       <input
                         type="text"
                         value={tagValue}
                         onChange={handleInputChange}
-                        className="rounded-md px-3 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
+                        className="rounded-md px-3 text-lg font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
                       />
-                      <button type="submit" className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded">
+                      <button type="submit" className="ml-2 px-2 py-1 bg-green-600 text-white text-lg rounded">
                         Save
                       </button>
                     </form>
@@ -135,35 +138,36 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
                   )}
                 </span>
               ))}
-              {editingTag === null && (
+              {isAdmin && editingTag === null && (
                 <button
                   onClick={handleAddTag}
-                  className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded"
+                  className="ml-2 px-2 py-1 bg-green-600 text-white text-lg rounded"
                 >
                   Add Tag
                 </button>
               )}
-              {editingTag === "" && (
+              {isAdmin && editingTag === "" && (
                 <form onSubmit={handleSubmit} className="inline-flex items-center">
                   <input
                     type="text"
                     value={tagValue}
                     onChange={handleInputChange}
                     placeholder="Enter new tag"
-                    className="rounded-md px-3 text-xs font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
+                    className="rounded-md px-3 text-lg font-normal text-green-700 ring-1 ring-inset ring-green-600/20"
                   />
-                  <button type="submit" className="ml-2 px-2 py-1 bg-green-600 text-white text-xs rounded">
+                  <button type="submit" className="ml-2 px-2 py-1 bg-green-600 text-white text-lg rounded">
                     Save
                   </button>
                 </form>
               )}
             </div>
-            <pre className="bg-gray-100 overflow-auto touch-auto p-4 rounded-md min-w-max">
-              <code className="text-sm text-black-600 font-mono whitespace-pre-wrap">
-                {submit?.codesamples}
-              </code>
-            </pre>
-            <p className="text-sm text-gray-900 mt-4">{submit?.issuedescriptions}</p>
+            <div className="flex flex-col bg-gray-100 overflow-auto touch-auto p-4 rounded-md w-full">
+                <pre className="flex-1 text-xl text-black-600 font-mono whitespace-pre-wrap">
+                  {submit?.codesamples}
+                </pre>
+              </div>
+
+            <p className="text-2xl text-gray-900 mt-4">{submit?.issuedescriptions}</p>
           </div>
         </div>
       </div>
@@ -172,13 +176,3 @@ const SolutionDisplay = ({ pageId }: { pageId: string }) => {
 };
 
 export default SolutionDisplay;
-
-
-
-
-
-
-
-
-
-
