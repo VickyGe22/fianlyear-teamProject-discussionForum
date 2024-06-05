@@ -102,7 +102,7 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
           </div>
           <div className="min-w-0 flex-1">
             <p className="text-lg font-semibold text-gray-900">
-              {submit?.tags[0]}
+              {submit?.sampletitles}
             </p>
             <p className="text-lg text-gray-500">
               {formattedDate} at {formattedTime}
