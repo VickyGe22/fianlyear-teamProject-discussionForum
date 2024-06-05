@@ -1,7 +1,7 @@
 'use client' ;
 import { useEffect, useState } from "react";
 
-export function AddIssue({pageId}: {pageId: string}) {
+export function AddIssue({pageId, username, userURL}: {pageId: string, username:string, userURL:string}) {
     
     const [issues, setIssues] = useState('');
     const [description, setDescription] = useState('');
@@ -20,7 +20,7 @@ export function AddIssue({pageId}: {pageId: string}) {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ issuetitle: issues, description: description, pageId: pageId} ),
+        body: JSON.stringify({ issuetitle: issues, description: description, pageId: pageId, username:username, userimage:userURL} ),
       });
 
       

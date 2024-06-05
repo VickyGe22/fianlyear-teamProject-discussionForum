@@ -149,12 +149,12 @@ export default function Home() {
 
                 <div className="py-5 px-28 divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
                     <div className="px-4 py-4 sm:px-6">
-                        <Issue pageId={pageId} isLoggedIn={isLoggedIn} username={user?.username} userURL={user?.imageURL} />
+                        <Issue pageId={pageId} isLoggedIn={isLoggedIn} username={user?.username} userURL={user?.imageURL}/>
                     </div>
                 </div>
 
                 <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
-                    <AddIssue pageId={pageId} />
+                    <AddIssue pageId={pageId} username={user?.username} userURL={user?.imageURL}/>
                 </Modal>
                 
                 <div className="flex justify-center items-center mt-6 px-4">
