@@ -13,26 +13,23 @@ import Button from '../../../components/animation/button'
 import { XCircleIcon } from '@heroicons/react/20/solid'
 
 import nlp from 'compromise';
-import { WordTokenizer } from 'natural';
-import stopwords from 'stopword';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
 
-
-function generateTitle(codeDescription: string, tags: string[]) {
+function generateTitle(tags: string[]) {
   // Process the text with NLP
-  let doc = nlp(codeDescription);
+  // let doc = nlp(tags);
 
   // Extract important parts of speech
-  let verbs = doc.verbs().out('array');
-  let nouns = doc.nouns().out('array');
-  let adjectives = doc.adjectives().out('array');
+  // let verbs = doc.verbs().out('array');
+  // let nouns = doc.nouns().out('array');
+  // let adjectives = doc.adjectives().out('array');
 
   // Combine all parts of speech and tags
-  let words = [...verbs, ...nouns, ...adjectives, ...tags];
+  let words = [...tags];
 
   // Compute word frequencies
   let frequencyMap = new Map();
@@ -58,6 +55,32 @@ function generateTitle(codeDescription: string, tags: string[]) {
   let title = importantWords.join(' ');
   return title;
 }
+// import { Configuration, OpenAIApi } from 'openai';
+// import dotenv from 'dotenv';
+
+// dotenv.config();
+
+// const openaiApiKey = process.env.OPENAI_API_KEY;
+
+// const configuration = new Configuration({
+//   apiKey: openaiApiKey,
+// });
+// const openai = new OpenAIApi(configuration);
+
+// // OpenAI API 调用
+// async function generateTitle(content: string): Promise<string> {
+//   try {
+//     const response = await openai.createCompletion({
+//       model: 'text-davinci-003',
+//       prompt: `Generate a catchy title for the following content:\n${content}`,
+//       max_tokens: 10,
+//     });
+//     return response.data.choices[0].text.trim();
+//   } catch (error) {
+//     console.error('Error generating title:', error);
+//     return 'Default Title';
+//   }
+// }
 
 
 export default function SubmitSample() {
@@ -91,11 +114,11 @@ export default function SubmitSample() {
     }, [code]);
 
     useEffect(() => {
-      if (comment || tags.length > 0) {
-          const generatedTitle = generateTitle(comment, tags);
+      if (tags.length > 0) {
+          const generatedTitle = generateTitle(tags);
           setTitle(generatedTitle);
       }
-  }, [comment, tags]);
+  }, [tags]);
 
     const handleSubmit = async (e:any) => {
       if (isLoggedIn===false) {

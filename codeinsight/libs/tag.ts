@@ -1,5 +1,7 @@
 // tags.ts
 const possibleTags = [
+    "Difficult to Read",
+    "High Complexity",
     "Duplicated",
     "Variable with non-significant name",    
     "for loop having its iteration variable overwritten",
