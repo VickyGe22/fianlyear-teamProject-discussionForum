@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean }) => {
+const SolutionDisplay = ({ pageId, isAdmin }) => {
   const [submit, setSubmit] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [editingTag, setEditingTag] = useState<string | null>(null);
-  const [tagValue, setTagValue] = useState<string>("");
+  const [editingTag, setEditingTag] = useState(null);
+  const [tagValue, setTagValue] = useState("");
   const createdAt = new Date(submit?.createdAt);
   const formattedDate = createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const formattedTime = createdAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
@@ -22,7 +22,7 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
       }
       const data = await response.json();
       setSubmit(data.submit); // 这里假设响应结构是 { submit: {...} }
-    } catch (error: any) {
+    } catch (error) {
       console.error("Fetch error:", error);
       setError(error.message);
     } finally {
@@ -34,24 +34,24 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
     fetchSubmit();
   }, [pageId]);
 
-  const handleTagClick = (tag: string) => {
+  const handleTagClick = (tag) => {
     setEditingTag(tag);
     setTagValue(tag);
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e) => {
     setTagValue(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (submit !== null) {
       try {
         let updatedTags;
         if (editingTag) {
           updatedTags = tagValue
-            ? submit.tags.map((tag: string) => (tag === editingTag ? tagValue : tag))
-            : submit.tags.filter((tag: string) => tag !== editingTag);
+            ? submit.tags.map((tag) => (tag === editingTag ? tagValue : tag))
+            : submit.tags.filter((tag) => tag !== editingTag);
         } else {
           updatedTags = tagValue ? [...submit.tags, tagValue] : submit.tags;
         }
@@ -74,12 +74,11 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
         }));
         setEditingTag(null);
         setTagValue("");
-        } catch (error: any) {
+        } catch (error) {
         console.error("Update error:", error);
         }
       }
   };
-        
 
   const handleAddTag = () => {
     setEditingTag("");
@@ -117,7 +116,8 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
               <span className="inline-flex items-center rounded-md px-3 bg-indigo-50 text-lg font-normal text-gray-500 ring-1 ring-inset ring-green-600/20">
                 {submit?.types}
               </span>
-              {submit?.tags.map((tag: any, index: number) => (
+              
+              {submit?.tags.map((tag, index) => (
                 <span key={index} className="inline-flex items-center rounded-md px-3 bg-green-50 text-lg font-normal text-green-700 ring-1 ring-inset ring-green-600/20">
                   {isAdmin && editingTag === tag ? (
                     <form onSubmit={handleSubmit} className="inline-flex items-center">
@@ -161,11 +161,12 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
                 </form>
               )}
             </div>
-            <pre className="bg-gray-100 overflow-auto touch-auto p-4 rounded-md min-w-max">
-              <code className="text-xl text-black-600 font-mono whitespace-pre-wrap">
-                {submit?.codesamples}
-              </code>
-            </pre>
+            <div className="flex flex-col bg-gray-100 overflow-auto touch-auto p-4 rounded-md w-full">
+                <pre className="flex-1 text-xl text-black-600 font-mono whitespace-pre-wrap">
+                  {submit?.codesamples}
+                </pre>
+              </div>
+
             <p className="text-2xl text-gray-900 mt-4">{submit?.issuedescriptions}</p>
           </div>
         </div>
@@ -175,13 +176,3 @@ const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean
 };
 
 export default SolutionDisplay;
-
-
-
-
-
-
-
-
-
-
