@@ -4,9 +4,10 @@ interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  numberOfItems: number;
 }
 
-export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+export default function Pagination({ currentPage, totalPages, onPageChange, numberOfItems}: PaginationProps) {
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
@@ -28,9 +29,9 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{(currentPage - 1) * 20 + 1}</span> to{' '}
-            <span className="font-medium">{Math.min(currentPage * 20, totalPages * 20)}</span> of{' '}
-            <span className="font-medium">{totalPages * 20}</span> results
+            Showing <span className="font-medium">1</span> to{' '}
+            <span className="font-medium">{numberOfItems}</span> of{' '}
+            <span className="font-medium">{numberOfItems}</span> results
           </p>
         </div>
         <div>

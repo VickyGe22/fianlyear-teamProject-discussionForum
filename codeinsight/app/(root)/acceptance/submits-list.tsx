@@ -12,6 +12,7 @@ export default function SubmitList() {
   const [submits, setSubmits] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSampleId, setSelectedSampleId] = useState(null);
+  const [numbersamples, setNumbersamples] = useState(0);
 
   const fetchSubmit = async () => {
     try {
@@ -21,6 +22,9 @@ export default function SubmitList() {
         throw new Error('Failed to fetch submit');
       }
       const data = await response.json();
+      const samples = data.submits.filter((submit: { acceptance: boolean, discuss_close: boolean }) => !submit.acceptance && !submit.discuss_close);
+      const numbersamples = samples.length
+      setNumbersamples(numbersamples);
       console.log("111111111111111111111111111111111111111111");
       
       console.log(data.submits);
@@ -149,6 +153,7 @@ export default function SubmitList() {
           currentPage={currentPage}
           totalPages={totalPages}
           onPageChange={handlePageChange}
+          numberOfItems={numbersamples}
         />
 
         <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
