@@ -43,7 +43,7 @@ async function testRenderPerformance(urls) {
     const page = await browser.newPage();
 
     try {
-        // 启动Performance监控
+        
         await page.evaluate(() => {
             window.renderCount = 0;
             const originalRender = requestAnimationFrame;
@@ -54,7 +54,7 @@ async function testRenderPerformance(urls) {
             };
         });
 
-        // 逐个访问页面并模拟用户操作
+     
         for (const url of urls) {
             await page.goto(url, { waitUntil: 'load' });
             await page.evaluate(() => {
@@ -76,15 +76,15 @@ async function testRenderPerformance(urls) {
             });
         }
 
-        // 等待几秒钟以收集数据
+     
         await new Promise(resolve => setTimeout(resolve, 5000));
 
-        // 获取渲染次数
+
         const renderCount = await page.evaluate(() => {
             return window.renderCount;
         });
 
-        const renderFrequency = renderCount / 5; // 每秒渲染次数
+        const renderFrequency = renderCount / 5;
         return renderFrequency;
     } catch (error) {
         console.error('Error testing render performance:', error);

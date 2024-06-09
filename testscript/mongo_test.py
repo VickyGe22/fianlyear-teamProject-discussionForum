@@ -2,13 +2,13 @@ import time
 from pymongo import MongoClient
 from pymongo.errors import BulkWriteError
 
-# 连接到MongoDB
+
 MONGODB_URI = 'mongodb+srv://lancy:Adelaidezlx.@lancy.sca2sna.mongodb.net/codeinsight'  # 例如 'mongodb://username:password@host:port/database'
 client = MongoClient(MONGODB_URI)
 db = client.test_database
 collection = db.test_collection
 
-# 插入测试数据
+
 def insert_documents(batch_size):
     try:
         documents = [{'name': 'test', 'value': i} for i in range(batch_size)]
@@ -20,7 +20,7 @@ def insert_documents(batch_size):
         print(f'Bulk write error: {bwe.details}')
         return None
 
-# 读取测试数据
+
 def read_documents(batch_size):
     try:
         start_time = time.time()
@@ -31,7 +31,7 @@ def read_documents(batch_size):
         print(f'Error reading documents: {e}')
         return None
 
-# 测试写入和读取性能
+
 def test_performance(write_batch_size, read_batch_size, duration):
     total_writes = 0
     total_reads = 0
@@ -59,11 +59,11 @@ def test_performance(write_batch_size, read_batch_size, duration):
     print(f'Average read latency: {avg_read_latency * 1000:.2f} ms')
 
 if __name__ == "__main__":
-    write_batch_size = 1000  # 每批写入的文档数
-    read_batch_size = 1000   # 每批读取的文档数
-    test_duration = 60      # 测试时长，单位：秒
+    write_batch_size = 1000  
+    read_batch_size = 1000   
+    test_duration = 60      
 
-    # 清空集合
+
     collection.drop()
 
     test_performance(write_batch_size, read_batch_size, test_duration)
