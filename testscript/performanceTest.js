@@ -8,7 +8,7 @@ async function testPageLoadTime(url) {
         const startTime = Date.now();
         await page.goto(url, { waitUntil: 'load' });
         const loadTime = Date.now() - startTime;
-        return loadTime / 1000; 
+        return loadTime / 1000;
     } catch (error) {
         console.error('Error loading page:', error);
     } finally {
@@ -30,7 +30,7 @@ async function testResourceLoad(url) {
 
     try {
         await page.goto(url, { waitUntil: 'load' });
-        return totalBytes / 1024; 
+        return totalBytes / 1024;
     } catch (error) {
         console.error('Error loading resources:', error);
     } finally {
@@ -38,11 +38,76 @@ async function testResourceLoad(url) {
     }
 }
 
-(async () => {
-    const url = 'http://localhost:3000'; 
-    const loadTime = await testPageLoadTime(url);
-    console.log(`Page load time: ${loadTime}m`);
+async function testRenderPerformance(urls) {
+    const browser = await puppeteer.launch({ headless: false });
+    const page = await browser.newPage();
 
-    const resourceLoad = await testResourceLoad(url);
-    console.log(`The resource is loaded on the first screen: ${resourceLoad}KB`);
+    try {
+        // 启动Performance监控
+        await page.evaluate(() => {
+            window.renderCount = 0;
+            const originalRender = requestAnimationFrame;
+
+            requestAnimationFrame = function (callback) {
+                window.renderCount++;
+                return originalRender(callback);
+            };
+        });
+
+        // 逐个访问页面并模拟用户操作
+        for (const url of urls) {
+            await page.goto(url, { waitUntil: 'load' });
+            await page.evaluate(() => {
+                const button = document.querySelector('button');
+                const input = document.querySelector('input');
+
+                for (let i = 0; i < 100; i++) {
+                    window.scrollBy(0, 10);
+
+                    if (button) {
+                        button.click();
+                    }
+
+                    if (input) {
+                        input.value = 'Test ' + i;
+                        input.dispatchEvent(new Event('input'));
+                    }
+                }
+            });
+        }
+
+        // 等待几秒钟以收集数据
+        await new Promise(resolve => setTimeout(resolve, 5000));
+
+        // 获取渲染次数
+        const renderCount = await page.evaluate(() => {
+            return window.renderCount;
+        });
+
+        const renderFrequency = renderCount / 5; // 每秒渲染次数
+        return renderFrequency;
+    } catch (error) {
+        console.error('Error testing render performance:', error);
+        return NaN;
+    } finally {
+        await browser.close();
+    }
+}
+
+(async () => {
+    const urls = [
+        'http://localhost:3000',
+        'http://localhost:3000/submits',
+        'http://localhost:3000/sampleLists',
+        'http://localhost:3000/discussion/665c078be1fe78e987bb2913'
+    ];
+
+    const loadTime = await testPageLoadTime(urls[0]);
+    console.log(`Page load time: ${loadTime} seconds`);
+
+    const resourceLoad = await testResourceLoad(urls[0]);
+    console.log(`First screen resource load: ${resourceLoad} KB`);
+
+    const renderFrequency = await testRenderPerformance(urls);
+    console.log(`Render frequency: ${renderFrequency} renders per second`);
 })();
