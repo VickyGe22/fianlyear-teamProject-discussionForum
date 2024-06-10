@@ -13,18 +13,15 @@ import Button from '../../../components/animation/button'
 import { XCircleIcon } from '@heroicons/react/20/solid'
 
 import nlp from 'compromise';
-import { WordTokenizer } from 'natural';
-import stopwords from 'stopword';
 
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
 
-
-function generateTitle(codeDescription: string, tags: string[]) {
+function generateTitle(comment: string, tags: string[]) {
   // Process the text with NLP
-  let doc = nlp(codeDescription);
+  let doc = nlp(comment);
 
   // Extract important parts of speech
   let verbs = doc.verbs().out('array');
@@ -58,6 +55,32 @@ function generateTitle(codeDescription: string, tags: string[]) {
   let title = importantWords.join(' ');
   return title;
 }
+// import { Configuration, OpenAIApi } from 'openai';
+// import dotenv from 'dotenv';
+
+// dotenv.config();
+
+// const openaiApiKey = process.env.OPENAI_API_KEY;
+
+// const configuration = new Configuration({
+//   apiKey: openaiApiKey,
+// });
+// const openai = new OpenAIApi(configuration);
+
+// // OpenAI API 调用
+// async function generateTitle(content: string): Promise<string> {
+//   try {
+//     const response = await openai.createCompletion({
+//       model: 'text-davinci-003',
+//       prompt: `Generate a catchy title for the following content:\n${content}`,
+//       max_tokens: 10,
+//     });
+//     return response.data.choices[0].text.trim();
+//   } catch (error) {
+//     console.error('Error generating title:', error);
+//     return 'Default Title';
+//   }
+// }
 
 
 export default function SubmitSample() {
@@ -83,9 +106,9 @@ export default function SubmitSample() {
     const [error, setError] = useState([]);
     const [success, setSuccess] = useState(false);
     const [title, setTitle] = useState('');
+    const [analysisResult, setAnalysisResults] = useState(null);
+
     
-
-
     useEffect(() => {
       console.log("Code status:", code);
     }, [code]);
@@ -95,7 +118,14 @@ export default function SubmitSample() {
           const generatedTitle = generateTitle(comment, tags);
           setTitle(generatedTitle);
       }
-  }, [comment, tags]);
+    }, [comment, tags]);
+
+    useEffect(() => {
+        if (code) {
+          performAnalysis(code).then((result) => setAnalysisResults(result));
+        }
+    }, [code]);
+
 
     const handleSubmit = async (e:any) => {
       if (isLoggedIn===false) {
@@ -113,6 +143,8 @@ export default function SubmitSample() {
         body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
                   issuedescriptions:comment, tags: tags, sampletitles: title} ),
       });
+
+      
   
       const { msg, success } = await res.json();
       setError(msg);
@@ -138,7 +170,7 @@ export default function SubmitSample() {
 
     const fetchUser = async () => {
       try {
-        const response = await axios.get('/api/auth/users');
+        const response = await axios.get('./api/auth/users');
         console.log('Fetched user:', response.data.data.isAdmin);
         setIsLoggedIn(true);
         setUser(response.data.data);
@@ -163,8 +195,8 @@ export default function SubmitSample() {
         <div className="mb-3 pl-10 ">
           <br></br>
           <h1 className="text-4xl font-extrabold font-inter mb-5">Submit your code sample</h1>
-          <div className="text-gray-500  text-2xl">Welcome to the CodeInsight submission page, here you can submit 
-          code samples.<br/>Try to transform sub-optimal code into learning opportunities!</div>
+          <div className="text-gray-500  text-xl">Welcome to the CodeInsight submission page, here you can submit 
+          code samples.<br/>Try to transform sub-optimal code into learning opportunities !</div>
         </div>
         
 
@@ -214,7 +246,7 @@ export default function SubmitSample() {
                   </label>
                   {/* <input id="salary" className="form-input w-full" type="text" /> */}
                   <TagInput tags={tags} setTags={setTags}/>
-                  <div className="text-xs text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
+                  <div className="text-xl text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
                 </div>
               </div>
             </div>

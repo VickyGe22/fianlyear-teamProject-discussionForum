@@ -40,3 +40,6 @@ npm install react-hot-toast
 npm install bcryptjs
 npm install jsonwebtoken
 npm install js-cookie
+npm install react-toastify
+npm install uuid
+pip install pylint radon

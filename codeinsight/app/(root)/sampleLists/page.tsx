@@ -29,6 +29,7 @@ export default function Home() {
   const [submits, setSubmits] = useState<Product[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState<Product[]>([]);
+  const [numbersamples, setNumbersamples] = useState(0);
 
   const fetchSubmit = async () => {
     try {
@@ -37,7 +38,11 @@ export default function Home() {
         throw new Error('Failed to fetch submit');
       }
       const data = await response.json();
-      console.log(data.submits);
+      // console.log("看看抓的什么", data.submits);
+      const samples = data.submits.filter((submit: { acceptance: boolean, discuss_close: boolean }) => submit.acceptance && !submit.discuss_close);
+      const numbersamples = samples.length
+      setNumbersamples(numbersamples);
+      console.log("看看抓的什么", numbersamples);
       setSubmits(data.submits); 
       setFilteredData(data.submits);
     } catch (error) {
@@ -124,6 +129,7 @@ export default function Home() {
               currentPage={currentPage}
               totalPages={totalPages}
               onPageChange={handlePageChange}
+              numberOfItems={numbersamples}
             />
           </div>
         </div>
