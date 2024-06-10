@@ -9,6 +9,18 @@ const submitSchema = new Schema({
     // maxLength: [50, "Name must be lesser than 50 characters"],
   },
 
+  staticAnalysis: {
+    type: String,
+    required: false,
+
+  },
+
+  complexityAnalysis: {
+    type: String,
+    required: false,
+
+  },
+
   languages: {
     type: String,
     required: [true, "Please specify the programming language of the code."],
@@ -59,9 +71,9 @@ const submitSchema = new Schema({
   }],
 
   generalreply: [{
-    type: String,
-    required: false, 
-    trim: true
+    replystring: String,
+    username: String,
+    userimage: String
   }],
 
   creator: { 

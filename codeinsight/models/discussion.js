@@ -18,16 +18,21 @@ const discussionSchema = new Schema({
         required: true 
     },
 
-    creator: { 
+    username: { 
         type: String, 
         required: true,
         default: 'Anonymous'
     },
 
+    userimage: { 
+        type: String, 
+        required: false 
+    },
+
     replies: [{
-        type: String,
-        required: false, 
-        trim: true
+        replystring: String,
+        username: String,
+        userimage: String
     }],
 
     totalReplies: { 

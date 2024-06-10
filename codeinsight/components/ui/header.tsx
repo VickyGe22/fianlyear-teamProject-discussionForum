@@ -94,13 +94,13 @@ export default function Example() {
         <Disclosure as="nav" className="bg-white shadow-sm">
           {({ open }) => (
             <>
-              <div className="mx-auto  px-4 sm:px-6 lg:px-8">
+              <div className="mx-auto  px-4 md:px-6 lg:px-8">
                 <div className="flex h-16 justify-between">
                   <div className="flex">
                     <div className="flex flex-shrink-0 items-center">
                       <Logo />
                     </div>
-                    <div className="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+                    <div className="hidden md:-my-px md:ml-6 md:flex md:space-x-8">
                       {navigation.map((item) => (
                         <a
                           key={item.name}

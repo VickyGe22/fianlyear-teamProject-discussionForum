@@ -43,7 +43,7 @@ const MenuBox = ({
           </label>
           <select
             id="languages"
-            className="form-select text-sm py-2"
+            className="form-select text-xl py-2"
             value={selectedLanguage}
             onChange={handleLanguageChange}
             required

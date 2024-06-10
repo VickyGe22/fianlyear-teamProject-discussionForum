@@ -1,7 +1,7 @@
 'use client' ;
 import { useEffect, useState } from "react";
 
-export function AddIssue({pageId}: {pageId: string}) {
+export function AddIssue({pageId, username, userURL}: {pageId: string, username:string, userURL:string}) {
     
     const [issues, setIssues] = useState('');
     const [description, setDescription] = useState('');
@@ -20,7 +20,7 @@ export function AddIssue({pageId}: {pageId: string}) {
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({ issuetitle: issues, description: description, pageId: pageId} ),
+        body: JSON.stringify({ issuetitle: issues, description: description, pageId: pageId, username:username, userimage:userURL} ),
       });
 
       
@@ -61,7 +61,7 @@ export function AddIssue({pageId}: {pageId: string}) {
           rows={2}
           name="description"
           id="description"
-          className="block w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-xl sm:leading-6"
+          className="block w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 xl:text-xl xl:leading-6"
           placeholder="Write a description..."
           defaultValue={''}
           value={description}
