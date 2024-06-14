@@ -17,7 +17,7 @@ Participate in documentation work, responsible for grammar correction
 Participate in bug solving
 
 Contribute to the business case, responsible for the project objectives part
-
+Contribute to the first milestone writing
 
 ## Github:
 
@@ -29,7 +29,11 @@ Modifying the discussion page, display the discussion forum by number of people 
 
 Share my preview experience of using GitHub as a coordinate tool with team, create my own branch using GitHub desk, and waiting team to merge it into the main branch
 
-During 
+During the week 7, contribute to the API
+During the week 9, code testing
+During the week 10,finish up the filter function
+During the week 11, add up  "close discussion" function
+During the week 12, modify the acceptance page, add up the accept and delete function
 
 
 ## Project effort:
