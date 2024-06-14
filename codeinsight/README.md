@@ -36,10 +36,3 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-npm install react-hot-toast
-npm install bcryptjs
-npm install jsonwebtoken
-npm install js-cookie
-npm install react-toastify
-npm install uuid
-pip install pylint radon

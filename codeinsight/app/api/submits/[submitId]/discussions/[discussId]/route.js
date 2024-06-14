@@ -31,7 +31,6 @@ export async function POST(req, context) {
       },
       // { new: true, runValidators: true } // Return the updated document and run schema validators
     );
-    console.log('查个updatedDiscuss',updatedDiscuss)
 
     if (!updatedDiscuss) {
       return NextResponse.json({ msg: ["Document not found."], success: false });
@@ -65,12 +64,10 @@ export async function POST(req, context) {
     // Retrieve the document using findOne() with async/await
     
     const discuss = await Discussion.findOne({ _id: params.discussId });
-    console.log('ss111111111111',params.discussId)
+
   
     if (!discuss) {
       // Handle the case where no document is found
-      console.log('ss111111111111',discuss)
-      console.log('ss111111111111',params.discussId)
       return new Response(JSON.stringify({ error: 'discuss not found' }), {
         status: 404,
         headers: {
