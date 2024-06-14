@@ -41,7 +41,7 @@ Organised internal team meetings, set agendas, and facilitated discussions to en
 
 
 Project Effort:
-* Total hours invested: 149 hours (over a span of 7 weeks, from week 1 to week 7)
+* Total hours invested: 320 hours (totally 13 weeks, from week2 to week15, including two weeks of mid-break)
 * Average weekly effort: 21.3 hours
 Throughout the project development process, I dedicated an average of 21.3 hours per week to ensure effective project management, communication, and contributions to key deliverables.
 
