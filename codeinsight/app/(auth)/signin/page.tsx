@@ -1,6 +1,6 @@
 'use client';
 import { generateGoogleLoginLink } from '../../../libs/googleApi';
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -11,7 +11,7 @@ export default function GoogleLogin() {
     email: "",
     password: "",
   });
-  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
     email: "",
@@ -23,7 +23,7 @@ export default function GoogleLogin() {
     return re.test(String(email).toLowerCase());
   };
 
-  const onSignIn = async (event) => {
+  const onSignIn = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     let formIsValid = true;
     let errorsCopy = { ...errors };
@@ -45,7 +45,7 @@ export default function GoogleLogin() {
       errorsCopy.password = "";
     }
 
-    if (user.email.length < 0 && user.password.length < 0){
+    if (user.email.length == 0 && user.password.length == 0){
       alert("Please enter your email and password.")
     }
 
@@ -61,32 +61,24 @@ export default function GoogleLogin() {
       console.log("Login success", response.data);
       toast.success("Login success");
       router.push("/");
-    } catch (error) {
-      console.log("Login failed", error.response?.data?.message || error.message);
-      let errorMsg = "Login failed. Please check your email and password.";
-      const errorMessage = error.response?.data?.error || error.message;
-      if (typeof errorMessage === 'string' && errorMessage.includes("User does not exist")) {
-        errorMsg = "This email is not registered.";
-      } else if (typeof errorMessage === 'string' && errorMessage.includes("Invalid password")) {
-        errorMsg = "Invalid password.";
-      }
-      setErrors({
-        email: errorMsg.includes("email") ? errorMsg : "",
-        password: errorMsg.includes("password") ? errorMsg : "",
-      });
-      toast.error(errorMsg);
+    } catch (error: any) {
+        console.log("Login failed", error.toString());
+        let errorMsg = "Login failed. Please check your email and password.";
+        const errorMessage = error.response?.data?.error || error.message;
+        if (typeof errorMessage === 'string' && errorMessage.includes("User does not exist")) {
+            errorMsg = "This email is not registered.";
+        } else if (typeof errorMessage === 'string' && errorMessage.includes("Invalid password")) {
+            errorMsg = "Invalid password.";
+        }
+        setErrors({
+            email: errorMsg.includes("email") ? errorMsg : "",
+            password: errorMsg.includes("password") ? errorMsg : "",
+        });
+        toast.error(errorMsg);
     } finally {
-      setLoading(false);
+        setLoading(false);
     }
   };
-
-  // useEffect(() => {
-  //   if (user.email.length > 0 && user.password.length > 0) {
-  //     setButtonDisabled(false);
-  //   } else {
-  //     setButtonDisabled(true);
-  //   }
-  // }, [user]);
 
   const googleLoginLink = generateGoogleLoginLink();
 

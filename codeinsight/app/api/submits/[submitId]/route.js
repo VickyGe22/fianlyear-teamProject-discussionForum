@@ -24,41 +24,8 @@ export async function PUT(req, { params }) {
 }
 
 
-
-// export async function POST(req) {
-//   const { generalreply, pageId } = await req.json(); // Assuming pageId is sent in the request
-//   try {
-//     await connectDB();
-//     const updatedSubmit = await Submit.findByIdAndUpdate( pageId, 
-//       { $push: { generalreply: generalreply } }, // Push the new comment to the generalreply array
-//       // { new: true, runValidators: true } // Return the updated document and run schema validators
-//     );
-
-//     if (!updatedSubmit) {
-//       return NextResponse.json({ msg: ["Document not found."], success: false });
-//     }
-
-//     return NextResponse.json({
-//       msg: ["Comment added successfully."],
-//       success: true,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//     if (error instanceof mongoose.Error.ValidationError) {
-//       let errorList = [];
-//       for (let e in error.errors) {
-//         errorList.push(error.errors[e].message);
-//       }
-//       console.log(errorList);
-//       return NextResponse.json({ msg: errorList, success: false });
-//     } else {
-//       return NextResponse.json({ msg: ["Unable to update document."], success: false });
-//     }
-//   }
-// }
-
 export async function POST(req) {
-  const { type, generalreply, tags, pageId } = await req.json(); // 从请求体中获取 type, generalreply, tags, 和 pageId
+  const { type, generalreply, tags, pageId } = await req.json(); 
 
   try {
     await connectDB();
@@ -69,15 +36,15 @@ export async function POST(req) {
         pageId,
         { $push: { generalreply: generalreply },
           $inc: { numberReply: 1 }
-       }, // 将新的回复添加到 generalreply 数组中
-        { new: true, runValidators: true } // 返回更新后的文档并运行模式验证器
+       }, 
+        { new: true, runValidators: true }
       );
     } else if (type === "tags") {
       console.log("tags:", tags);
       updatedSubmit = await Submit.findByIdAndUpdate(
         pageId,
-        { $set: { tags: tags } }, // 覆盖原本标签
-        { new: true, runValidators: true } // 返回更新后的文档并运行模式验证器
+        { $set: { tags: tags } }, 
+        { new: true, runValidators: true } 
       );
     } else {
       return NextResponse.json({ msg: ["Invalid update type"] }, { status: 400 });

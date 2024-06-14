@@ -10,13 +10,11 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest,res: NextResponse) {
   
   const reqBody = await request.json()
-  console.log('hhahahaaaaaaaaaaa',reqBody);
   
   {
     try {
       await connectDB();
       const {code} = reqBody;
-      console.log('hahohaohoahoa',code);
 
         
       const filename = path.join('/tmp', `${uuidv4()}.py`);
@@ -53,7 +51,7 @@ export async function POST(request: NextRequest,res: NextResponse) {
 
 
 
-function runCommand(command) {
+function runCommand(command: string) {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {

@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import Logo from '@/components/ui/header-logo'
 
 export default function Footer() {

@@ -31,15 +31,13 @@ export default function Example({ pageId, disId, isLoggedIn, username, userURL}:
             throw new Error('Failed to fetch submit');
           }
           const data = await response.json();
-          console.log("查看reply的data",data)
           const mappedComments = data.discuss.replies.map((text:any) => ({
             text: text.replystring, // the comment text
             user: {name: text.username, imageUrl: text.userimage}, // assigning a default user for each comment
             likes: 0, // initializing likes to 0
             isLiked: false // initializing isLiked to false
           }));
-          console.log("看看抓到没",mappedComments)
-          setComments(mappedComments);// 这里假设响应结构是 { submit: {...} }
+          setComments(mappedComments);
           
         } catch (error: any) {
           console.error('Fetch error:', error);
@@ -51,7 +49,6 @@ export default function Example({ pageId, disId, isLoggedIn, username, userURL}:
       
       useEffect(() => {
         fetchReply();
-        console.log("看看comments",comments)
       }, [pageId, disId]); 
 
       
@@ -93,14 +90,10 @@ export default function Example({ pageId, disId, isLoggedIn, username, userURL}:
     const comment = updatedComments[index];
     
     if (comment.isLiked) {
-      // 如果已经点赞，取消点赞并减少1个赞
       comment.likes -= 1;
     } else {
-      // 如果尚未点赞，点赞并增加1个赞
       comment.likes += 1;
     }
-  
-    // 切换点赞状态
     comment.isLiked = !comment.isLiked;
     
     

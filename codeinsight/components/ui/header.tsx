@@ -77,17 +77,6 @@ export default function Example() {
     }
   };
 
-  // const handleNavigation = (event: any, href: string) => {
-  //   if (!isLoggedIn) {
-  //     event.preventDefault();
-  //     toast.error('You need to be logged in to access this page.');
-  //     alert('You need to be logged in to access this page.');
-  //   } else {
-  //     window.location.href = href;
-  //   }
-  // };
-
-
   return (
     <>
       <div className="h-full">

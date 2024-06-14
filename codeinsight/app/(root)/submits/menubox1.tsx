@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CustomDialog from './CustomDialog';
+import CustomDialog from './customDialog';
 
 
 const MenuBox1 = ({
@@ -25,7 +25,7 @@ const MenuBox1 = ({
     const handleAddCustomOption = (customLevel:string) => {
         setLevels([...levels, customLevel]);
         setSelectedLevel(customLevel);
-        setShowCustomDialog1(false); // 关闭自定义对话框
+        setShowCustomDialog1(false); 
     };
 
 
@@ -35,7 +35,6 @@ const MenuBox1 = ({
 
     return (
         <div>
-        {/* 不展开的话用justify-left */}
             <div className="flex flex-col">
                 {/* level*/}
                 <div className="flex flex-col  mb-4">
@@ -59,7 +58,6 @@ const MenuBox1 = ({
                 </div>
             </div>
             
-            {/* 自定义对话框 */}
             {showCustomDialog1 && (
                 <CustomDialog onClose={handleCloseCustomDialog} onAddCustomOption={handleAddCustomOption} />
             )}

@@ -1,12 +1,12 @@
 'use client'; 
 
 import React, { useEffect, useState } from 'react';
-import possibleTags from '../../../libs/tag'; // 引用标签列表
+import possibleTags from '../../../libs/tag'; 
 
 const TagInput = ({tags, setTags}: {tags: string[], setTags: React.Dispatch<React.SetStateAction<string[]>>}) => {
   
-  const [input, setInput] = useState(''); // 当前输入框的值
-  const [hint, setHint] = useState(''); // 标签提示
+  const [input, setInput] = useState(''); 
+  const [hint, setHint] = useState(''); 
   const [visibleHint, setVisibleHint] = useState('');
 
   useEffect(() => {
@@ -34,25 +34,12 @@ const TagInput = ({tags, setTags}: {tags: string[], setTags: React.Dispatch<Reac
   };
 
   const handleRemoveTag = (index: number) => {
-    setTags(tags.filter((_, i) => i !== index)); // 移除索引为 index 的标签
+    setTags(tags.filter((_, i) => i !== index)); 
   };
 
   const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setInput(e.target.value); // 更新输入框的值
-    // const value = e.target.value as string; // Cast the value to string type
-    // if (value.length) {
-    //   const newHint = possibleTags.find(tag => tag.toLowerCase().startsWith(value.toLowerCase()) && !tags.includes(tag));
-    //   setHint(newHint ? newHint : ''); // 设置提示，如果没有匹配的则清空提示
-    // } else {
-    //   setHint('');
-    // }
+    setInput(e.target.value);
   };
-
-  // const getHintText = () => {
-  //   if (!hint) return '';
-  //   console.log('这里这里这呵呵呵呵呵', hint.substring(input.length));
-  //   return hint.substring(input.length); // 返回提示文本中未输入的部分
-  // };
   
 
   return (

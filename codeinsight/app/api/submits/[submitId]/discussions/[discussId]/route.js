@@ -1,7 +1,6 @@
 import connectDB from "@/libs/mongodb";
 import Discussion from "@/models/discussion";
 import { NextResponse } from "next/server";
-import { connected } from "process";
 
 export async function PUT(req, {params}) {
 
@@ -25,12 +24,10 @@ export async function POST(req, context) {
 
   try {
     await connectDB();
-    console.log('查个id',disId)
-    console.log('查个replies',replies)
     const updatedDiscuss = await Discussion.findByIdAndUpdate(disId, 
       {
         $push: { replies: replies },
-        $inc: { totalReplies: 1 }     //每次给totalReplies加1
+        $inc: { totalReplies: 1 }  
       },
       // { new: true, runValidators: true } // Return the updated document and run schema validators
     );

@@ -29,17 +29,6 @@ export async function POST(req) {
   }
 }
 
-
-// export async function GET() {
-//   try {
-//     await connectDB();
-//     const submits = await Submit.find();
-//     return NextResponse.json({ submits });
-//   } catch (error) {
-//     return NextResponse.json({ msg: ["Unable to fetch submits."] });
-//   }
-// }
-
 export async function GET(req) {
   // Check if a specific query parameter is provided to filter by levels
   const url = new URL(req.url);

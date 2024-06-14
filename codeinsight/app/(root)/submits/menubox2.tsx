@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CustomDialog from './customdialog'; 
+import CustomDialog from './customDialog'; 
 
 const MenuBox2 = ({
     selectedtype, // This is now passed as a prop from the parent component
@@ -26,7 +26,7 @@ const MenuBox2 = ({
             settypes([...types, customtype]);
           }
         setSelectedtype(customtype);
-        setShowCustomDialog2(false); // 关闭自定义对话框
+        setShowCustomDialog2(false);
     };
 
 
@@ -36,7 +36,6 @@ const MenuBox2 = ({
 
     return (
         <div>
-        {/* 不展开的话用justify-left */}
             <div className="flex flex-col">
                 {/* type*/}
                 <div className="flex flex-col  mb-4">
@@ -60,7 +59,6 @@ const MenuBox2 = ({
                 </div>
             </div>
             
-            {/* 自定义对话框 */}
             {showCustomDialog2 && (
                 <CustomDialog onClose={handleCloseCustomDialog} onAddCustomOption={handleAddCustomOption} />
             )}
