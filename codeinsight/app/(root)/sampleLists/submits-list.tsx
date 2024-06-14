@@ -87,12 +87,6 @@ const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits, user }) =>{
                           -&gt;
                         </span>
                       </Link>
-                      <button
-                        onClick={() => handleCloseDiscussion(sample._id)}
-                        className="text-sm px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 focus:outline-none transition duration-300 ease-in-out"
-                      >
-                        Close Discussion
-                      </button>
                     </div>
                   </div>
                 ): null}
