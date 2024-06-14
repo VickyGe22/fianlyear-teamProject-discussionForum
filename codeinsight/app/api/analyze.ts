@@ -30,22 +30,20 @@ export async function POST(request: NextRequest,res: NextResponse) {
         });
         await newSubmit.save();
 
-        res.status(200).json({
+        return NextResponse.json({
           staticAnalysis: pylintResult,
           complexityAnalysis: radonResult,
-        });
+        }, { status: 200 });
       } catch (error) {
         console.error('Analysis error:', error);
-        res.status(500).json({ error: 'Failed to analyze code' });
+        return NextResponse.json({ error: 'Failed to analyze code' }, { status: 500 });
       } finally {
         await fs.unlink(filename);
       }
     } catch (error) {
       console.error('Request processing error:', error);
-      res.status(400).json({ error: error.message });
+      return NextResponse.json({ error: error }, { status: 400 });
     }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
   }
 }
 

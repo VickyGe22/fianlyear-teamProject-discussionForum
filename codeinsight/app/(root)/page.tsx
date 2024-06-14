@@ -1,10 +1,4 @@
 "use client"
-
-// export const metadata = {
-//   title: 'Home',
-//   description: 'Home Page',
-// }
-
 import Intro from '@/components/Intro'
 import Link from 'next/link'
 import { useEffect, useState } from 'react';

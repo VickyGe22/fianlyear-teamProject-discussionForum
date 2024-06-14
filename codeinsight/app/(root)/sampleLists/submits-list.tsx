@@ -1,12 +1,13 @@
 import Link from 'next/link'
 import React from 'react';
-import user from '@/app/(root)/page';
+import { User } from '../../../models/interfaces/user';
 
 interface SubmitListProps {
   currentSubmits: any[];
+  user: User; // Ensure this is added
 }
 
-const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits }) =>{
+const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits, user }) =>{
 
   function handleCloseDiscussion(_id: any): void {
     throw new Error('Function not implemented.');

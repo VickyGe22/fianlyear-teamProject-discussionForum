@@ -1,3 +1,6 @@
+import { Document } from 'mongoose';
+
+
 export interface Submit {
     _id: string;
     codesamples: string;

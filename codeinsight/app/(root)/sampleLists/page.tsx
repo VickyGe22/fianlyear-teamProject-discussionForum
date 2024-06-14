@@ -4,14 +4,9 @@ import Sidebar from '@/components/sidebar'
 import SubmitList from './submits-list'
 import { useEffect, useState } from 'react';
 import Pagination from './submit-pagination';
-
-interface Product {
-  id: number;
-  levels: string;
-  languages: string;
-  types: string;
-  [key: string]: any; 
-}
+import { Product } from '@/models/interfaces/product';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const predefinedLabels = {
   levels: ["Bachelor-cs1","Bachelor-cs2","Bachelor-cs3","Bachelor-cs4","Master-cs1","Master-cs2"],
@@ -97,6 +92,29 @@ export default function Home() {
     console.log("Filtered Data:", filteredData);
   }, [selectedCategories, submits]);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get('/api/auth/users');
+      console.log('Fetched user:', response.data.data.isAdmin);
+      setIsLoggedIn(true);
+      setUser(response.data.data);
+    } catch (error) {
+      console.error('Failed to fetch user:', error);
+    }
+  };
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
+    const loggedIn = true;  
+    if (loggedIn){
+      fetchUser();
+    }
+  }, [setIsLoggedIn]);
+
  
 
   return (
@@ -113,7 +131,7 @@ export default function Home() {
                 clearCategories={clearCategories}
               />
               <div className="md:grow">
-                <SubmitList currentSubmits={currentSubmits} />
+                <SubmitList currentSubmits={currentSubmits} user={user} />
               </div>
               
             </div>

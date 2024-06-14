@@ -18,6 +18,12 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import toast from 'react-hot-toast';
 
+function performAnalysis(code: string): Promise<SetStateAction<null>> {
+  return new Promise((resolve, reject) => {
+    // Perform analysis logic here
+    // Resolve or reject the promise based on the analysis result
+  });
+}
 
 function generateTitle(comment: string, tags: string[]) {
   // Process the text with NLP
@@ -97,7 +103,6 @@ export default function SubmitSample() {
 
     const handleSubmit = async (e:any) => {
       if (isLoggedIn===false) {
-        toast.error('You need to be logged in to submit.');
         alert('You need to be logged in to submit.');
         window.location.href = '/signin'
         return;
@@ -253,3 +258,5 @@ export default function SubmitSample() {
     </>
   );
 }
+
+
