@@ -5,10 +5,16 @@ A1876131 ZhangchiPan Team:14B
 ## Roles:
 
 Chairman for 3th client meeting and prepared agenda for the meeting
+Scretary for 7th 8th 9th 10th client meeting and prepared meeting minutes for the meeting
 
 Responsible for side bar modification, as well as the discussion page
+Responsible for filter function.
+Responsible for admin acceptance or delete function development, as well as the acceptance page
+Responsible for admin close discussion function.
+Responsible for Code testing, most of the documentation and test.
 
 Participate in documentation work, responsible for grammar correction
+Participate in bug solving
 
 Contribute to the business case, responsible for the project objectives part
 
@@ -22,6 +28,8 @@ Modifying the side bar, including change the label name and put some new categor
 Modifying the discussion page, display the discussion forum by number of people replied
 
 Share my preview experience of using GitHub as a coordinate tool with team, create my own branch using GitHub desk, and waiting team to merge it into the main branch
+
+During 
 
 
 ## Project effort:
