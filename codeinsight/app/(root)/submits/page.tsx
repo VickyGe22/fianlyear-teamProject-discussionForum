@@ -1,115 +1,259 @@
-import Image from 'next/image'
-import UploadImage from '@/public/images/upload.jpg'
+'use client';
 
-import Link from 'next/link'
 import CodeBox from './codebox'
 import MenuBox from './menubox'
+import MenuBox1 from './menubox1'
+import MenuBox2 from './menubox2'
+import TagInput from './addtag'
+
+import { SetStateAction, useEffect, useState } from 'react';
+import SubmitDialog from './submitpopup';
+import Modal from "@/components/modal";
+import Button from '../../../components/animation/button'
+import { XCircleIcon } from '@heroicons/react/20/solid'
+
+import nlp from 'compromise';
+
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 
 
-export const metadata = {
-  title: 'Submits - Submit Code Sample',
-  description: 'Submit Code Sample',
+function generateTitle(comment: string, tags: string[]) {
+  // Process the text with NLP
+  let doc = nlp(comment);
+
+  // Extract important parts of speech
+  let verbs = doc.verbs().out('array');
+  let nouns = doc.nouns().out('array');
+  let adjectives = doc.adjectives().out('array');
+
+  // Combine all parts of speech and tags
+  let words = [...verbs, ...nouns, ...adjectives, ...tags];
+
+  // Compute word frequencies
+  let frequencyMap = new Map();
+  words.forEach(word => {
+    frequencyMap.set(word, (frequencyMap.get(word) ?? 0) + 1);
+  });
+
+  // Compute TF-IDF values
+  let tfidfMap = new Map();
+  words.forEach(word => {
+    let tf = frequencyMap.get(word);
+    let idf = 1 + Math.log(1 + 1 / (1 + frequencyMap.get(word)));
+    tfidfMap.set(word, tf * idf);
+  });
+
+  // Sort words by TF-IDF value
+  let sortedWords = Array.from(tfidfMap.entries()).sort((a, b) => b[1] - a[1]);
+
+  // Select the top 10 words for a longer title
+  let importantWords = sortedWords.slice(0, 5).map(([word]) => word);
+
+  // Form the title from the important words
+  let title = importantWords.join(' ');
+  return title;
 }
 
 export default function SubmitSample() {
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+
+    const [code, setCode] = useState('');
+    const [selectedLanguage, setSelectedLanguage] = useState('');
+    const [selectedLevel, setSelectedLevel] = useState('');
+    const [selectedtype, setSelectedtype] = useState('');
+    const [comment, setComment] = useState('');
+    const [tags, setTags] = useState<string[]>([]);
+    const [error, setError] = useState([]);
+    const [success, setSuccess] = useState(false);
+    const [title, setTitle] = useState('');
+    const [analysisResult, setAnalysisResults] = useState(null);
+
+    
+    useEffect(() => {
+      console.log("Code status:", code);
+    }, [code]);
+
+    useEffect(() => {
+      if (comment || tags.length > 0) {
+          const generatedTitle = generateTitle(comment, tags);
+          setTitle(generatedTitle);
+      }
+    }, [comment, tags]);
+
+    useEffect(() => {
+        if (code) {
+          performAnalysis(code).then((result: SetStateAction<null>) => setAnalysisResults(result));
+        }
+    }, [code]);
+
+
+    const handleSubmit = async (e:any) => {
+      if (isLoggedIn===false) {
+        toast.error('You need to be logged in to submit.');
+        alert('You need to be logged in to submit.');
+        window.location.href = '/signin'
+        return;
+      }
+      
+      const res = await fetch("./api/submits", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ codesamples: code, languages: selectedLanguage, levels: selectedLevel, types: selectedtype, 
+                  issuedescriptions:comment, tags: tags, sampletitles: title} ),
+      });
+
+      
+  
+      const { msg, success } = await res.json();
+      setError(msg);
+      setSuccess(success);
+  
+      if (success) {
+        console.log("Clearing data...");
+        setCode("");
+        setSelectedLanguage("");
+        setSelectedLevel("");
+        setSelectedtype("");
+        setComment("");
+        setTags([]);
+        setIsModalOpen(true);
+        setTitle("");
+      }
+
+      
+    };
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [user, setUser] = useState<any>(null);
+
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get('./api/auth/users');
+        console.log('Fetched user:', response.data.data.isAdmin);
+        setIsLoggedIn(true);
+        setUser(response.data.data);
+      } catch (error) {
+        console.error('Failed to fetch user:', error);
+      }
+    };
+
+    useEffect(() => {
+      const token = Cookies.get('token');
+      setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
+      const loggedIn = true;  
+      if (loggedIn){
+        fetchUser();
+      }
+    }, [setIsLoggedIn]);
+
+
   return (
     <>
-    <br />
-    <br />
-    <br />
-      <div className="mb-10 pl-10">
-        <h1 className="text-4xl font-extrabold font-inter mb-5">Share Code Samples & Insights</h1>
-        <div className="text-gray-500">Submit your valuable samples and insights for simplify code structure.</div>
-      </div>
-      
+      <div className='fadeIn py-10 px-32' >
+        <div className="mb-3 pl-10 ">
+          <br></br>
+          <h1 className="text-4xl font-extrabold font-inter mb-5">Submit your code sample</h1>
+          <div className="text-gray-500  text-xl">Welcome to the CodeInsight submission page, here you can submit 
+          code samples.<br/>Try to transform sub-optimal code into learning opportunities !</div>
+        </div>
+        
 
-      {/* Form */}
-      <form className="mb-12 pl-10 pr-10">
-        <div className="divide-y divide-gray-200 -my-6">
-          
-          {/* Group #1 */}
-          <div className="py-6">
-            <div className="text-lg font-bold text-gray-800 mb-5">
-              <span className="text-indigo-500"> Step 1.</span> Copy code sample here
-            </div>
-            {/*code samples*/}
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1" htmlFor="name">
-                  Sample <span className="text-red-500">*</span>
-                </label>
-                <CodeBox />
-                
-              </div>
-            <MenuBox /> 
-            {/*comments*/}
-              <div>
-                <label className="block text-sm font-medium mb-1" htmlFor="email">
-                  Description <span className="text-red-500">*</span>
-                </label>
-                <CodeBox />
-              </div>
-              {/* <div>
-                <label className="block text-sm font-medium mb-1" htmlFor="file">
-                  Submit file <span className="text-gray-500">(optional)</span>
-                </label>
-                <div className="flex items-center">
-                  <div className="shrink-0 mr-4">
-                    <Image className="object-cover w-16 h-16 rounded-full border border-gray-200" src={UploadImage} alt="Upload" />
-                  </div>
-                  <div>
-                    <input
-                      id="file"
-                      type="file"
-                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-sm file:font-medium file:bg-indigo-500 file:text-white hover:file:bg-indigo-600 transition duration-150 ease-in-out cursor-pointer"
+        {/* Form */}
+        <form className="mb-12 pl-10 pr-10 ">
+          <div>
+            {/* Group #1 */}
+            <div className="py-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xl font-medium mb-1" htmlFor="name">
+                  Code sample <span className="text-red-500">*</span>
+                  </label>
+                  <CodeBox code={code} setCode={setCode} />               
+                </div>
+
+                <div className="flex justify-left  gap-8">
+                  <MenuBox selectedLanguage={selectedLanguage} setSelectedLanguage={setSelectedLanguage} /> 
+                  <MenuBox1 selectedLevel={selectedLevel} setSelectedLevel={setSelectedLevel} /> 
+                  <MenuBox2 selectedtype={selectedtype} setSelectedtype={setSelectedtype} /> 
+                </div>
+              {/*comments*/}
+                <div>
+                  <label className="block text-xl font-medium mb-1" htmlFor="email">
+                    Issue description <span className="text-red-500">*</span>
+                  </label>
+                  <div onSubmit={handleSubmit}>
+                    <textarea
+                      rows={4}
+                      name="comment"
+                      id="comment"
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
                     />
                   </div>
                 </div>
-              </div> */}
+              </div>
             </div>
-          </div>
 
-          {/* Group #2 */}
-          <div className="py-6">
-            <div className="text-lg font-bold text-gray-800 mb-5">
-              <span className="text-indigo-500">2.</span> Issue Classification
-            </div>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1" htmlFor="position">
-                  Class <span className="text-red-500">*</span>
-                </label>
-                <input id="position" className="form-input w-full" type="text" required placeholder="E.g., Senior Software Engineer" />
-              </div>
-              <div>
-                <label className="block text-sm text-gray-800 font-medium mb-1" htmlFor="role">
-                  Languages <span className="text-rose-500">*</span>
-                </label>
-                <select id="role" className="form-select text-sm py-2 w-full" required>
-                  <option>Python</option>
-                  <option>C</option>
-                  <option>C++ / Finance</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1" htmlFor="salary">
-                  Tags <span className="text-gray-500">(optional)</span>
-                </label>
-                <input id="salary" className="form-input w-full" type="text" />
-                <div className="text-xs text-gray-500 italic mt-2">Example: “while-duplicate”</div>
+            {/* Group #2 */}
+            <div className="py-6">
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-xl font-medium mb-1" htmlFor="salary">
+                    Tags <span className="text-gray-500">(optional)</span>
+                  </label>
+                  {/* <input id="salary" className="form-input w-full" type="text" /> */}
+                  <TagInput tags={tags} setTags={setTags}/>
+                  <div className="text-xl text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </form>
+        </form>
 
-      <div className="mt-6 flex justify-center">
-        <Link href="/code-sample-repository">
-          <button className="btn text-white bg-indigo-500 hover:bg-indigo-600 shadow-sm">Submit Your Code Sample</button>
-        </Link>
+      <div className="flex flex-col pl-6">
+        {error && !success &&
+          error.map((e) => (
+            <div className={`${success ? "bg-green-50" : "text-red-600"} px-5 py-2`}>
+
+            <div className="flex rounded-md bg-red-50 p-4">
+              <div className="flex-shrink-0">
+                <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+              </div>
+                <div className=" text-sm text-red-700">
+                  <ul role="list" className="list-disc space-y-1 pl-5">
+                  {e}
+                  </ul>
+                </div>
+              {/* </div> */}
+            </div>
+            </div>
+          ))}
       </div>
-      
+
+        <div className="mt-6 flex justify-center">
+            <Button onClick={handleSubmit}/>
+        </div>
+         
+        <Modal isOpen={isModalOpen} closeModal={handleCloseModal}>
+          <SubmitDialog onClose={handleCloseModal} user={user}/>
+        </Modal>
+      </div>
 
     </>
-  )
+  );
 }

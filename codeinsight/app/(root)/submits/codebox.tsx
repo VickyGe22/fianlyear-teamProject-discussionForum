@@ -1,50 +1,22 @@
-'use client';
-
-import { useEffect, useRef } from 'react';
-import { EditorState } from '@codemirror/state';
-import { EditorView, lineNumbers } from '@codemirror/view'; // Import lineNumbers
-import { javascript } from '@codemirror/lang-javascript';
-import '../../css/additional-styles/codebox.css'; 
+import CodeMirror from '@uiw/react-codemirror';
+import { dracula } from "@uiw/codemirror-theme-dracula";
 
 
-const CodeBox = () => {
-    const editorRef = useRef<HTMLDivElement | null>(null);
+export default function Editor({ code, setCode }: { code: string, setCode: (code: string) => void }) {
 
 
-  useEffect(() => {
-    if (editorRef.current) {
-      const startState = EditorState.create({
-        // doc: 'Paste your code here',
-        extensions: [
-          javascript(),
-          EditorView.lineWrapping, 
-          lineNumbers(), // Use the lineNumbers extension
-          EditorView.updateListener.of(update => {
-            if (update.docChanged) {
-              // Handle document changes
-              const docContent = update.state.doc.toString();
-              console.log(docContent);
-            }
-          })
-        ],
-      });
-
-      const view = new EditorView({
-        state: startState,
-        parent: editorRef.current,
-      });
-
-      return () => {
-        view.destroy();
-      };
-    }
-  }, []);
-
-  // return <div className="cm-theme" ref={editorRef}></div>;
-  return <div className="cm-editor" ref={editorRef}></div>;
-
-
-};
-
-export default CodeBox;
+    return (
+            <div className="editor_container">
+                    <CodeMirror
+                        value={code}
+                        height="200px"
+                        theme={dracula}
+                        onChange={(value) => {
+                            setCode(value); // Update code state with the new value
+                            // onChange(value); // Call the onChange function with the new value
+                        }}
+                    />
+            </div>
+    );
+}
 
