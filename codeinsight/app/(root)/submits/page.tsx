@@ -60,10 +60,6 @@ export default function SubmitSample() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };

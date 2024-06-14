@@ -1,20 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Submit } from "../../../models/interfaces/submit";
 
-const SolutionDisplay = ({ pageId, isAdmin }) => {
-  const [submit, setSubmit] = useState(null);
+const SolutionDisplay = ({ pageId, isAdmin }: { pageId: string, isAdmin: boolean }) => {
+
+  const [submit, setSubmit] = useState<Submit | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [editingTag, setEditingTag] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const [editingTag, setEditingTag] = useState<string | null>(null);
   const [tagValue, setTagValue] = useState("");
-  const createdAt = new Date(submit?.createdAt);
-  const formattedDate = createdAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  const formattedTime = createdAt.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+  const createdAt = submit?.createdAt ? new Date(submit.createdAt) : null;
+  const formattedDate = createdAt?.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const formattedTime = createdAt?.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
 
   const fetchSubmit = async () => {
     if (!pageId) return;
-
+    
     try {
       const response = await fetch(`/api/submits/${pageId}`);
       if (!response.ok) {
@@ -22,7 +24,7 @@ const SolutionDisplay = ({ pageId, isAdmin }) => {
       }
       const data = await response.json();
       setSubmit(data.submit);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Fetch error:", error);
       setError(error.message);
     } finally {
@@ -34,16 +36,16 @@ const SolutionDisplay = ({ pageId, isAdmin }) => {
     fetchSubmit();
   }, [pageId]);
 
-  const handleTagClick = (tag) => {
+  const handleTagClick = (tag: any) => {
     setEditingTag(tag);
     setTagValue(tag);
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: any) => {
     setTagValue(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     if (submit !== null) {
       try {
@@ -68,10 +70,16 @@ const SolutionDisplay = ({ pageId, isAdmin }) => {
           throw new Error("Failed to update tag");
         }
 
-        setSubmit(prevSubmit => ({
-          ...prevSubmit,
-          tags: updatedTags
-        }));
+        setSubmit(prevSubmit => {
+          if (prevSubmit === null) {
+            return prevSubmit;
+          }
+          return {
+            ...prevSubmit,
+            tags: updatedTags
+          };
+        });
+
         setEditingTag(null);
         setTagValue("");
         } catch (error) {

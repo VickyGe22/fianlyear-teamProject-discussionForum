@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CustomDialog from './customDialog';
+import CustomDialog from './customdialog';
 
 
 const MenuBox1 = ({

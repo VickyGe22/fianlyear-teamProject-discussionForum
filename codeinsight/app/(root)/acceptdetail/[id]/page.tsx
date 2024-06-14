@@ -9,8 +9,7 @@ import { useEffect, useState } from 'react';
 
 
 export default function Home() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  
+    const [pageId, setPageId] =  useState<string>('');
 
     const pathname = usePathname();
 

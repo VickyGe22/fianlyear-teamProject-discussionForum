@@ -19,7 +19,7 @@ const TagInput = ({tags, setTags}: {tags: string[], setTags: React.Dispatch<Reac
     setHint(match || '');
   }, [input, tags]);
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: any) => {
     if (e.key === 'Tab' && hint && !tags.includes(hint)) {
       e.preventDefault(); // Prevent the default focus change behavior of the Tab key
       setInput(hint); // Set the input to the complete hint

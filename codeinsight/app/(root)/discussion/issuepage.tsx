@@ -4,19 +4,20 @@
 import { useEffect, useState } from "react";
 import { Disclosure } from '@headlessui/react';
 import IssueReply from "./issuereply";
+import Discussion from "../../../models/interfaces/discussion";
 
-type AuthorAvatars = {
-  [key: string]: string;
-};
+// type AuthorAvatars = {
+//   [key: string]: string;
+// };
 
-const authorAvatars: AuthorAvatars = {
-  'Anonymous': 'https://randomuser.me/api/portraits/women/1.jpg'
-};
+// const authorAvatars: AuthorAvatars = {
+//   'Anonymous': 'https://randomuser.me/api/portraits/women/1.jpg'
+// };
 
 
 const Issue = ({ pageId, isLoggedIn, username, userURL}: { pageId: string, isLoggedIn: boolean, username:string, userURL:string})  =>  {
 
-    const [discussions, setDiscussion] = useState(null);
+    const [discussions, setDiscussion] = useState<Discussion[] | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [issueNumber, setIssueNumber] = useState(0);
@@ -54,7 +55,7 @@ const Issue = ({ pageId, isLoggedIn, username, userURL}: { pageId: string, isLog
             <div className="flex justify-start items-center py-4 px-6">
               <span className="flex-shrink-0 text-md text-black-600 font-bold">Total Issues: {issueNumber}</span>
             </div>
-            {discussions.map((discussion) => (
+            {discussions && discussions.map((discussion: Discussion) => (
               <Disclosure as="div" key={discussion.id} className="bg-white">
                 {({ open }) => (
                   <>

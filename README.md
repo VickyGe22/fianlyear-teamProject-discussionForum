@@ -52,6 +52,14 @@ We will use the following technology stack to build CodeInsight:
    - `npm install @headlessui/react`
    - `npm install @heroicons/react`
    - `npm install codemirror`
+   - npm install react-hot-toast
+   - npm install bcryptjs
+   - npm install jsonwebtoken
+   - npm install js-cookie
+   - npm install react-toastify
+   - npm install uuid
+   - pip install pylint radon
+
 4. Run the development server: `npm run dev`
 
 

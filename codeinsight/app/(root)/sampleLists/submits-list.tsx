@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import React from 'react';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import user from '@/app/(root)/page';
 
 interface SubmitListProps {
@@ -9,9 +7,6 @@ interface SubmitListProps {
 }
 
 const SubmitList: React.FC<SubmitListProps> = ({ currentSubmits }) =>{
-
-
-
 
   function handleCloseDiscussion(_id: any): void {
     throw new Error('Function not implemented.');
