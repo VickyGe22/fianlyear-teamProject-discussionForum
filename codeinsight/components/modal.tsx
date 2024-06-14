@@ -5,9 +5,9 @@ import { XCircleIcon } from '@heroicons/react/24/solid';
 
 
 interface ModalProps {
-    isOpen: boolean;  // 为 isOpen 指定布尔类型
-    closeModal: () => void;  // 为 closeModal 指定函数类型，表示这个函数不返回任何值
-    children?: ReactElement | ReactElement[];  // 可选的，为模态框的内容指定 React 元素类型
+    isOpen: boolean;
+    closeModal: () => void;  
+    children?: ReactElement | ReactElement[];  
   }
 
   function Modal({ isOpen, closeModal, children }: ModalProps)  {
@@ -48,7 +48,6 @@ interface ModalProps {
                   <XCircleIcon className="h-6 w-6" />
                 </button>
 
-                {/* 模态框的内容 */}
                 {children}
               </Dialog.Panel>
             </Transition.Child>

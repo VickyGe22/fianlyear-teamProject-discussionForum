@@ -1,15 +1,15 @@
 'use client';
 import Link from 'next/link';
 import Pagination from './submit-pagination';
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import Modal from '@/components/modal';
 import SubmitDialog from './deletepopup';
-import { toast } from 'react-toastify';
+import { Submit } from '../../../models/interfaces/submit';
 
 
 
 export default function SubmitList() {
-  const [submits, setSubmits] = useState(null);
+  const [submits, setSubmits] = useState<Submit[] | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSampleId, setSelectedSampleId] = useState(null);
   const [numbersamples, setNumbersamples] = useState(0);
@@ -25,10 +25,8 @@ export default function SubmitList() {
       const samples = data.submits.filter((submit: { acceptance: boolean, discuss_close: boolean }) => !submit.acceptance && !submit.discuss_close);
       const numbersamples = samples.length
       setNumbersamples(numbersamples);
-      console.log("111111111111111111111111111111111111111111");
-      
-      console.log(data.submits);
-      setSubmits(data.submits.filter(product => !product.discuss_close));
+  
+      setSubmits(data.submits.filter((product: { discuss_close: any; }) => !product.discuss_close));
     } catch (error) {
       console.error('Fetch error:', error);
     }
@@ -38,7 +36,7 @@ export default function SubmitList() {
     fetchSubmit();
   }, []);
 
-  const handleAcceptance = async (id) => {
+  const handleAcceptance = async (id: any) => {
     console.log("Submitting:", id);
     const res = await fetch(`/api/submits/${id}`, {
       method: "PUT",
@@ -48,20 +46,17 @@ export default function SubmitList() {
       body: JSON.stringify({ acceptance: true }),
     });
     if (res.ok) {
-      // Refresh the page if the request was successful
       window.location.reload();
     }
   };
 
 
-  const handleOpenModal = (id) => {
+  const handleOpenModal = (id: SetStateAction<null>) => {
     setSelectedSampleId(id);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    // console.log("关闭关闭关闭关闭关闭关闭", toast.success);
-    // toast.success('Sample has been deleted successfully');
     window.location.reload();
     setIsModalOpen(false);
   };
@@ -74,7 +69,7 @@ export default function SubmitList() {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentSubmits = submits ? submits.slice(indexOfFirstPost, indexOfLastPost) : [];
 
-  const handlePageChange = (pageNumber) => {
+  const handlePageChange = (pageNumber: SetStateAction<number>) => {
     setCurrentPage(pageNumber);
   };
 

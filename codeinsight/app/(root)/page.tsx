@@ -31,26 +31,12 @@ export default function Home() {
   useEffect(() => {
     const token = Cookies.get('token');
     setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
-    console.log("useEffect triggered"); // 调试信息
-    console.log("Token found:", token); // 调试信息
-    console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
     const loggedIn = true;  
     if (loggedIn){
       fetchUser();
     }
   }, [setIsLoggedIn]);
 
-
-  // const handleNavigation = (event: any, href: string) => {
-  //   if (!isLoggedIn) {
-  //     event.preventDefault();
-  //     toast.error('You need to be logged in to access this page.');
-  //     alert('You need to be logged in to access this page.');
-  //   } else {
-  //     window.location.href = href;
-  //   }
-  // };
-  
 
   return (
     <>    

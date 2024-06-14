@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -11,7 +11,7 @@ export default function SignupPage() {
         email: "",
         password: "",
     });
-    const [buttonDisabled, setButtonDisabled] = React.useState(false);
+
     const [loading, setLoading] = React.useState(false);
     const [errors, setErrors] = useState({
         username: "",
@@ -29,7 +29,7 @@ export default function SignupPage() {
         return re.test(password);
     };
 
-    const onSignup = async (event) => {
+    const onSignup = async (event: { preventDefault: () => void; }) => {
         event.preventDefault(); // Prevent the form from submitting and refreshing the page
         let formIsValid = true;
         let errorsCopy = { ...errors };
@@ -61,10 +61,6 @@ export default function SignupPage() {
             errorsCopy.password = "";
         }
 
-        // if (user.email.length < 0 && user.password.length < 0){
-        //     alert("Please enter your email and password.")
-        //   }
-
         setErrors(errorsCopy);
 
         if (!formIsValid) {
@@ -76,8 +72,7 @@ export default function SignupPage() {
             const response = await axios.post("/api/auth/signup", user);
             console.log("Signup success", response.data);
             router.push("/signin");
-        } catch (error) {
-            console.log("Signup failed", error.response?.data?.message || error.message);
+        } catch (error: any) {
             let errorMsg = "Signup failed. Please check your details.";
             const errorMessage = error.response?.data?.error || error.message;
             if (typeof errorMessage === 'string') {

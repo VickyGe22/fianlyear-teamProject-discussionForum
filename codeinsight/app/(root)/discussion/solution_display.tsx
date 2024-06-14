@@ -21,7 +21,7 @@ const SolutionDisplay = ({ pageId, isAdmin }) => {
         throw new Error("Failed to fetch submit");
       }
       const data = await response.json();
-      setSubmit(data.submit); // 这里假设响应结构是 { submit: {...} }
+      setSubmit(data.submit);
     } catch (error) {
       console.error("Fetch error:", error);
       setError(error.message);

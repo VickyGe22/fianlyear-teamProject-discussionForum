@@ -4,12 +4,6 @@ import Like2 from '@/public/images/like-2.png';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 
-const people = [
-  {
-    name: 'Chelsea Hagon',
-    imageUrl: 'https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-];
 
 export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL }: { pageId: string, isLoggedIn: boolean, isAdmin: boolean, username:string, userURL:string }) {
   const [comment, setComment] = useState('');
@@ -35,7 +29,7 @@ export default function Example({ pageId, isLoggedIn, isAdmin, username, userURL
         likes: 0, // initializing likes to 0
         isLiked: false // initializing isLiked to false
       }));
-      setComments(mappedComments);// 这里假设响应结构是 { submit: {...} }
+      setComments(mappedComments);
       
     } catch (error: any) {
       console.error('Fetch error:', error);

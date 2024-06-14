@@ -55,19 +55,3 @@ export async function GET(request, context) {
   // Respond with the found document details
   return NextResponse.json({ discussions });
 }
-
-
-
-
-// export async function GET(req) {
-//   const { submitId } = req.query;
-  
-//   try {
-//     await connectDB();
-//     const discussions = await Discussion.find({ submitId });
-//     // const discussions = await Discussion.find().populate('submitId')
-//     return NextResponse.json({ discussions });
-//   } catch (error) {
-//     return NextResponse.json({ msg: ["Unable to fetch discuss."] });
-//   }
-// }

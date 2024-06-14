@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CustomDialog from './customdialog';
+import CustomDialog from './customDialog';
 
 const MenuBox = ({
     selectedLanguage, // This is now passed as a prop from the parent component

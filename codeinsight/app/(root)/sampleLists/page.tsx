@@ -1,8 +1,4 @@
 'use client';
-const metadata = {
-  title: 'Submission',
-  description: 'Submitted Your Code Sample',
-}
 
 import Sidebar from '@/components/sidebar'
 import SubmitList from './submits-list'
@@ -14,17 +10,15 @@ interface Product {
   levels: string;
   languages: string;
   types: string;
-  [key: string]: any; // 允许其他额外属性
+  [key: string]: any; 
 }
 
-// 定义预定义标签
 const predefinedLabels = {
   levels: ["Bachelor-cs1","Bachelor-cs2","Bachelor-cs3","Bachelor-cs4","Master-cs1","Master-cs2"],
   languages: ["Python","Java","JavaScript","C","C#","C++"],
   types: ["Assignment","Exam","Quiz","Group project"]
 };
 
-// 处理数据的函数
 export default function Home() {
   const [submits, setSubmits] = useState<Product[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -38,11 +32,9 @@ export default function Home() {
         throw new Error('Failed to fetch submit');
       }
       const data = await response.json();
-      // console.log("看看抓的什么", data.submits);
       const samples = data.submits.filter((submit: { acceptance: boolean, discuss_close: boolean }) => submit.acceptance && !submit.discuss_close);
       const numbersamples = samples.length
       setNumbersamples(numbersamples);
-      console.log("看看抓的什么", numbersamples);
       setSubmits(data.submits); 
       setFilteredData(data.submits);
     } catch (error) {

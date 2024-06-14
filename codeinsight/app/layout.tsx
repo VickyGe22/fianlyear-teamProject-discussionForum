@@ -1,11 +1,6 @@
 import './css/style.css'
-
 import { Inter, Nothing_You_Could_Do } from 'next/font/google'
 import ClientSideEffect from './ClientSideEffect';
-
-// import { ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
-
 
 
 const inter = Inter({

@@ -10,17 +10,8 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  // 初始化pageId状态
+    const [pageId, setPageId] =  useState<string | string[] | undefined>(undefined);  
 
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    // const [searchParams] = useSearchParams();  // 使用 useSearchParams 钩子
     const pathname = usePathname();
 
     const extractId = (pathname: string): string => {
@@ -28,7 +19,7 @@ export default function Home() {
         if (match && match[1]) {
         return match[1];
         }
-        return ''; // 如果没有找到匹配项，返回空字符串
+        return '';
     };
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -48,9 +39,6 @@ export default function Home() {
     useEffect(() => {
       const token = Cookies.get('token');
       setIsLoggedIn(Boolean(token)|| false); // Convert token to boolean using Boolean() function
-      console.log("useEffect triggered"); // 调试信息
-      console.log("Token found:", token); // 调试信息
-      console.log("啊啊啊啊啊啊啊啊啊啊啊", isLoggedIn); // 调试信息
       const loggedIn = true;  
       if (loggedIn){
         fetchUser();
@@ -59,15 +47,11 @@ export default function Home() {
     
 
     useEffect(() => {
-        // const pageId = searchParams.get('id');  // 使用 searchParams 获取查询参数
         const pageId = extractId(pathname);
-
-        console.log('Page页面这里:', pageId);
-        
         if (pageId) {
             setPageId(pageId);
         }
-    }, [pathname]);  // 更新 useEffect 的依赖为 searchParams
+    }, [pathname]); 
 
     
     return (

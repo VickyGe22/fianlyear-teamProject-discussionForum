@@ -1,10 +1,9 @@
-import { CheckIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
 interface SubmitDialogProps {
   onClose: () => void;
-  id: string; // 添加 id 属性
+  id: string;
 }
 
 

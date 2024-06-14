@@ -105,6 +105,3 @@ const Submit =
   mongoose.models.Submit || mongoose.model("Submit", submitSchema);
 
 export default Submit;
-
-
-// versionKey: false // Set to false to disable the version key (__v)

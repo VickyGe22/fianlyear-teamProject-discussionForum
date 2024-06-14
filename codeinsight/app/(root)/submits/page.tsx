@@ -6,7 +6,7 @@ import MenuBox1 from './menubox1'
 import MenuBox2 from './menubox2'
 import TagInput from './addtag'
 
-import { useEffect, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import SubmitDialog from './submitpopup';
 import Modal from "@/components/modal";
 import Button from '../../../components/animation/button'
@@ -55,33 +55,6 @@ function generateTitle(comment: string, tags: string[]) {
   let title = importantWords.join(' ');
   return title;
 }
-// import { Configuration, OpenAIApi } from 'openai';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
-// const openaiApiKey = process.env.OPENAI_API_KEY;
-
-// const configuration = new Configuration({
-//   apiKey: openaiApiKey,
-// });
-// const openai = new OpenAIApi(configuration);
-
-// // OpenAI API 调用
-// async function generateTitle(content: string): Promise<string> {
-//   try {
-//     const response = await openai.createCompletion({
-//       model: 'text-davinci-003',
-//       prompt: `Generate a catchy title for the following content:\n${content}`,
-//       max_tokens: 10,
-//     });
-//     return response.data.choices[0].text.trim();
-//   } catch (error) {
-//     console.error('Error generating title:', error);
-//     return 'Default Title';
-//   }
-// }
-
 
 export default function SubmitSample() {
 
@@ -95,8 +68,7 @@ export default function SubmitSample() {
         setIsModalOpen(false);
     };
 
-  
-    //传输codebox和menubox的数据
+
     const [code, setCode] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [selectedLevel, setSelectedLevel] = useState('');
@@ -122,7 +94,7 @@ export default function SubmitSample() {
 
     useEffect(() => {
         if (code) {
-          performAnalysis(code).then((result) => setAnalysisResults(result));
+          performAnalysis(code).then((result: SetStateAction<null>) => setAnalysisResults(result));
         }
     }, [code]);
 
@@ -262,8 +234,6 @@ export default function SubmitSample() {
               <div className="flex-shrink-0">
                 <XCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
               </div>
-              {/* <div className="ml-3">
-                <h3 className="text-sm font-medium text-red-800">There were 2 errors with your submission</h3> */}
                 <div className=" text-sm text-red-700">
                   <ul role="list" className="list-disc space-y-1 pl-5">
                   {e}
