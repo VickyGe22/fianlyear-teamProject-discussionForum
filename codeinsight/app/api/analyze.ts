@@ -51,7 +51,7 @@ export async function POST(request: NextRequest,res: NextResponse) {
 
 
 
-function runCommand(command) {
+function runCommand(command: string) {
   return new Promise((resolve, reject) => {
     exec(command, (error, stdout, stderr) => {
       if (error) {
