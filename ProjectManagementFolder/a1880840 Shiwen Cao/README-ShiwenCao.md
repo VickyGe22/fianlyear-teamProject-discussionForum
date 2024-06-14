@@ -12,10 +12,32 @@ GitHub Contributions:
 1. Collaborated with the team to establish a gitflow collaboration model, utilizing a shared 'develop' branch and individual origin branches for each team member to facilitate parallel development and minimize conflicts.
 2. Contributed to the development of key features and functionalities, including the implementation of authentication mechanisms (Team-14/codeinsight/components/auth), integration of database connectivity (Team-14/codeinsight/lib/db), and optimization of API endpoints (Team-14/codeinsight/pages/api).
 3. Actively participated in code reviews, providing feedback and suggestions to ensure code quality, maintainability, and adherence to best practices.
-4. Utilized GitHub issues to track tasks, assign responsibilities, and monitor progress, ensuring effective collaboration and task management within the team.
+4. Utilised GitHub issues to track tasks, assign responsibilities, and monitor progress, ensuring effective collaboration and task management within the team.
 5. Contributed to project documentation, including sprint planning notes, retrospective reports, and project updates, which can be found in the Team-14/ProjectManagementFolder/ directory.
 
 
+Individual Achievements:
+
+Front-End Development:
+
+Developed the submit button and submission pop-up, ensuring smooth and intuitive code submission for users.
+Designed the sample library/sample list page, providing an organised and accessible interface for users to browse code samples.
+Created the home page interface, including submission and discussion entry points, facilitating easy navigation for users.
+Implemented animation effects across all interfaces to enhance user experience and visual appeal.
+Testing and Debugging:
+
+Conducted extensive defect and integration testing to ensure all components of the platform functioned correctly.
+Addressed all reported bugs and errors, including handling TypeScript definition syntax errors and improving code cleanliness.
+Developed and executed error test scripts to maintain code quality and prevent future issues.
+Database Development:
+
+Implemented the autofill tag functionality, enhancing the efficiency of code categorisation and searchability.
+Collaborated with William to find code example cases and populate the backend database, ensuring a comprehensive and relevant sample library.
+Project Management:
+
+Handled most project documentation, ensuring clear and detailed records of project progress and decisions.
+Coordinated with clients through regular meetings to align project goals and gather feedback.
+Organised internal team meetings, set agendas, and facilitated discussions to ensure smooth project execution and collaboration.
 
 
 Project Effort:
