@@ -2,7 +2,7 @@ Individual Statement for Project 14B
 Roles:
 
 1. Served as the Scrum Manager, responsible for facilitating scrum meetings and ensuring effective communication between the team and the client to adapt swiftly to project needs and requirements.
-2. Chairman for 4th client meetings and prepared agendas for these meetings; Secretary for 1st, 3rd and 4th client meetings and responsible for the minutes meeting;
+2. Chairman for client meetings and prepared agendas for these meetings; Secretary for 1st, 3rd and 4th client meetings and responsible for the minutes meeting;
 3. Collaborated with the product owner to create and maintain the product backlog, prioritizing tasks and user stories based on client feedback and project objectives.
 4. Facilitated sprint planning, sprint reviews, and sprint retrospectives to continuously improve the team's processes and deliver value incrementally.
 5. Monitored project progress, identified potential risks or impediments, and worked with the team to develop strategies to overcome challenges and keep the project on track.
@@ -41,7 +41,7 @@ Organised internal team meetings, set agendas, and facilitated discussions to en
 
 
 Project Effort:
-* Total hours invested: 320 hours (totally 13 weeks, from week2 to week15, including two weeks of mid-break)
+* Total hours invested: 346 hours (totally 13 weeks, from week2 to week15, including two weeks of mid-break)
 * Average weekly effort: 21.3 hours
 Throughout the project development process, I dedicated an average of 21.3 hours per week to ensure effective project management, communication, and contributions to key deliverables.
 
