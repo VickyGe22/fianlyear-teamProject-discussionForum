@@ -37,6 +37,10 @@ We will use the following technology stack to build CodeInsight:
 - Heroicons
 - Sticky.js
 - CodeMirror
+- Google Auth api
+- JSON web token api
+- BycriptJs api
+- NLP lib
 
 ### Next.js Guideline
 
