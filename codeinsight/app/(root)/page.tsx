@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 
 
 export default function Home() {
@@ -41,7 +42,7 @@ export default function Home() {
         {!isLoggedIn || (user && !user.isAdmin) ? (
           <div className="flex flex-wrap slideInUp justify-center gap-4 py-2 md:py-4 drop-shadow-2xl">
               <div className="group aspect-h-1 float-animation  aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(45% - 2rem)', height: '600px' }}>
-                <img
+                <Image
                   src="/images/submit.png"
                   alt="submit"
                   className="object-cover object-center w-full h-full transition-opacity duration-300 ease-in-out group-hover:brightness-50"
@@ -64,7 +65,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="group aspect-h-1 float-animation aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(45% - 2rem)', height: '600px' }}>
-                  <img
+                  <Image
                     src="/images/discuss.png"
                     alt="discuss"
                     className="object-cover object-center w-full h-full transition-opacity duration-300 ease-in-out group-hover:brightness-50"
@@ -90,7 +91,7 @@ export default function Home() {
             ) : user && user.isAdmin ?  (
               <div className="flex flex-wrap slideInUp justify-center gap-4 py-2 md:py-4 drop-shadow-2xl">
                   <div className="group aspect-h-1 float-animation  aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
-                    <img
+                    <Image
                       src="/images/submit.png"
                       alt="submit"
                       className="object-cover object-center w-full h-full transition-opacity duration-300 ease-in-out group-hover:brightness-50"
@@ -111,7 +112,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="group aspect-h-1 float-animation aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
-                    <img
+                    <Image
                       src="/images/acceptance.jpg"
                       alt="submit"
                       className="object-cover object-center w-full h-full transition-opacity duration-300 ease-in-out group-hover:brightness-50"
@@ -132,7 +133,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="group aspect-h-1 float-animation aspect-w-2 rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2 overflow-hidden relative" style={{ width: 'calc(32% - 1rem)', height: '500px' }}>
-                    <img
+                    <Image
                       src="/images/review.png"
                       alt="/submit"
                       className="object-cover object-center w-full h-full transition-opacity duration-300 ease-in-out group-hover:brightness-50"

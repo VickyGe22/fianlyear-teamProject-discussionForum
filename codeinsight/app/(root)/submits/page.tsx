@@ -219,7 +219,7 @@ export default function SubmitSample() {
                   </label>
                   {/* <input id="salary" className="form-input w-full" type="text" /> */}
                   <TagInput tags={tags} setTags={setTags}/>
-                  <div className="text-xl text-gray-500 italic mt-2">Example: “Boolean comparison attempted with while loop” / "Unused variable" / "Redundant typecast" / "Non utilization of elif/else statement"</div>
+                  <div className="text-xl text-gray-500 italic mt-2">Example: &quotBoolean comparison attempted with while loop&quot / &quotUnused variable&quot / &quotRedundant typecast&quot / &quotNon utilization of elif/else statement&quot</div>
                 </div>
               </div>
             </div>

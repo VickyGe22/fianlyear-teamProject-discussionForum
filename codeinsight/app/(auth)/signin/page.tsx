@@ -129,7 +129,7 @@ export default function GoogleLogin() {
           </a>
         </div>
         <div className="text-center mt-4">
-          <p className="text-gray-600">Don't have an account?</p>
+          <p className="text-gray-600">Don&apost have an account?</p>
           <a
             href='/signup'
             className="mt-2 block w-full py-2 px-4 border border-gray-300 rounded-md bg-white text-center text-gray-700 hover:bg-gray-50"

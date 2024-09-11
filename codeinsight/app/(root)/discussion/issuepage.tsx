@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Disclosure } from '@headlessui/react';
 import IssueReply from "./issuereply";
 import Discussion from "../../../models/interfaces/discussion";
+import Image from 'next/image';
+
 
 // type AuthorAvatars = {
 //   [key: string]: string;
@@ -62,7 +64,7 @@ const Issue = ({ pageId, isLoggedIn, username, userURL}: { pageId: string, isLog
                     <div className="flex justify-between items-start py-4 px-6">
                       <div className="flex space-x-4">
                         {/* User Avatar */}
-                        <img
+                        <Image
                           className="h-10 w-10 rounded-full"
                           // src={authorAvatars[discussion.creator]}
                           src= {discussion.userimage}

@@ -5,6 +5,7 @@ import Image from 'next/image'
 import toast from 'react-hot-toast';
 
 
+
 const people = [
   {
     name: 'Chelsea Hagon',
@@ -111,7 +112,7 @@ export default function Example({ pageId, disId, isLoggedIn, username, userURL}:
               className=" mb-4 relative flex items-center space-x-3 px-6 "
             >
               <div className="flex-shrink-0">
-                <img className="h-10 w-10 rounded-full" src={comment.user.imageUrl} alt="" />
+                <Image className="h-10 w-10 rounded-full" src={comment.user.imageUrl} alt="" />
               </div>
               <div className="min-w-0 flex-1">
                 <br/>
@@ -137,7 +138,7 @@ export default function Example({ pageId, disId, isLoggedIn, username, userURL}:
         {/* Comment form */}
         <div className="flex items-start space-x-4 ml-10 px-6">
           <div className="flex-shrink-0">
-            <img
+            <Image
               className="inline-block h-10 w-10 rounded-full"
               src={userURL}
               alt=""
